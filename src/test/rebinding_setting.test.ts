@@ -1,5 +1,5 @@
 import {afterEach, beforeEach, describe, expect, it} from "vitest";
-import cfg_keyboardv2_example from "#app/test/cfg_keyboard.example";
+import cfg_keyboard_azerty from "#app/test/cfg_keyboard.example";
 import {SettingInterface} from "#app/test/cfg_keyboard.example";
 import {Button} from "#app/enums/buttons";
 import {deepCopy} from "#app/utils";
@@ -16,12 +16,12 @@ import {MenuManip} from "#app/test/helpers/menuManip";
 import {InGameManip} from "#app/test/helpers/inGameManip";
 
 
-describe('Test Keyboard v2', () => {
+describe('Test Rebinding', () => {
     let config;
     let inGame;
     let inTheSettingMenu;
     beforeEach(() => {
-        config = deepCopy(cfg_keyboardv2_example);
+        config = deepCopy(cfg_keyboard_azerty);
         config.custom = {...config.default}
         regenerateIdentifiers(config);
         inGame = new InGameManip(config);
