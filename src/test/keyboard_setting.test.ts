@@ -1,143 +1,19 @@
 import {afterEach, beforeEach, describe, expect, it} from "vitest";
 import cfg_keyboardv2_example from "#app/test/cfg_keyboard.example";
-import {SettingInterfaceKeyboard} from "#app/test/cfg_keyboard.example";
+import {SettingInterface} from "#app/test/cfg_keyboard.example";
 import {Button} from "#app/enums/buttons";
 import {deepCopy} from "#app/utils";
 import {
-    deleteBind,
-    getButtonWithSettingName, getIconSpecialCase, getIconWithKey, getIconWithKeycode, getIconWithSettingName,
+    getButtonWithSettingName,
+    getIconWithSettingName,
     getKeyWithKeycode,
     getKeyWithSettingName,
-    getSettingNameWithKeycode, isAlreadyBinded, regenerateIdentifiers, swap
+    getSettingNameWithKeycode,
+    regenerateIdentifiers,
+    swap
 } from "#app/configs/configHandler";
-
-
-class MenuManip {
-    private config;
-    private settingName;
-    private keycode;
-    private icon;
-    private iconDisplayed;
-    private specialCaseIcon;
-
-    constructor(config) {
-        this.config = config;
-        this.settingName = null;
-        this.icon = null;
-        this.iconDisplayed = null;
-        this.specialCaseIcon = null;
-    }
-
-    convertNameToButtonString(input) {
-        // Check if the input starts with "Alt_Button"
-        if (input.startsWith("Alt_Button")) {
-            // Return the last part in uppercase
-            return input.split('_').pop().toUpperCase();
-        }
-
-        // Split the input string by underscore
-        const parts = input.split('_');
-
-        // Skip the first part and join the rest with an underscore
-        const result = parts.slice(1).map(part => part.toUpperCase()).join('_');
-
-        return result;
-    }
-
-    whenCursorIsOnSetting(settingName) {
-        this.settingName = SettingInterfaceKeyboard[settingName];
-        const buttonName = this.convertNameToButtonString(settingName);
-        expect(this.config.settings[this.settingName]).toEqual(Button[buttonName]);
-        return this;
-    }
-
-    iconDisplayedIs(icon) {
-        this.iconDisplayed = this.config.icons[icon];
-        expect(getIconWithSettingName(this.config, this.settingName)).toEqual(this.iconDisplayed);
-        return this;
-    }
-
-    thereShouldBeNoIconAnymore() {
-        const icon = getIconWithSettingName(this.config, this.settingName);
-        expect(icon === undefined).toEqual(true);
-        return this;
-    }
-
-    thereShouldBeNoIcon() {
-        return this.thereShouldBeNoIconAnymore();
-    }
-
-    weWantThisBindInstead(keycode) {
-        this.keycode = Phaser.Input.Keyboard.KeyCodes[keycode];
-        const icon = getIconWithKeycode(this.config, this.keycode);
-        const key = getKeyWithKeycode(this.config, this.keycode);
-        const _keys = key.toLowerCase().split("_");
-        const iconIdentifier = _keys[_keys.length-1];
-        expect(icon.toLowerCase().includes(iconIdentifier)).toEqual(true);
-        return this;
-    }
-
-    OopsSpecialCaseIcon(icon) {
-        this.specialCaseIcon = this.config.icons[icon];
-        const potentialExistingKey = getIconSpecialCase(this.config, this.keycode, this.settingName);
-        const prev_key = potentialExistingKey || getKeyWithSettingName(this.config, this.settingName);
-        expect(getIconWithKey(this.config, prev_key)).toEqual(this.specialCaseIcon);
-        return this;
-    }
-
-    whenWeDelete(settingName?: string) {
-        this.settingName = SettingInterfaceKeyboard[settingName] || this.settingName;
-        const key = getKeyWithSettingName(this.config, this.settingName);
-        deleteBind(this.config, this.settingName);
-        expect(this.config.custom[key]).toEqual(-1);
-        return this;
-    }
-
-    confirm() {
-        swap(this.config, this.settingName, this.keycode);
-    }
-}
-
-class InGameManip {
-    private config;
-    private keycode;
-    private settingName;
-    private icon;
-    constructor(config) {
-        this.config = config;
-        this.keycode = null;
-        this.settingName = null;
-        this.icon = null;
-    }
-
-    whenWePressOnKeyboard(keycode) {
-        this.keycode = Phaser.Input.Keyboard.KeyCodes[keycode.toUpperCase()];
-        return this;
-    }
-
-    nothingShouldHappen() {
-        const settingName = getSettingNameWithKeycode(this.config, this.keycode);
-        expect(settingName).toEqual(-1);
-        return this;
-    }
-
-    normalizeSettingNameString(input) {
-        // Convert the input string to lower case
-        const lowerCasedInput = input.toLowerCase();
-
-        // Replace underscores with spaces, capitalize the first letter of each word, and join them back with underscores
-        const words = lowerCasedInput.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1));
-        const result = words.join('_');
-
-        return result;
-    }
-
-    weShouldTriggerTheButton(settingName) {
-        this.settingName = SettingInterfaceKeyboard[this.normalizeSettingNameString(settingName)];
-        expect(getSettingNameWithKeycode(this.config, this.keycode)).toEqual(this.settingName);
-        return this;
-    }
-}
+import {MenuManip} from "#app/test/helpers/menuManip";
+import {InGameManip} from "#app/test/helpers/inGameManip";
 
 
 describe('Test Keyboard v2', () => {
@@ -156,7 +32,7 @@ describe('Test Keyboard v2', () => {
         expect(config).not.toBeNull();
     });
     it('Check button for setting name', () => {
-        const settingName = SettingInterfaceKeyboard.Button_Left;
+        const settingName = SettingInterface.Button_Left;
         const button = config.settings[settingName];
         expect(button).toEqual(Button.LEFT);
     });
@@ -174,12 +50,12 @@ describe('Test Keyboard v2', () => {
     });
 
     it('Check key for currenly Assigned to setting name', () => {
-        const settingName = SettingInterfaceKeyboard.Button_Left;
+        const settingName = SettingInterface.Button_Left;
         const key = getKeyWithSettingName(config, settingName);
         expect(key).toEqual('KEY_ARROW_LEFT');
     });
     it('Check key for currenly Assigned to setting name alt', () => {
-        const settingName = SettingInterfaceKeyboard.Alt_Button_Left;
+        const settingName = SettingInterface.Alt_Button_Left;
         const key = getKeyWithSettingName(config, settingName);
         expect(key).toEqual('KEY_Q');
     });
@@ -201,25 +77,25 @@ describe('Test Keyboard v2', () => {
         expect(icon).toEqual('T_Q_Key_Dark.png');
     });
     it('Check icon for currenly Assigned to setting name', () => {
-        const settingName = SettingInterfaceKeyboard.Button_Left;
+        const settingName = SettingInterface.Button_Left;
         const key = getKeyWithSettingName(config, settingName);
         const icon = config.icons[key];
         expect(icon).toEqual('T_Left_Key_Dark.png');
     });
     it('Check icon for currenly Assigned to setting name alt', () => {
-        const settingName = SettingInterfaceKeyboard.Alt_Button_Left;
+        const settingName = SettingInterface.Alt_Button_Left;
         const key = getKeyWithSettingName(config, settingName);
         const icon = config.icons[key];
         expect(icon).toEqual('T_Q_Key_Dark.png');
     });
     it('Check if  is working', () => {
-        const settingNameA = SettingInterfaceKeyboard.Button_Left;
-        const settingNameB = SettingInterfaceKeyboard.Button_Right;
-        swap(config, SettingInterfaceKeyboard.Button_Left, Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        const settingNameA = SettingInterface.Button_Left;
+        const settingNameB = SettingInterface.Button_Right;
+        swap(config, SettingInterface.Button_Left, Phaser.Input.Keyboard.KeyCodes.RIGHT);
         expect(getButtonWithSettingName(config, settingNameA)).toEqual(Button.LEFT);
-        expect(getSettingNameWithKeycode(config, Phaser.Input.Keyboard.KeyCodes.RIGHT)).toEqual(SettingInterfaceKeyboard.Button_Left)
+        expect(getSettingNameWithKeycode(config, Phaser.Input.Keyboard.KeyCodes.RIGHT)).toEqual(SettingInterface.Button_Left)
         expect(getButtonWithSettingName(config, settingNameB)).toEqual(Button.RIGHT);
-        expect(getSettingNameWithKeycode(config, Phaser.Input.Keyboard.KeyCodes.LEFT)).toEqual(SettingInterfaceKeyboard.Button_Right)
+        expect(getSettingNameWithKeycode(config, Phaser.Input.Keyboard.KeyCodes.LEFT)).toEqual(SettingInterface.Button_Right)
         expect(getIconWithSettingName(config, settingNameA)).toEqual(config.icons.KEY_ARROW_RIGHT);
         expect(getIconWithSettingName(config, settingNameB)).toEqual(config.icons.KEY_ARROW_LEFT);
     });
