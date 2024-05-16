@@ -10,7 +10,8 @@
 		"preview": "vite preview",
 		"test": "vitest run",
 		"test:cov": "vitest run --coverage",
-		"test:watch": "vitest watch --coverage"
+		"test:watch": "vitest watch --coverage",
+		"i18n": "i18next -c i18next-parser.config.ts"
 	},
 	"devDependencies": {
 		"@vitest/coverage-istanbul": "^1.4.0",
@@ -32,6 +33,7 @@
 		"crypto-js": "^4.2.0",
 		"i18next": "^23.11.1",
 		"i18next-browser-languagedetector": "^7.2.1",
+		"i18next-parser": "^8.13.0",
 		"json-stable-stringify": "^1.1.0",
 		"phaser": "^3.70.0",
 		"phaser3-rex-plugins": "^1.1.84"
