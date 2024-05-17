@@ -214,6 +214,8 @@ export function swap(config, settingNameTarget, keycode) {
 export function assign(config, settingNameTarget, keycode) {
     // first, we need to check if this keycode is already used on another settingName
     const previousSettingName = getSettingNameWithKeycode(config, keycode);
+    const key = getKeyWithSettingName(config, previousSettingName);
+    if (!canIAssignThisKey(config, key)) return;
     // if it was already bound, we delete the bind
     if (previousSettingName) {
         const previousKey = getKeyWithSettingName(config, previousSettingName);
@@ -250,6 +252,17 @@ export function safeDeleteBind(config, settingName) {
     const key = getKeyWithSettingName(config, settingName);
     if (config.blacklist.includes(key) || isTheLatestBind(config, settingName)) return;
     config.custom[key] = -1;
+}
+
+export function canIAssignThisKey(config, key) {
+    const settingName = getSettingNameWithKey(config, key);
+    if (settingName === -1) return true;
+    if (config.blacklist.includes(key) || isTheLatestBind(config, settingName)) return false;
+    return true;
+}
+
+export function canIDeleteThisKey(config, key) {
+    return canIAssignThisKey(config, key);
 }
 
 export function isTheLatestBind(config, settingName) {

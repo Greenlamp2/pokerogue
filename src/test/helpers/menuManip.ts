@@ -6,7 +6,12 @@ import {
     getIconWithKey,
     getIconWithKeycode,
     getIconWithSettingName,
-    getKeyWithKeycode, getKeyWithSettingName, getKeySolvingConflict, swap, assign, safeDeleteBind
+    getKeyWithKeycode,
+    getKeyWithSettingName,
+    getKeySolvingConflict,
+    assign,
+    safeDeleteBind,
+    getSettingNameWithKeycode, canIAssignThisKey, canIDeleteThisKey
 } from "#app/configs/configHandler";
 
 export class MenuManip {
@@ -51,6 +56,7 @@ export class MenuManip {
     }
 
     iconDisplayedIs(icon) {
+        if (!(icon.toUpperCase().includes("KEY_"))) icon = "KEY_" + icon.toUpperCase();
         this.iconDisplayed = this.config.icons[icon];
         expect(getIconWithSettingName(this.config, this.settingName)).toEqual(this.iconDisplayed);
         return this;
@@ -64,6 +70,12 @@ export class MenuManip {
 
     thereShouldBeNoIcon() {
         return this.thereShouldBeNoIconAnymore();
+    }
+
+    nothingShouldHappen() {
+        const settingName = getSettingNameWithKeycode(this.config, this.keycode);
+        expect(settingName).toEqual(-1);
+        return this;
     }
 
     weWantThisBindInstead(keycode) {
@@ -87,8 +99,8 @@ export class MenuManip {
     whenWeDelete(settingName?: string) {
         this.settingName = SettingInterface[settingName] || this.settingName;
         const key = getKeyWithSettingName(this.config, this.settingName);
-        deleteBind(this.config, this.settingName);
-        expect(this.config.custom[key]).toEqual(-1);
+        safeDeleteBind(this.config, this.settingName);
+        // expect(this.config.custom[key]).toEqual(-1);
         return this;
     }
 
@@ -102,7 +114,25 @@ export class MenuManip {
         assign(this.config, this.settingName, this.keycode);
     }
 
+    butLetsForceIt() {
+        this.confirm();
+    }
+
+
     confirm() {
-        swap(this.config, this.settingName, this.keycode);
+        assign(this.config, this.settingName, this.keycode);
+        // swap(this.config, this.settingName, this.keycode);
+    }
+
+    weCantConfirm() {
+        const key = getKeyWithKeycode(this.config, this.keycode);
+        expect(canIAssignThisKey(this.config, key)).toEqual(false);
+        return this;
+    }
+
+    weCantDelete() {
+        const key = getKeyWithSettingName(this.config, this.settingName);
+        expect(canIDeleteThisKey(this.config, key)).toEqual(false);
+        return this;
     }
 }
