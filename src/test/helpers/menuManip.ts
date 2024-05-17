@@ -3,14 +3,11 @@ import {expect} from "vitest";
 import {Button} from "#app/enums/buttons";
 import {
     deleteBind,
-    getIconWithKey,
     getIconWithKeycode,
     getIconWithSettingName,
     getKeyWithKeycode,
     getKeyWithSettingName,
-    getKeySolvingConflict,
     assign,
-    safeDeleteBind,
     getSettingNameWithKeycode, canIAssignThisKey, canIDeleteThisKey
 } from "#app/configs/configHandler";
 
@@ -88,25 +85,17 @@ export class MenuManip {
         return this;
     }
 
-    OopsSpecialCaseIcon(icon) {
-        this.specialCaseIcon = this.config.icons[icon];
-        const potentialExistingKey = getKeySolvingConflict(this.config, this.keycode, this.settingName);
-        const prev_key = potentialExistingKey || getKeyWithSettingName(this.config, this.settingName);
-        expect(getIconWithKey(this.config, prev_key)).toEqual(this.specialCaseIcon);
-        return this;
-    }
-
     whenWeDelete(settingName?: string) {
         this.settingName = SettingInterface[settingName] || this.settingName;
         const key = getKeyWithSettingName(this.config, this.settingName);
-        safeDeleteBind(this.config, this.settingName);
+        deleteBind(this.config, this.settingName);
         // expect(this.config.custom[key]).toEqual(-1);
         return this;
     }
 
     whenWeTryToDelete(settingName?: string) {
         this.settingName = SettingInterface[settingName] || this.settingName;
-        safeDeleteBind(this.config, this.settingName);
+        deleteBind(this.config, this.settingName);
         return this;
     }
 
@@ -121,7 +110,6 @@ export class MenuManip {
 
     confirm() {
         assign(this.config, this.settingName, this.keycode);
-        // swap(this.config, this.settingName, this.keycode);
     }
 
     weCantConfirm() {

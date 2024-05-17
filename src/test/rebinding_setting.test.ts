@@ -4,13 +4,8 @@ import {SettingInterface} from "#app/test/cfg_keyboard.example";
 import {Button} from "#app/enums/buttons";
 import {deepCopy} from "#app/utils";
 import {
-    getButtonWithSettingName,
-    getIconWithSettingName,
     getKeyWithKeycode,
     getKeyWithSettingName,
-    getSettingNameWithKeycode,
-    regenerateIdentifiers,
-    swap
 } from "#app/configs/configHandler";
 import {MenuManip} from "#app/test/helpers/menuManip";
 import {InGameManip} from "#app/test/helpers/inGameManip";
@@ -31,7 +26,6 @@ describe('Test Rebinding', () => {
     beforeEach(() => {
         config = deepCopy(cfg_keyboard_azerty);
         config.custom = {...config.default}
-        regenerateIdentifiers(config);
         configs.default = config;
         inGame = new InGameManip(configs, config, selectedDevice);
         inTheSettingMenu = new MenuManip(config);
