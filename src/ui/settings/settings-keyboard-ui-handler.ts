@@ -2,11 +2,9 @@ import BattleScene from "../../battle-scene";
 import {Mode} from "../ui";
 import cfg_keyboard_azerty from "#app/configs/cfg_keyboard_azerty";
 import {
+    MainSettingKeyboard,
     setSettingKeyboard,
-    SettingKeyboard,
     settingKeyboardBlackList,
-    settingKeyboardDefaults,
-    settingKeyboardOptions
 } from "#app/system/settings-keyboard";
 import {reverseValueToKeySetting, truncateString} from "#app/utils";
 import AbstractSettingsUiUiHandler from "#app/ui/settings/abstract-settings-ui-handler";
@@ -30,11 +28,8 @@ export default class SettingsKeyboardUiHandler extends AbstractSettingsUiUiHandl
     constructor(scene: BattleScene, mode?: Mode) {
         super(scene, mode);
         this.titleSelected = 'Keyboard';
-        this.settingDevice = SettingKeyboard;
-        this.settingDeviceDefaults = settingKeyboardDefaults;
-        this.settingDeviceOptions = settingKeyboardOptions;
+        this.settingDevice = MainSettingKeyboard;
         this.configs = [cfg_keyboard_azerty];
-        this.commonSettingsCount = 0;
         this.textureOverride = 'keyboard';
         this.localStoragePropertyName = 'settingsKeyboard';
         this.settingBlacklisted = settingKeyboardBlackList;
@@ -99,7 +94,7 @@ export default class SettingsKeyboardUiHandler extends AbstractSettingsUiUiHandl
         const cursor = this.cursor + this.scrollCursor; // Calculate the absolute cursor position.
         const selection = this.settingLabels[cursor].text;
         const key = reverseValueToKeySetting(selection);
-        const settingName = SettingKeyboard[key];
+        const settingName = MainSettingKeyboard[key];
         const activeConfig = this.getActiveConfig();
         const success = deleteBind(this.getActiveConfig(), settingName);
         if (success) {

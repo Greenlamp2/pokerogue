@@ -30,9 +30,11 @@ import { allMoves } from "../data/move";
 import { TrainerVariant } from "../field/trainer";
 import { OutdatedPhase, ReloadSessionPhase } from "#app/phases";
 import { Variant, variantData } from "#app/data/variant";
-import {setSettingGamepad, SettingGamepad, settingGamepadDefaults} from "./settings-gamepad";
-import {MappingLayout} from "#app/inputs-controller";
-import {setSettingKeyboard, SettingKeyboard, settingKeyboardDefaults} from "#app/system/settings-keyboard";
+import {
+  CommonSettingGamepad,
+  setSettingGamepad,
+  settingGamepadDefaults
+} from "#app/system/settings-gamepad";
 
 const saveKey = 'x0i2O7WRiANTqPmZ'; // Temporary; secure encryption is not yet necessary
 
@@ -609,14 +611,14 @@ export class GameData {
    * to update the specified setting with the new value. Finally, it saves the updated settings back
    * to localStorage and returns `true` to indicate success.
    */
-  public saveGamepadSetting(setting: SettingGamepad, valueIndex: integer): boolean {
+  public saveGamepadSetting(setting: CommonSettingGamepad, valueIndex: integer): boolean {
       let settingsGamepad: object = {};  // Initialize an empty object to hold the gamepad settings
 
       if (localStorage.hasOwnProperty('settingsGamepad')) {  // Check if 'settingsGamepad' exists in localStorage
           settingsGamepad = JSON.parse(localStorage.getItem('settingsGamepad'));  // Parse the existing 'settingsGamepad' from localStorage
       }
 
-      setSettingGamepad(this.scene, setting as SettingGamepad, valueIndex);  // Set the gamepad setting in the current scene
+      setSettingGamepad(this.scene, setting as CommonSettingGamepad, valueIndex);  // Set the gamepad setting in the current scene
 
       Object.keys(settingGamepadDefaults).forEach(s => {  // Iterate over the default gamepad settings
           if (s === setting)  // If the current setting matches, update its value
@@ -624,38 +626,6 @@ export class GameData {
       });
 
       localStorage.setItem('settingsGamepad', JSON.stringify(settingsGamepad));  // Save the updated gamepad settings back to localStorage
-
-      return true;  // Return true to indicate the operation was successful
-  }
-
-  /**
-   * Saves a keyboard setting to localStorage.
-   *
-   * @param setting - The keyboard setting to save.
-   * @param valueIndex - The index of the value to set for the keyboard setting.
-   * @returns `true` if the setting is successfully saved.
-   *
-   * @remarks
-   * This method initializes an empty object for keyboard settings if none exist in localStorage.
-   * It then updates the setting in the current scene and iterates over the default keyboard settings
-   * to update the specified setting with the new value. Finally, it saves the updated settings back
-   * to localStorage and returns `true` to indicate success.
-   */
-  public saveKeyboardSetting(setting: SettingKeyboard, valueIndex: integer): boolean {
-      let settingsKeyboard: object = {};  // Initialize an empty object to hold the keyboard settings
-
-      if (localStorage.hasOwnProperty('settingsKeyboard')) {  // Check if 'settingsKeyboard' exists in localStorage
-          settingsKeyboard = JSON.parse(localStorage.getItem('settingsKeyboard'));  // Parse the existing 'settingsKeyboard' from localStorage
-      }
-
-      setSettingKeyboard(this.scene, setting as SettingKeyboard, valueIndex);  // Set the keyboard setting in the current scene
-
-      Object.keys(settingKeyboardDefaults).forEach(s => {  // Iterate over the default keyboard settings
-          if (s === setting)  // If the current setting matches, update its value
-              settingsKeyboard[s] = valueIndex;
-      });
-
-      localStorage.setItem('settingsKeyboard', JSON.stringify(settingsKeyboard));  // Save the updated keyboard settings back to localStorage
 
       return true;  // Return true to indicate the operation was successful
   }
@@ -673,14 +643,14 @@ export class GameData {
   }
 
   private loadGamepadSettings(): boolean {
-    Object.values(SettingGamepad).map(setting => setting as SettingGamepad).forEach(setting => setSettingGamepad(this.scene, setting, settingGamepadDefaults[setting]));
+    Object.values(CommonSettingGamepad).map(setting => setting as CommonSettingGamepad).forEach(setting => setSettingGamepad(this.scene, setting, settingGamepadDefaults[setting]));
 
     if (!localStorage.hasOwnProperty('settingsGamepad'))
       return false;
     const settingsGamepad = JSON.parse(localStorage.getItem('settingsGamepad'));
 
     for (let setting of Object.keys(settingsGamepad))
-      setSettingGamepad(this.scene, setting as SettingGamepad, settingsGamepad[setting]);
+      setSettingGamepad(this.scene, setting as CommonSettingGamepad, settingsGamepad[setting]);
   }
 
   public saveTutorialFlag(tutorial: Tutorial, flag: boolean): boolean {

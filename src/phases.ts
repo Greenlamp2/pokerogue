@@ -62,6 +62,7 @@ import * as Overrides from './overrides';
 import { TextStyle, addTextObject } from "./ui/text";
 import { Type } from "./data/type";
 
+export const overrideMode = import.meta.env.VITE_BYPASS_MODE;
 
 export class LoginPhase extends Phase {
   private showText: boolean;
@@ -264,7 +265,10 @@ export class TitlePhase extends Phase {
       noCancel: true,
       yOffset: 47
     };
-    this.scene.ui.setMode(Mode.TITLE, config);
+    this.scene.ui.setMode(Mode.TITLE, config).then(() => {
+      if (overrideMode)
+        this.scene.ui.setMode(overrideMode, config);
+    });
   }
 
   loadSaveSlot(slotId: integer): void {

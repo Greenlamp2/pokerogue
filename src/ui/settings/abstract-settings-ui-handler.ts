@@ -50,12 +50,12 @@ export default abstract class AbstractSettingsUiUiHandler extends UiHandler {
     // Store the specific settings related to key bindings for the current gamepad configuration.
     protected bindingSettings: Array<String>;
 
+    protected settingCommon;
     protected settingDevice;
     protected settingBlacklisted;
     protected settingDeviceDefaults;
     protected settingDeviceOptions;
     protected configs;
-    protected commonSettingsCount;
     protected textureOverride;
     protected titleSelected;
     protected localStoragePropertyName;
@@ -191,99 +191,102 @@ export default abstract class AbstractSettingsUiUiHandler extends UiHandler {
             // Object to store sprites for each button configuration.
             const inputsIcons: InputsIcons = {};
 
-            // Fetch common setting keys such as 'Default Controller' and 'Gamepad Support' from gamepad settings.
-            const commonSettingKeys = Object.keys(this.settingDevice).slice(0, this.commonSettingsCount).map(key => this.settingDevice[key]);
-            // Combine common and specific bindings into a single array.
-            const specificBindingKeys = [...commonSettingKeys, ...Object.keys(config.settings)];
-            // Fetch default values for these settings and prepare to highlight selected options.
-            const optionCursors = Object.values(Object.keys(this.settingDeviceDefaults).filter(s => specificBindingKeys.includes(s)).map(k => this.settingDeviceDefaults[k]));
-            // Filter out settings that are not relevant to the current gamepad configuration.
-            const settingFiltered = Object.keys(this.settingDevice).filter(_key => specificBindingKeys.includes(this.settingDevice[_key]))
-            // Loop through the filtered settings to manage display and options.
 
-            settingFiltered.forEach((setting, s) => {
-                // Convert the setting key from format 'Key_Name' to 'Key name' for display.
-                let settingName = setting.replace(/\_/g, ' ');
+            if (this.settingCommon) {
+                // Fetch common setting keys such as 'Default Controller' and 'Gamepad Support' from gamepad settings.
+                const commonSettingKeys = Object.keys(this.settingCommon).map(key => this.settingCommon[key]);
+                // Fetch default values for these settings and prepare to highlight selected options.
+                const optionCursors = Object.values(Object.keys(this.settingDeviceDefaults).filter(s => commonSettingKeys.includes(s)).map(k => this.settingDeviceDefaults[k]));
+                // Filter out settings that are not relevant to the current gamepad configuration.
+                const keys = [];
+                Object.keys(this.settingCommon).forEach((setting, s) => {
+                    keys.push(setting);
+                    // Convert the setting key from format 'Key_Name' to 'Key name' for display.
+                    let settingName = setting.replace(/\_/g, ' ');
 
-                // Create and add a text object for the setting name to the scene.
-                const isLock = this.settingBlacklisted.includes(this.settingDevice[setting]);
-                const labelStyle = isLock ? TextStyle.SETTINGS_LOCKED : TextStyle.SETTINGS_LABEL
-                settingLabels[s] = addTextObject(this.scene, 8, 28 + s * 16, settingName, labelStyle);
-                settingLabels[s].setOrigin(0, 0);
-                optionsContainer.add(settingLabels[s]);
+                    // Create and add a text object for the setting name to the scene.
+                    const isLock = this.settingBlacklisted.includes(this.settingDevice[setting]);
+                    const labelStyle = isLock ? TextStyle.SETTINGS_LOCKED : TextStyle.SETTINGS_LABEL
+                    settingLabels[s] = addTextObject(this.scene, 8, 28 + s * 16, settingName, labelStyle);
+                    settingLabels[s].setOrigin(0, 0);
+                    optionsContainer.add(settingLabels[s]);
 
-                // Initialize an array to store the option labels for this setting.
-                const valueLabels: Phaser.GameObjects.Text[] = []
+                    // Initialize an array to store the option labels for this setting.
+                    const valueLabels: Phaser.GameObjects.Text[] = []
 
-                // Process each option for the current setting.
-                for (const [o, option] of this.settingDeviceOptions[this.settingDevice[setting]].entries()) {
-                    // Check if the current setting is for binding keys.
-                    if (bindingSettings.includes(this.settingDevice[setting])) {
-                        // Create a label for non-null options, typically indicating actionable options like 'change'.
-                        if (o) {
-                            const valueLabel = addTextObject(this.scene, 0, 0, isLock ? '' : option, TextStyle.WINDOW);
-                            valueLabel.setOrigin(0, 0);
-                            optionsContainer.add(valueLabel);
-                            valueLabels.push(valueLabel);
+                    // Process each option for the current setting.
+                    const a = this.settingDeviceOptions;
+                    const B = this.settingDevice;
+                    const c = this.settingCommon;
+                    const d = this.settingCommon[setting];
+                    if (!this.settingDeviceOptions[this.settingCommon[setting]]) debugger;
+                    for (const [o, option] of this.settingDeviceOptions[this.settingCommon[setting]].entries()) {
+                        // Check if the current setting is for binding keys.
+                        if (bindingSettings.includes(this.settingCommon[setting])) {
+                            // Create a label for non-null options, typically indicating actionable options like 'change'.
+                            if (o) {
+                                const valueLabel = addTextObject(this.scene, 0, 0, isLock ? '' : option, TextStyle.WINDOW);
+                                valueLabel.setOrigin(0, 0);
+                                optionsContainer.add(valueLabel);
+                                valueLabels.push(valueLabel);
+                                continue;
+                            }
+                            // For null options, add an icon for the key.
+                            const icon = this.scene.add.sprite(0, 0, this.textureOverride ? this.textureOverride : config.padType);
+                            icon.setScale(0.1);
+                            icon.setOrigin(0, -0.1);
+                            inputsIcons[this.settingCommon[setting]] = icon;
+                            optionsContainer.add(icon);
+                            valueLabels.push(icon);
                             continue;
                         }
-                        // For null options, add an icon for the key.
-                        const icon = this.scene.add.sprite(0, 0, this.textureOverride ? this.textureOverride : config.padType);
-                        icon.setScale(0.1);
-                        icon.setOrigin(0, -0.1);
-                        inputsIcons[this.settingDevice[setting]] = icon;
-                        optionsContainer.add(icon);
-                        valueLabels.push(icon);
-                        continue;
+                        // For regular settings like 'Gamepad support', create a label and determine if it is selected.
+                        const valueLabel = addTextObject(this.scene, 0, 0, option, this.settingDeviceDefaults[this.settingCommon[setting]] === o ? TextStyle.SETTINGS_SELECTED : TextStyle.WINDOW);
+                        valueLabel.setOrigin(0, 0);
+
+                        optionsContainer.add(valueLabel);
+
+                        //if a setting has 2 options, valueLabels will be an array of 2 elements
+                        valueLabels.push(valueLabel);
                     }
-                    // For regular settings like 'Gamepad support', create a label and determine if it is selected.
-                    const valueLabel = addTextObject(this.scene, 0, 0, option, this.settingDeviceDefaults[this.settingDevice[setting]] === o ? TextStyle.SETTINGS_SELECTED : TextStyle.WINDOW);
-                    valueLabel.setOrigin(0, 0);
+                    // Collect all option labels for this setting into the main array.
+                    optionValueLabels.push(valueLabels);
 
-                    optionsContainer.add(valueLabel);
+                    // Calculate the total width of all option labels within a specific setting
+                    // This is achieved by summing the width of each option label
+                    const totalWidth = optionValueLabels[s].map(o => o.width).reduce((total, width) => total += width, 0);
 
-                    //if a setting has 2 options, valueLabels will be an array of 2 elements
-                    valueLabels.push(valueLabel);
-                }
-                // Collect all option labels for this setting into the main array.
-                optionValueLabels.push(valueLabels);
+                    // Define the minimum width for a label, ensuring it's at least 78 pixels wide or the width of the setting label plus some padding
+                    const labelWidth = Math.max(90, settingLabels[s].displayWidth + 8);
 
-                // Calculate the total width of all option labels within a specific setting
-                // This is achieved by summing the width of each option label
-                const totalWidth = optionValueLabels[s].map(o => o.width).reduce((total, width) => total += width, 0);
+                    // Calculate the total available space for placing option labels next to their setting label
+                    // We reserve space for the setting label and then distribute the remaining space evenly
+                    const totalSpace = (300 - labelWidth) - totalWidth / 6;
+                    // Calculate the spacing between options based on the available space divided by the number of gaps between labels
+                    const optionSpacing = Math.floor(totalSpace / (optionValueLabels[s].length - 1));
 
-                // Define the minimum width for a label, ensuring it's at least 78 pixels wide or the width of the setting label plus some padding
-                const labelWidth = Math.max(90, settingLabels[s].displayWidth + 8);
+                    // Initialize xOffset to zero, which will be used to position each option label horizontally
+                    let xOffset = 0;
 
-                // Calculate the total available space for placing option labels next to their setting label
-                // We reserve space for the setting label and then distribute the remaining space evenly
-                const totalSpace = (300 - labelWidth) - totalWidth / 6;
-                // Calculate the spacing between options based on the available space divided by the number of gaps between labels
-                const optionSpacing = Math.floor(totalSpace / (optionValueLabels[s].length - 1));
-
-                // Initialize xOffset to zero, which will be used to position each option label horizontally
-                let xOffset = 0;
-
-                // Start positioning each option label one by one
-                for (let value of optionValueLabels[s]) {
-                    // Set the option label's position right next to the setting label, adjusted by xOffset
-                    value.setPositionRelative(settingLabels[s], labelWidth + xOffset, 0);
-                    // Move the xOffset to the right for the next label, ensuring each label is spaced evenly
-                    xOffset += value.width / 6 + optionSpacing;
-                }
-            });
-
-            // Assigning the newly created components to the layout map under the specific gamepad type.
-            this.layout[config.padType].optionsContainer = optionsContainer; // Container for this pad's options.
-            this.layout[config.padType].inputsIcons = inputsIcons; // Icons for each input specific to this pad.
-            this.layout[config.padType].settingLabels = settingLabels; // Text labels for each setting available on this pad.
-            this.layout[config.padType].optionValueLabels = optionValueLabels; // Labels for values corresponding to each setting.
-            this.layout[config.padType].optionCursors = optionCursors; // Cursors to navigate through the options.
-            this.layout[config.padType].keys = specificBindingKeys; // Keys that identify each setting specifically bound to this pad.
-            this.layout[config.padType].bindingSettings = bindingSettings; // Settings that define how the keys are bound.
-
-            // Add the options container to the overall settings container to be displayed in the UI.
-            this.settingsContainer.add(optionsContainer);
+                    // Start positioning each option label one by one
+                    for (let value of optionValueLabels[s]) {
+                        // Set the option label's position right next to the setting label, adjusted by xOffset
+                        value.setPositionRelative(settingLabels[s], labelWidth + xOffset, 0);
+                        // Move the xOffset to the right for the next label, ensuring each label is spaced evenly
+                        xOffset += value.width / 6 + optionSpacing;
+                    }
+                });
+                // Assigning the newly created components to the layout map under the specific gamepad type.
+                this.layout[config.padType].optionsContainer = optionsContainer; // Container for this pad's options.
+                this.layout[config.padType].inputsIcons = inputsIcons; // Icons for each input specific to this pad.
+                this.layout[config.padType].settingLabels = settingLabels; // Text labels for each setting available on this pad.
+                this.layout[config.padType].optionValueLabels = optionValueLabels; // Labels for values corresponding to each setting.
+                this.layout[config.padType].optionCursors = optionCursors; // Cursors to navigate through the options.
+                this.layout[config.padType].bindingSettings = bindingSettings; // Settings that define how the keys are bound.
+                this.layout[config.padType].keys = keys; // Settings that define how the keys are bound.
+                // Add the options container to the overall settings container to be displayed in the UI.
+                this.settingsContainer.add(optionsContainer);
+            }
         }
         // Add the settings container to the UI.
         ui.add(this.settingsContainer);
@@ -297,7 +300,7 @@ export default abstract class AbstractSettingsUiUiHandler extends UiHandler {
      */
     updateBindings(): void {
         // Hide the options container for all layouts to reset the UI visibility.
-        Object.keys(this.layout).forEach((key) => this.layout[key].optionsContainer.setVisible(false));
+        Object.keys(this.layout).forEach((key) => this.layout[key].optionsContainer?.setVisible(false));
         // Fetch the active gamepad configuration from the input controller.
         const activeConfig = this.getActiveConfig();
 
@@ -330,7 +333,7 @@ export default abstract class AbstractSettingsUiUiHandler extends UiHandler {
         const settings: object = this.getLocalStorageSetting();
 
         // Update the cursor for each key based on the stored settings or default cursors.
-        this.keys.forEach((key, index) => {
+        this.keys?.length && this.keys.forEach((key, index) => {
             this.setOptionCursor(index, settings.hasOwnProperty(key) ? settings[key] : this.optionCursors[index])
         });
 
@@ -340,13 +343,16 @@ export default abstract class AbstractSettingsUiUiHandler extends UiHandler {
         if (!activeConfig.custom) return;
 
         // For each element in the binding settings, update the icon according to the current assignment.
-        for (const elm of this.bindingSettings) {
-            const icon = getIconWithSettingName(activeConfig, elm);
-            if (icon) {
-                this.inputsIcons[elm].setFrame(icon);
-                this.inputsIcons[elm].alpha = 1;
-            } else {
-                this.inputsIcons[elm].alpha = 0;
+        if (this.inputsIcons?.length) {
+            for (const elm of this.bindingSettings) {
+                console.log('elm', elm);
+                const icon = getIconWithSettingName(activeConfig, elm);
+                if (icon) {
+                    this.inputsIcons[elm].setFrame(icon);
+                    this.inputsIcons[elm].alpha = 1;
+                } else {
+                    this.inputsIcons[elm].alpha = 0;
+                }
             }
         }
 
@@ -412,12 +418,12 @@ export default abstract class AbstractSettingsUiUiHandler extends UiHandler {
         // Update the main controller with configuration details from the selected layout.
         this.keys = layout.keys;
         this.optionsContainer = layout.optionsContainer;
-        this.optionsContainer.setVisible(true);
+        this.optionsContainer?.setVisible(true);
         this.settingLabels = layout.settingLabels;
         this.optionValueLabels = layout.optionValueLabels;
         this.optionCursors = layout.optionCursors;
         this.inputsIcons = layout.inputsIcons;
-        this.bindingSettings = layout.bindingSettings;
+        this.bindingSettings = layout.bindingSettings || [];
 
         // Return true indicating the layout was successfully applied.
         return true;
