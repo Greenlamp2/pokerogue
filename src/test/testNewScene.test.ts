@@ -12,6 +12,7 @@ import {Species} from "#app/data/enums/species";
 import {PokemonFactory} from "#app/test/factories/pokemonFactory";
 import {BattleFactory} from "#app/test/factories/battleFactory";
 import {Moves} from "#app/data/enums/moves";
+import {MoneyAchv} from "#app/system/achv";
 
 // async function importModule() {
 //   try {
@@ -131,5 +132,10 @@ describe("big tests", () => {
         })
         battle.newTurn().noPokemonSwap().playerPokemon(pokemon).doMove(pokemon.moveset[0]).target(ennemyPokemon).confirm();
         expect(battle.playMove(0).computeDamageReceived(ennemyPokemon).damageReceived[0]).toBe(12);
+    });
+
+    it ('should check achv', () => {
+        const ach = new MoneyAchv("Achivement", 1000, null, 100);
+        expect(ach.name).toBe("Achivement");
     });
 });
