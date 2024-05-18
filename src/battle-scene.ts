@@ -45,12 +45,7 @@ import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin';
 import { addUiThemeOverrides } from './ui/ui-theme';
 import PokemonData from './system/pokemon-data';
 import { Nature } from './data/nature';
-import {
-	SpeciesFormChangeTimeOfDayTrigger,
-	SpeciesFormChangeTrigger,
-	pokemonFormChanges,
-	initPokemonForms
-} from './data/pokemon-forms';
+import { SpeciesFormChangeTimeOfDayTrigger, SpeciesFormChangeTrigger, pokemonFormChanges, initPokemonForms } from './data/pokemon-forms';
 import { FormChangePhase, QuietFormChangePhase } from './form-change-phase';
 import { BattleSpec } from './enums/battle-spec';
 import { getTypeRgb } from './data/type';

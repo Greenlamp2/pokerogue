@@ -14,49 +14,6 @@ import {BattleFactory} from "#app/test/factories/battleFactory";
 import {Moves} from "#app/data/enums/moves";
 import {MoneyAchv} from "#app/system/achv";
 
-// async function importModule() {
-//   try {
-//       initStatsKeys();
-//       initPokemonPrevolutions();
-//       initBiomes();
-//       initEggMoves();
-//       initPokemonForms();
-//       initSpecies();
-//       initMoves();
-//       initAbilities();
-//     const { PlayerPokemon } = await import('#app/field/pokemon');
-//     return {
-//       PlayerPokemon
-//     }
-//     // Dynamically import the module
-//   } catch (error) {
-//     // Log the error stack trace
-//     console.error('Error during import:', error.stack);
-//     // Rethrow the error to ensure the test fails
-//     throw error;
-//   }
-// }
-
-// test('import PlayerPokemon module', async () => {
-//   const module = await importModule();
-//   // Example assertion
-//   expect(module.PlayerPokemon).toBeDefined();
-// });
-
-// // Define the test
-// test('import FormChangePhase module', async () => {
-//   const module = await importModule();
-//   // Example assertion
-//   expect(module.FormChangePhase).toBeDefined();
-// });
-
-// Define the test
-// test('import WeatherType module', async () => {
-//   const module = await importModule();
-//   // Example assertion
-//   expect(module.WeatherType).toBeDefined();
-// });
-
 describe("big tests", () => {
     beforeAll(async () => {
         initStatsKeys();
