@@ -31,7 +31,7 @@ import { TrainerSlot, trainerConfigs } from './data/trainer-config';
 import Trainer, { TrainerVariant } from './field/trainer';
 import TrainerData from './system/trainer-data';
 import SoundFade from 'phaser3-rex-plugins/plugins/soundfade';
-import { pokemonPrevolutions } from './data/pokemon-evolutions';
+import {initPokemonPrevolutions, pokemonPrevolutions} from './data/pokemon-evolutions';
 import PokeballTray from './ui/pokeball-tray';
 import { Setting, settingOptions } from './system/settings';
 import SettingsUiHandler from './ui/settings-ui-handler';
@@ -45,7 +45,12 @@ import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin';
 import { addUiThemeOverrides } from './ui/ui-theme';
 import PokemonData from './system/pokemon-data';
 import { Nature } from './data/nature';
-import { SpeciesFormChangeTimeOfDayTrigger, SpeciesFormChangeTrigger, pokemonFormChanges } from './data/pokemon-forms';
+import {
+	SpeciesFormChangeTimeOfDayTrigger,
+	SpeciesFormChangeTrigger,
+	pokemonFormChanges,
+	initPokemonForms
+} from './data/pokemon-forms';
 import { FormChangePhase, QuietFormChangePhase } from './form-change-phase';
 import { BattleSpec } from './enums/battle-spec';
 import { getTypeRgb } from './data/type';
@@ -53,7 +58,7 @@ import PokemonSpriteSparkleHandler from './field/pokemon-sprite-sparkle-handler'
 import CharSprite from './ui/char-sprite';
 import DamageNumberHandler from './field/damage-number-handler';
 import PokemonInfoContainer from './ui/pokemon-info-container';
-import { biomeDepths, getBiomeName } from './data/biomes';
+import {biomeDepths, getBiomeName, initBiomes} from './data/biomes';
 import { UiTheme } from './enums/ui-theme';
 import { SceneBase } from './scene-base';
 import CandyBar from './ui/candy-bar';
@@ -62,6 +67,8 @@ import { Localizable } from './plugins/i18n';
 import * as Overrides from './overrides';
 import {InputsController} from "./inputs-controller";
 import {UiInputs} from "./ui-inputs";
+import {initEggMoves} from "#app/data/egg-moves";
+import {initStatsKeys} from "#app/ui/game-stats-ui-handler";
 
 export const bypassLogin = import.meta.env.VITE_BYPASS_LOGIN === "1";
 
@@ -193,10 +200,15 @@ export default class BattleScene extends SceneBase {
 	constructor() {
 		super('battle');
 
+		initStatsKeys();
+		initPokemonPrevolutions();
+		initBiomes();
+		initEggMoves();
+		initPokemonForms();
 		initSpecies();
 		initMoves();
 		initAbilities();
-		
+
 		this.phaseQueue = [];
 		this.phaseQueuePrepend = [];
 		this.phaseQueuePrependSpliceIndex = -1;
