@@ -194,16 +194,6 @@ export default class BattleScene extends SceneBase {
 
 	constructor() {
 		super('battle');
-
-		initStatsKeys();
-		initPokemonPrevolutions();
-		initBiomes();
-		initEggMoves();
-		initPokemonForms();
-		initSpecies();
-		initMoves();
-		initAbilities();
-
 		this.phaseQueue = [];
 		this.phaseQueuePrepend = [];
 		this.phaseQueuePrependSpliceIndex = -1;
