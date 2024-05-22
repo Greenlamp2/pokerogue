@@ -9,6 +9,7 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "vitest run",
+		"canv": "canvest",
 		"test:cov": "vitest run --coverage",
 		"test:watch": "vitest watch --coverage"
 	},

@@ -13,6 +13,10 @@ export default defineConfig(({ mode }) => {
 					}
 				}
 			},
+			browser: {
+				enabled: false,
+				name: 'chrome', // browser name is required
+			},
 			threads: false,
 			environmentOptions: {
 				jsdom: {

@@ -1,2 +1,2 @@
 import "vitest-canvas-mock";
-import "#app/test/phaser.setup";
+// import "#app/test/phaser.setup";

@@ -1,5 +1,5 @@
 import Phaser from "phaser";
 
-export default new Phaser.Game({
-  type: Phaser.HEADLESS,
-});
+// export default new Phaser.Game({
+//   type: Phaser.HEADLESS,
+// });
