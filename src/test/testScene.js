@@ -7,4 +7,8 @@ export default class TestScene extends Phaser.Scene {
     console.log('created !');
     this.add.text(100, 100, "Hello World!", {fill: "#ffffff"});
   }
+
+  getHelloWorld() {
+    return "hello world";
+  }
 }
