@@ -6,8 +6,8 @@
 	"scripts": {
 		"start": "vite",
 		"start:dev": "vite --mode development",
-		"dev": "rollup -c",
-		"dev:watch": "rollup -c -w",
+		"dev": "nollup -c",
+		"dev:watch": "nollup -c -w",
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "vitest run",
@@ -24,6 +24,7 @@
 		"eslint": "^8.25.0",
 		"jsdom": "^24.0.0",
 		"json-beautify": "^1.1.1",
+		"nollup": "^0.21.0",
 		"phaser3spectorjs": "^0.0.8",
 		"pokenode-ts": "^1.20.0",
 		"rollup": "^4.18.0",

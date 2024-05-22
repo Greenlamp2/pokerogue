@@ -13,8 +13,8 @@ export default [
     output: [
       {
         name: 'Pokerogue',
-        format: 'umd',
-        file: 'dist/pokerogue.umd.js',
+        format: 'cjs',
+        file: 'dist/pokerogue.cjs.js',
         globals: { phaser: 'Phaser' },
         //ATTENTION: preserveModules must be enabled!
         // preserveModules: true,
