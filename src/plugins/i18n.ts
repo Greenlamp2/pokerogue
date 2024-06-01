@@ -1,12 +1,15 @@
-import i18next from 'i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import i18next from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 
-import { deConfig } from '#app/locales/de/config.js';
-import { enConfig } from '#app/locales/en/config.js';
-import { esConfig } from '#app/locales/es/config.js';
-import { frConfig } from '#app/locales/fr/config.js';
-import { itConfig } from '#app/locales/it/config.js';
-import { zhCnConfig } from '#app/locales/zh_CN/config.js';
+import { deConfig } from "#app/locales/de/config.js";
+import { enConfig } from "#app/locales/en/config.js";
+import { esConfig } from "#app/locales/es/config.js";
+import { frConfig } from "#app/locales/fr/config.js";
+import { itConfig } from "#app/locales/it/config.js";
+import { ptBrConfig } from "#app/locales/pt_BR/config.js";
+import { zhCnConfig } from "#app/locales/zh_CN/config.js";
+import { zhTWConfig } from "#app/locales/zh_TW/config.js";
+import { koConfig } from "#app/locales/ko/config.js";
 
 export interface SimpleTranslationEntries {
   [key: string]: string
@@ -30,15 +33,95 @@ export interface AbilityTranslationEntries {
   [key: string]: AbilityTranslationEntry
 }
 
+export interface ModifierTypeTranslationEntry {
+  name?: string,
+  description?: string,
+  extra?: SimpleTranslationEntries
+}
+
+export interface ModifierTypeTranslationEntries {
+  ModifierType: { [key: string]: ModifierTypeTranslationEntry },
+  AttackTypeBoosterItem: SimpleTranslationEntries,
+  TempBattleStatBoosterItem: SimpleTranslationEntries,
+  BaseStatBoosterItem: SimpleTranslationEntries,
+  EvolutionItem: SimpleTranslationEntries,
+  FormChangeItem: SimpleTranslationEntries,
+}
+export interface PokemonInfoTranslationEntries {
+  Stat: SimpleTranslationEntries,
+  Type: SimpleTranslationEntries,
+}
+
+export interface BerryTranslationEntry {
+  name: string,
+  effect: string
+}
+
+export interface BerryTranslationEntries {
+  [key: string]: BerryTranslationEntry
+}
+
+export interface DialogueTranslationEntry {
+  [key: number]: string;
+}
+
+export interface DialogueTranslationCategory {
+  [category: string]: DialogueTranslationEntry;
+}
+
+export interface DialogueTranslationEntries {
+  [trainertype: string]: DialogueTranslationCategory;
+}
+
+
 export interface Localizable {
   localize(): void;
 }
 
-export function initI18n(): void {
-  let lang = '';
+const alternativeFonts = {
+  "ko": [
+    new FontFace("emerald", "url(./fonts/PokePT_Wansung.ttf)"),
+  ],
+};
 
-  if (localStorage.getItem('prLang'))
-    lang = localStorage.getItem('prLang');
+function loadFont(language: string) {
+  if (!alternativeFonts[language]) {
+    language = language.split(/[-_/]/)[0];
+  }
+  if (alternativeFonts[language]) {
+    alternativeFonts[language].forEach((fontFace: FontFace) => {
+      document.fonts.add(fontFace);
+    });
+
+    const altFontLanguages = Object.keys(alternativeFonts);
+    altFontLanguages.splice(altFontLanguages.indexOf(language), 0);
+  }
+
+  (Object.values(alternativeFonts)).forEach(fontFaces => {
+    fontFaces.forEach(fontFace => {
+      if (fontFace && fontFace.status === "loaded") {
+        document.fonts.delete(fontFace);
+      }
+    });
+  });
+}
+
+export function initI18n(): void {
+  // Prevent reinitialization
+  if (isInitialized) {
+    return;
+  }
+  isInitialized = true;
+  let lang = "";
+
+  if (localStorage.getItem("prLang")) {
+    lang = localStorage.getItem("prLang");
+  }
+
+  loadFont(lang);
+  i18next.on("languageChanged", lng=> {
+    loadFont(lng);
+  });
 
   /**
    * i18next is a localization library for maintaining and using translation resources.
@@ -58,8 +141,9 @@ export function initI18n(): void {
 
   i18next.use(LanguageDetector).init({
     lng: lang,
-    fallbackLng: 'en',
-    supportedLngs: ['en', 'es', 'fr', 'it', 'de', 'zh_CN'],
+    nonExplicitSupportedLngs: true,
+    fallbackLng: "en",
+    supportedLngs: ["en", "es", "fr", "it", "de", "zh", "pt", "ko"],
     debug: true,
     interpolation: {
       escapeValue: false,
@@ -80,31 +164,71 @@ export function initI18n(): void {
       de: {
         ...deConfig
       },
+      pt_BR: {
+        ...ptBrConfig
+      },
       zh_CN: {
         ...zhCnConfig
-      }
+      },
+      zh_TW: {
+        ...zhTWConfig
+      },
+      ko: {
+        ...koConfig
+      },
     },
   });
 }
 
 // Module declared to make referencing keys in the localization files type-safe.
-declare module 'i18next' {
+declare module "i18next" {
   interface CustomTypeOptions {
+    defaultNS: "menu"; // Even if we don't use it, i18next requires a valid default namespace
     resources: {
       menu: SimpleTranslationEntries;
       menuUiHandler: SimpleTranslationEntries;
       move: MoveTranslationEntries;
-      battle: SimpleTranslationEntries,
+      battle: SimpleTranslationEntries;
+      abilityTriggers: SimpleTranslationEntries;
       ability: AbilityTranslationEntries;
       pokeball: SimpleTranslationEntries;
       pokemon: SimpleTranslationEntries;
-      pokemonStat: SimpleTranslationEntries;
+      pokemonInfo: PokemonInfoTranslationEntries;
       commandUiHandler: SimpleTranslationEntries;
       fightUiHandler: SimpleTranslationEntries;
+      titles: SimpleTranslationEntries;
+      trainerClasses: SimpleTranslationEntries;
+      trainerNames: SimpleTranslationEntries;
       tutorial: SimpleTranslationEntries;
       starterSelectUiHandler: SimpleTranslationEntries;
+      splashMessages: SimpleTranslationEntries;
+      nature: SimpleTranslationEntries;
+      growth: SimpleTranslationEntries;
+      egg: SimpleTranslationEntries;
+      weather: SimpleTranslationEntries;
+      modifierType: ModifierTypeTranslationEntries;
+      battleMessageUiHandler: SimpleTranslationEntries;
+      berry: BerryTranslationEntries;
+      gameStatsUiHandler: SimpleTranslationEntries;
+      voucher: SimpleTranslationEntries;
+      biome: SimpleTranslationEntries;
+      pokemonInfoContainer: SimpleTranslationEntries;
+      PGMdialogue: DialogueTranslationEntries;
+      PGMbattleSpecDialogue: SimpleTranslationEntries;
+      PGMmiscDialogue: SimpleTranslationEntries;
+      PGMdoubleBattleDialogue: DialogueTranslationEntries;
+      PGFdialogue: DialogueTranslationEntries;
+      PGFbattleSpecDialogue: SimpleTranslationEntries;
+      PGFmiscDialogue: SimpleTranslationEntries;
+      PGFdoubleBattleDialogue: DialogueTranslationEntries;
     };
   }
 }
 
 export default i18next;
+
+export function getIsInitialized(): boolean {
+  return isInitialized;
+}
+
+let isInitialized = false;
