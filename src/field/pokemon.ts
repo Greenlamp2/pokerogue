@@ -3285,6 +3285,35 @@ export class PlayerPokemon extends Pokemon {
 
     return newMoveset;
   }
+
+  export(): string {
+    const id = this.species.speciesId.toString();
+    const moveset = this.moveset.map(m => m.moveId).join(",");
+    const shiny = this.shiny ? 1 : 0;
+    const nature = this.nature;
+    const gender = [Gender.GENDERLESS, Gender.MALE, Gender.FEMALE].indexOf(this.gender);
+    const variant = this.variant;
+    const ability = this.abilityIndex;
+    return `${id};${moveset};${shiny};${nature};${gender};${variant};${ability}`;
+  }
+
+  import(codePokemon: string[]): void {
+    // codePokemon is: id;moveset;shiny;nature,gender;variant;ability;
+    const moveset = codePokemon[1].split(",").map(m => parseInt(m));
+    const shiny = parseInt(codePokemon[2]) === 1;
+    const nature = parseInt(codePokemon[3]);
+    // gender -1 is Gender.GENDERLESS, O MALE, 1 FEMALE
+    const gender = [-1, 0, 1][parseInt(codePokemon[4])];
+    const variant = parseInt(codePokemon[5]);
+    const ability = parseInt(codePokemon[6]);
+
+    this.moveset = moveset.map(m => new PokemonMove(m));
+    this.shiny = shiny;
+    this.nature = nature;
+    this.gender = gender;
+    this.variant = (variant as Variant);
+    this.abilityIndex = ability;
+  }
 }
 
 export class EnemyPokemon extends Pokemon {

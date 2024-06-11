@@ -511,4 +511,75 @@ export function reverseValueToKeySetting(input) {
   return capitalizedWords.join("_");
 }
 
+export function compress(codeTeam) {
+  return codeTeam
+  // Remove the trailing "#" if present
+    .replace(/#$/, "")
+  // Pad numbers with leading zeros to ensure they have 3 digits
+    .replace(/\d+/g, match => match.padStart(3, "0"))
+  // Replace "000" with "N"
+    .replace(/000/g, "N")
+  // Replace commas with "C"
+    .replace(/,/g, "C")
+  // Replace "#" with "K"
+    .replace(/#/g, "K")
+  // Remove semicolons
+    .replace(/;/g, "")
+  // Replace "NNN" with "W"
+    .replace(/N{3}/g, "W")
+  // Replace "NN" with "V"
+    .replace(/N{2}/g, "V")
+  // Replace "N00" with "G"
+    .replace(/N00/g, "G")
+  // Replace "C0" with "U"
+    .replace(/C0/g, "U")
+  // Replace "33" with "E"
+    .replace(/33/g, "E")
+  // Replace "01" with "I"
+    .replace(/01/g, "I")
+  // Replace "G1" with "Q"
+    .replace(/G1/g, "Q")
+  // Replace "UE" with "S"
+    .replace(/UE/g, "S")
+  // Replace "02" with "A"
+    .replace(/02/g, "A")
+  // Replace "44" with "Y"
+    .replace(/44/g, "Y")
+  // Replace "I9" with "J"
+    .replace(/I9/g, "J")
+  // Replace "98" with "L"
+    .replace(/98/g, "L")
+  // Replace "888" with "B"
+    .replace(/888/g, "B");
+}
 
+export function decompress(codeTeam) {
+  // Step 1: Replace specific characters with their corresponding strings
+  let result = codeTeam.replace(/B/g, "888")
+    .replace(/L/g, "98")
+    .replace(/J/g, "I9")
+    .replace(/Y/g, "44")
+    .replace(/A/g, "02")
+    .replace(/S/g, "UE")
+    .replace(/Q/g, "G1")
+    .replace(/I/g, "01")
+    .replace(/E/g, "33")
+    .replace(/U/g, "C0")
+    .replace(/G/g, "N00")
+    .replace(/V/g, "NN")
+    .replace(/W/g, "NNN")
+    .replace(/K/g, "#")
+    .replace(/N/g, "000")
+    .replace(/C/g, ",");
+
+  // Step 2: Add semicolon after every 3 characters if it's not ',' or '#', except at the end
+  result = result.replace(/(\d{3})(?=(\d{3})+(?!\d))/g, "$1;");
+
+  // Step 3: Remove padding 0 in numbers, but keep '000' as '0'
+  result = result.replace(/000/g, "0").replace(/0+(\d)/g, "$1");
+
+  // Step 4: Add a '#' at the end
+  result += "#";
+
+  return result;
+}

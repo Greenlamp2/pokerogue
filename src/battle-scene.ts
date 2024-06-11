@@ -2404,4 +2404,26 @@ export default class BattleScene extends SceneBase {
     };
     (window as any).gameInfo = gameInfo;
   }
+
+  exportTeam(): string {
+    let code = "";
+    for (const pokemon of this.party) {
+      code += pokemon.export() + "#";
+    }
+    return code;
+  }
+  importTeam(codeTeam: string):PlayerPokemon[] {
+    const team: PlayerPokemon[] = new Array();
+    // remove the last character of codeTeam
+    codeTeam = codeTeam.substring(0, codeTeam.length - 1);
+    for (const codePokemon of codeTeam.split("#")) {
+      const data = codePokemon.split(";");
+      const speciesId = data[0];
+      const pokemonSpecie = getPokemonSpecies(parseInt(speciesId, 10));
+      const pokemon = new PlayerPokemon(this, pokemonSpecie, 5, undefined, 0, undefined, undefined, undefined, undefined, undefined, undefined);
+      pokemon.import(data);
+      team.push(pokemon);
+    }
+    return team;
+  }
 }
