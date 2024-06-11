@@ -3324,7 +3324,8 @@ export class PlayerPokemon extends Pokemon {
     const gender = [Gender.GENDERLESS, Gender.MALE, Gender.FEMALE].indexOf(this.gender);
     const variant = this.variant;
     const ability = this.abilityIndex;
-    return `${id};${moveset};${shiny};${nature};${gender};${variant};${ability}`;
+    const passive = this.passive ? 1 : 0;
+    return `${id};${moveset};${shiny};${nature};${gender};${variant};${ability};${passive}`;
   }
 
   import(codePokemon: string[]): void {
@@ -3336,6 +3337,7 @@ export class PlayerPokemon extends Pokemon {
     const gender = [-1, 0, 1][parseInt(codePokemon[4])];
     const variant = parseInt(codePokemon[5]);
     const ability = parseInt(codePokemon[6]);
+    const passive = parseInt(codePokemon[7]) === 1;
 
     this.moveset = moveset.map(m => new PokemonMove(m));
     this.shiny = shiny;
@@ -3343,6 +3345,7 @@ export class PlayerPokemon extends Pokemon {
     this.gender = gender;
     this.variant = (variant as Variant);
     this.abilityIndex = ability;
+    this.passive = passive;
   }
 }
 

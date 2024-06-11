@@ -2414,7 +2414,7 @@ export default class BattleScene extends SceneBase {
     return compress(code);
   }
 
-  importTeam(codeTeamCompressed: string): PlayerPokemon[] {
+  importTeam(codeTeamCompressed: string, restrictToExisting: boolean = false): PlayerPokemon[] {
     let codeTeam = decompress(codeTeamCompressed);
     const team: PlayerPokemon[] = new Array();
     // remove the last character of codeTeam
@@ -2422,10 +2422,12 @@ export default class BattleScene extends SceneBase {
     for (const codePokemon of codeTeam.split("#")) {
       const data = codePokemon.split(";");
       const speciesId = data[0];
-      const pokemonSpecie = getPokemonSpecies(parseInt(speciesId, 10));
-      const pokemon = new PlayerPokemon(this, pokemonSpecie, 5, undefined, 0, undefined, undefined, undefined, undefined, undefined, undefined);
-      pokemon.import(data);
-      team.push(pokemon);
+      if (this.gameData.dexData[speciesId].caughtAttr || !restrictToExisting) {
+        const pokemonSpecie = getPokemonSpecies(parseInt(speciesId, 10));
+        const pokemon = new PlayerPokemon(this, pokemonSpecie, 5, undefined, 0, undefined, undefined, undefined, undefined, undefined, undefined);
+        pokemon.import(data);
+        team.push(pokemon);
+      }
     }
     return team;
   }

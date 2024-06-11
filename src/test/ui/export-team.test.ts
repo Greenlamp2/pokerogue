@@ -70,15 +70,20 @@ describe("Export team feature", () => {
     expect(game.scene.getParty()[2].abilityIndex).toBe(0);
     expect(game.scene.getParty()[3].abilityIndex).toBe(1);
 
+    expect(game.scene.getParty()[0].passive).toBeUndefined();
+    expect(game.scene.getParty()[1].passive).toBeUndefined();
+    expect(game.scene.getParty()[2].passive).toBeUndefined();
+    expect(game.scene.getParty()[3].passive).toBeUndefined();
+
     const codeTeam = game.scene.exportTeam();
-    const expected = "19;98,39,33;0;9;1;0;1#444;328,33;0;19;2;0;0#491;228,466,50;0;20;0;0;0#262;555,336,33;0;5;2;0;1#";
-    expect(codeTeam).toBe("J0LU39SG90IQKY4328SNJ0AVK491228C466U50NA0WK262555CE6SG50AQ");
+    const expected = "19;98,39,33;0;9;1;0;1;0#444;328,33;0;19;2;0;0;0#491;228,466,50;0;20;0;0;0;0#262;555,336,33;0;5;2;0;1;0#";
+    expect(codeTeam).toBe("J0LU39SG90IQNKY4328SNJ0AWK491228C466U50NA0WNK262555CE6SG50AQN");
     expect(decompress(codeTeam)).toBe(expected);
   }, 20000);
 
   it("import team with code", async() => {
     await game.runToSummon();
-    const codeTeam = "J0LU39SG90IQKY4328SNJ0AVK491228C466U50NA0WK262555CE6SG50AQ";
+    const codeTeam = "J0LU39SG90IQNKY4328SNJ0AWK491228C466U50NA0WNK262555CE6SG50AQN";
     const team = game.scene.importTeam(codeTeam);
     expect(team.length).toBe(4);
     expect(team[0].species.speciesId).toBe(Species.RATTATA);
@@ -115,5 +120,28 @@ describe("Export team feature", () => {
     expect(team[1].abilityIndex).toBe(0);
     expect(team[2].abilityIndex).toBe(0);
     expect(team[3].abilityIndex).toBe(1);
+
+    expect(team[0].passive).toBe(false);
+    expect(team[1].passive).toBe(false);
+    expect(team[2].passive).toBe(false);
+    expect(team[3].passive).toBe(false);
+  });
+
+  it("export test team to only what's available", async() => {
+    await game.runToSummon([
+      Species.BULBASAUR,
+      Species.SQUIRTLE,
+      Species.ZACIAN
+    ]);
+    // Bulbasaur, Squirtle, Zacian
+    const codeTeam = game.scene.exportTeam();
+    expect(codeTeam).not.toBeUndefined();
+  });
+  it("import only what's available", async() => {
+    await game.runToSummon();
+    // Bulbasaur, Squirtle, Zacian
+    const codeTeam = "0IA2U45SG90IWK007055SU39NJ0IWKB5ECE6ULUYNI0WN";
+    const team = game.scene.importTeam(codeTeam, true);
+    expect(team.length).toBe(2);
   });
 });
