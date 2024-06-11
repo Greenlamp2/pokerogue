@@ -571,15 +571,13 @@ export function decompress(codeTeam) {
     .replace(/K/g, "#")
     .replace(/N/g, "000")
     .replace(/C/g, ",");
-
   // Step 2: Add semicolon after every 3 characters if it's not ',' or '#', except at the end
   result = result.replace(/(\d{3})(?=(\d{3})+(?!\d))/g, "$1;");
-
-  // Step 3: Remove padding 0 in numbers, but keep '000' as '0'
-  result = result.replace(/000/g, "0").replace(/0+(\d)/g, "$1");
-
+  // Step 3: 000 into 0
+  result = result.replace(/000/g, "0");
+  // Step 4: Remove padding 0 in numbers
+  result = result.replace(/\b0(\d{2})\b/g, "$1").replace(/\b0(\d)\b/g, "$1");
   // Step 4: Add a '#' at the end
   result += "#";
-
   return result;
 }

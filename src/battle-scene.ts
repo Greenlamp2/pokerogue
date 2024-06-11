@@ -63,6 +63,7 @@ import { Abilities } from "./data/enums/abilities";
 import ArenaFlyout from "./ui/arena-flyout";
 import { EaseType } from "./ui/enums/ease-type";
 import { ExpNotification } from "./enums/exp-notification";
+import {compress, decompress} from "./utils";
 
 export const bypassLogin = import.meta.env.VITE_BYPASS_LOGIN === "1";
 
@@ -2410,9 +2411,11 @@ export default class BattleScene extends SceneBase {
     for (const pokemon of this.party) {
       code += pokemon.export() + "#";
     }
-    return code;
+    return compress(code);
   }
-  importTeam(codeTeam: string):PlayerPokemon[] {
+
+  importTeam(codeTeamCompressed: string): PlayerPokemon[] {
+    let codeTeam = decompress(codeTeamCompressed);
     const team: PlayerPokemon[] = new Array();
     // remove the last character of codeTeam
     codeTeam = codeTeam.substring(0, codeTeam.length - 1);
