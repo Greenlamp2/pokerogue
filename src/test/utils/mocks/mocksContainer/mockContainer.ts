@@ -21,6 +21,7 @@ export default class MockContainer {
   }
   setVisible(visible) {
     this.visible = visible;
+    return this;
   }
 
   once(event, callback, source) {
@@ -160,6 +161,7 @@ export default class MockContainer {
 
   setName(name) {
     // return this.phaserSprite.setName(name);
+    return this;
   }
 
   bringToTop(obj) {

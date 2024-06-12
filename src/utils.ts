@@ -511,73 +511,87 @@ export function reverseValueToKeySetting(input) {
   return capitalizedWords.join("_");
 }
 
-export function compress(codeTeam) {
-  return codeTeam
-  // Remove the trailing "#" if present
-    .replace(/#$/, "")
-  // Pad numbers with leading zeros to ensure they have 3 digits
-    .replace(/\d+/g, match => match.padStart(3, "0"))
-  // Replace "000" with "N"
-    .replace(/000/g, "N")
-  // Replace commas with "C"
-    .replace(/,/g, "C")
-  // Replace "#" with "K"
-    .replace(/#/g, "K")
+
+export function compress(originalCode: string): string {
+  // Pad numbers to three digits
+  let paddedCode = originalCode.replace(/\d+/g, (match) => match.padStart(3, "0"));
+
   // Remove semicolons
-    .replace(/;/g, "")
-  // Replace "NNN" with "W"
-    .replace(/N{3}/g, "W")
-  // Replace "NN" with "V"
-    .replace(/N{2}/g, "V")
-  // Replace "N00" with "G"
-    .replace(/N00/g, "G")
-  // Replace "C0" with "U"
-    .replace(/C0/g, "U")
-  // Replace "33" with "E"
-    .replace(/33/g, "E")
-  // Replace "01" with "I"
-    .replace(/01/g, "I")
-  // Replace "G1" with "Q"
-    .replace(/G1/g, "Q")
-  // Replace "UE" with "S"
-    .replace(/UE/g, "S")
-  // Replace "02" with "A"
-    .replace(/02/g, "A")
-  // Replace "44" with "Y"
-    .replace(/44/g, "Y")
-  // Replace "I9" with "J"
-    .replace(/I9/g, "J")
-  // Replace "98" with "L"
-    .replace(/98/g, "L")
-  // Replace "888" with "B"
-    .replace(/888/g, "B");
+  paddedCode = paddedCode.replace(/;/g, "");
+
+  // Replace zero sequences with the length followed by a single '0'
+  function replaceZeros(match: string): string {
+    let length = match.length;
+    let result = "";
+    while (length > 9) {
+      result += "90";
+      length -= 9;
+    }
+    result += `${length}0`;
+    return result;
+  }
+
+  paddedCode = paddedCode.replace(/0+/g, replaceZeros);
+
+  // First set of replacements
+  paddedCode = paddedCode.replace(/,/g, "W").replace(/#/g, "Z");
+
+  // Replace digits with corresponding letters
+  paddedCode = paddedCode.replace(/\d/g, (match) => String.fromCharCode("A".charCodeAt(0) + parseInt(match, 10)));
+
+  // Final replacements
+  const finalReplacements: { [key: string]: string } = {
+    "WBA": "Y",
+    "CAB": "X",
+    "CAC": "V",
+    "AZJ": "U",
+    "FAB": "T",
+    "TVG": "S",
+    "SUB": "R",
+    "CCYD": "Q",
+    "YEFX": "P",
+  };
+
+  for (const [pattern, replacement] of Object.entries(finalReplacements)) {
+    paddedCode = paddedCode.replace(new RegExp(pattern, "g"), replacement);
+  }
+
+  return paddedCode;
 }
 
-export function decompress(codeTeam) {
-  // Step 1: Replace specific characters with their corresponding strings
-  let result = codeTeam.replace(/B/g, "888")
-    .replace(/L/g, "98")
-    .replace(/J/g, "I9")
-    .replace(/Y/g, "44")
-    .replace(/A/g, "02")
-    .replace(/S/g, "UE")
-    .replace(/Q/g, "G1")
-    .replace(/I/g, "01")
-    .replace(/E/g, "33")
-    .replace(/U/g, "C0")
-    .replace(/G/g, "N00")
-    .replace(/V/g, "NN")
-    .replace(/W/g, "NNN")
-    .replace(/K/g, "#")
-    .replace(/N/g, "000")
-    .replace(/C/g, ",");
-  // Step 2: Add semicolon after every 3 characters if it's not ',' or '#', except at the end
-  result = result.replace(/(\d{3})(?=(\d{3})+(?!\d))/g, "$1;");
-  // Step 3: 000 into 0
-  result = result.replace(/000/g, "0");
-  // Step 4: Remove padding 0 in numbers
-  result = result.replace(/\b0(\d{2})\b/g, "$1").replace(/\b0(\d)\b/g, "$1");
-  // Step 4: Add a '#' at the end
-  result += "#";
-  return result;
+export function decompress(transformedCode: string): string {
+  // Revert the final replacements
+  const finalReplacements: { [key: string]: string } = {
+    "P": "YEFX",
+    "Q": "CCYD",
+    "R": "SUB",
+    "S": "TVG",
+    "T": "FAB",
+    "U": "AZJ",
+    "V": "CAC",
+    "X": "CAB",
+    "Y": "WBA",
+  };
+
+  for (const replacement in finalReplacements) {
+    const pattern = finalReplacements[replacement];
+    transformedCode = transformedCode.replace(new RegExp(replacement, "g"), pattern);
+  }
+
+  // Replace letters back to digits
+  transformedCode = transformedCode.replace(/[A-J]/g, (match) => (match.charCodeAt(0) - "A".charCodeAt(0)).toString());
+
+  // Replace specific characters back to original
+  transformedCode = transformedCode.replace(/W/g, ",").replace(/Z/g, "#");
+
+  // Replace digit followed by '0' with corresponding number of zeros
+  transformedCode = transformedCode.replace(/(\d)0/g, (match, p1) => "0".repeat(parseInt(p1)));
+
+  // Insert semicolons after groups of three digits, unless followed by a comma or #
+  transformedCode = transformedCode.replace(/([^,#]{3})(?![,#])/g, "$1;");
+
+  // Remove zero padding
+  transformedCode = transformedCode.replace(/\b0*(\d+)/g, "$1");
+
+  return transformedCode;
 }

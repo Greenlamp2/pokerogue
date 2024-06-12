@@ -74,7 +74,7 @@ describe("Export team feature", () => {
 
   it("import team with code", async() => {
     await game.runToSummon();
-    const codeTeam = "J0LU39SG90IQNKY4328SNJ0AWK491228C466U50NA0WNK262555CE6SG50AQN";
+    const codeTeam = "BABJBAJIYDJYDDFAJXTDAZEEEDCIYDDEABJVJAZEJBCCIWEGGYFFACJAEAZCGCFFFWDDGYDDFAFVTDAZ";
     const team = game.scene.importTeam(codeTeam);
     expect(team.length).toBe(4);
     expect(team[0].species.speciesId).toBe(Species.RATTATA);
@@ -131,8 +131,40 @@ describe("Export team feature", () => {
   it("import only what's available", async() => {
     await game.runToSummon();
     // Bulbasaur, Squirtle, Zacian
-    const codeTeam = "0IA2U45SG90IWK007055SU39NJ0IWKB5ECE6ULUYNI0WN";
+    const codeTeam = "XBACCYEFYDDFAJXJAZCAHBAFFYDDYDJEABJXJAZIIIFDDWDDGYJIYEEEABJAEAZ";
     const team = game.scene.importTeam(codeTeam, true);
     expect(team.length).toBe(2);
+  });
+
+  it("export a big team - trying to reduce the code the most", async() => {
+    await game.runToSummon([
+      Species.CATERPIE,
+      Species.WEEDLE,
+      Species.PIDGEY,
+      Species.RATTATA,
+      Species.SPEAROW,
+      Species.EKANS,
+    ]);
+    const codeTeam = game.scene.exportTeam();
+    expect(codeTeam.length).toBeLessThanOrEqual(125);
+    expect(codeTeam).not.toBeUndefined();
+  });
+
+  it("apply algo from python to compress", () => {
+    const originalCode = "1;22,33,45;1;8;2;1;1;0#917;522,33,81;1;0;1;2;0;0#906;670,39,10;1;0;1;2;0;0#909;52,43,33;1;0;1;2;0;0#912;55,1,45;1;0;1;2;0;0#915;33,574,39;1;0;1;2;0;0#";
+    // Apply the transformation and print the result
+    const transformedCode = compress(originalCode);
+    expect(transformedCode.length).toBeLessThan(125);
+    const newCode = decompress(transformedCode);
+    expect(newCode).toBe(originalCode);
+  });
+
+  it("apply algo from python to compress", () => {
+    const originalCode = "19;98,39,33;0;9;1;0;1;0#444;328,33;0;19;2;0;0;0#491;228,466,50;0;20;0;0;0;0#262;555,336,33;0;5;2;0;1;0#";
+    // Apply the transformation and print the result
+    const transformedCode = compress(originalCode);
+    expect(transformedCode.length).toBeLessThan(125);
+    const newCode = decompress(transformedCode);
+    expect(newCode).toBe(originalCode);
   });
 });

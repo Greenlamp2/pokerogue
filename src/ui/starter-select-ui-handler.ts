@@ -2322,9 +2322,6 @@ export default class StarterSelectUiHandler extends MessageUiHandler {
 
     const cancel = () => {
       ui.setMode(Mode.STARTER_SELECT);
-      if (!manualTrigger) {
-        this.popStarter();
-      }
       this.clearText();
     };
 
@@ -2333,27 +2330,31 @@ export default class StarterSelectUiHandler extends MessageUiHandler {
         const startRun = () => {
           this.scene.money = this.scene.gameMode.getStartingMoney();
           ui.setMode(Mode.STARTER_SELECT);
-          const thisObj = this;
           const originalStarterSelectCallback = this.starterSelectCallback;
           this.starterSelectCallback = null;
-          originalStarterSelectCallback(new Array(this.starterGens.length).fill(0).map(function (_, i) {
-            const starterSpecies = thisObj.genSpecies[thisObj.starterGens[i]][thisObj.starterCursors[i]];
-            return {
-              species: starterSpecies,
-              dexAttr: thisObj.starterAttr[i],
-              abilityIndex: thisObj.starterAbilityIndexes[i],
-              passive: !(thisObj.scene.gameData.starterData[starterSpecies.speciesId].passiveAttr ^ (PassiveAttr.ENABLED | PassiveAttr.UNLOCKED)),
-              nature: thisObj.starterNatures[i] as Nature,
-              moveset: thisObj.starterMovesets[i],
-              pokerus: !![ 0, 1, 2 ].filter(n => thisObj.pokerusGens[n] === starterSpecies.generation - 1 && thisObj.pokerusCursors[n] === thisObj.genSpecies[starterSpecies.generation - 1].indexOf(starterSpecies)).length
-            };
-          }));
+          originalStarterSelectCallback(this.getStarters());
         };
         startRun();
       }, cancel, null, null, 19);
     });
 
     return true;
+  }
+
+  getStarters() {
+    const thisObj = this;
+    return new Array(this.starterGens.length).fill(0).map(function (_, i) {
+      const starterSpecies = thisObj.genSpecies[thisObj.starterGens[i]][thisObj.starterCursors[i]];
+      return {
+        species: starterSpecies,
+        dexAttr: thisObj.starterAttr[i],
+        abilityIndex: thisObj.starterAbilityIndexes[i],
+        passive: !(thisObj.scene.gameData.starterData[starterSpecies.speciesId].passiveAttr ^ (PassiveAttr.ENABLED | PassiveAttr.UNLOCKED)),
+        nature: thisObj.starterNatures[i] as Nature,
+        moveset: thisObj.starterMovesets[i],
+        pokerus: !![ 0, 1, 2 ].filter(n => thisObj.pokerusGens[n] === starterSpecies.generation - 1 && thisObj.pokerusCursors[n] === thisObj.genSpecies[starterSpecies.generation - 1].indexOf(starterSpecies)).length
+      };
+    });
   }
 
   toggleStatsMode(on?: boolean): void {
