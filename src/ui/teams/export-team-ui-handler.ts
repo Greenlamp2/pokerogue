@@ -17,6 +17,7 @@ export default class ExportTeamUIHandler extends UiHandler {
   private teamWindow: Phaser.GameObjects.NineSlice;
   private pokemonCards: PokemonCard[];
   private code: Phaser.GameObjects.Text;
+  private codeBot: Phaser.GameObjects.Text;
 
   constructor(scene: BattleScene) {
     super(scene, Mode.EXPORT_TEAM);
@@ -57,9 +58,13 @@ export default class ExportTeamUIHandler extends UiHandler {
       }
     }
 
-    this.code = addTextObject(this.scene, 8, height*3 + 4, "", TextStyle.TOOLTIP_TITLE);
+    this.code = addTextObject(this.scene, 8, height*3 + 4, "", TextStyle.MOVE_INFO_CONTENT);
     this.code.setOrigin(0, 0);
     this.parentContainer.add(this.code);
+
+    this.codeBot = addTextObject(this.scene, 8, height*3 + 4 + this.code.height/6 -2, "", TextStyle.MOVE_INFO_CONTENT);
+    this.codeBot.setOrigin(0, 0);
+    this.parentContainer.add(this.codeBot);
   }
 
   show(args: any[]): boolean {
@@ -75,8 +80,17 @@ export default class ExportTeamUIHandler extends UiHandler {
     for (const [index, card] of this.pokemonCards.entries()) {
       card.clear();
       card.setPokemon(team[index]);
+      card.setVisible(true);
     }
-    this.code.setText(code);
+    const firstHalf = code.substring(0, 70);
+    this.code.setText(firstHalf);
+    if (code.length > 70) {
+      const secondHalf = code.substring(70);
+      this.codeBot.setText(secondHalf);
+      this.codeBot.setVisible(true);
+    } else {
+      this.codeBot.setVisible(false);
+    }
   }
 
   fetchSelectedStarter(): void {
