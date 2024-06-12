@@ -56,7 +56,7 @@ interface LanguageSetting {
   starterInfoYOffset?: integer
 }
 
-const languageSettings: { [key: string]: LanguageSetting } = {
+export const languageSettings: { [key: string]: LanguageSetting } = {
   "en":{
     starterInfoTextSize: "56px",
     instructionTextSize: "38px",
