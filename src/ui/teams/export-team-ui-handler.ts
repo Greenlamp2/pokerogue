@@ -8,7 +8,6 @@ import StarterSelectUiHandler from "#app/ui/starter-select-ui-handler";
 import {Gender} from "#app/data/gender";
 import {PlayerPokemon} from "#app/field/pokemon";
 import {compress} from "#app/utils";
-import {addTextObject, TextStyle} from "#app/ui/text";
 
 
 export default class ExportTeamUIHandler extends UiHandler {
@@ -47,8 +46,8 @@ export default class ExportTeamUIHandler extends UiHandler {
     this.teamWindow.setOrigin(0, 0);
     this.teamContainer.add(this.teamWindow);
 
-    const width = (this.getCanvasWidth() / 2)-4;
-    const height = (this.getCanvasHeight()/3)-8;
+    const width = (this.getCanvasWidth() / 2) - 4;
+    const height = (this.getCanvasHeight() / 3) - 2;
     this.pokemonCards = [];
     for (let i=0; i<3; i++) {
       for (let j = 0; j<2; j++) {
@@ -58,13 +57,13 @@ export default class ExportTeamUIHandler extends UiHandler {
       }
     }
 
-    this.code = addTextObject(this.scene, 8, height*3 + 4, "", TextStyle.MOVE_INFO_CONTENT);
-    this.code.setOrigin(0, 0);
-    this.parentContainer.add(this.code);
-
-    this.codeBot = addTextObject(this.scene, 8, height*3 + 4 + this.code.height/6 -2, "", TextStyle.MOVE_INFO_CONTENT);
-    this.codeBot.setOrigin(0, 0);
-    this.parentContainer.add(this.codeBot);
+    // this.code = addTextObject(this.scene, 8, height*3 + 4, "", TextStyle.MOVE_INFO_CONTENT);
+    // this.code.setOrigin(0, 0);
+    // this.parentContainer.add(this.code);
+    //
+    // this.codeBot = addTextObject(this.scene, 8, height*3 + 4 + this.code.height/6 -2, "", TextStyle.MOVE_INFO_CONTENT);
+    // this.codeBot.setOrigin(0, 0);
+    // this.parentContainer.add(this.codeBot);
   }
 
   show(args: any[]): boolean {
@@ -82,15 +81,15 @@ export default class ExportTeamUIHandler extends UiHandler {
       card.setPokemon(team[index]);
       card.setVisible(true);
     }
-    const firstHalf = code.substring(0, 70);
-    this.code.setText(firstHalf);
-    if (code.length > 70) {
-      const secondHalf = code.substring(70);
-      this.codeBot.setText(secondHalf);
-      this.codeBot.setVisible(true);
-    } else {
-      this.codeBot.setVisible(false);
-    }
+    // const firstHalf = code.substring(0, 70);
+    // this.code.setText(firstHalf);
+    // if (code.length > 70) {
+    //   const secondHalf = code.substring(70);
+    //   this.codeBot.setText(secondHalf);
+    //   this.codeBot.setVisible(true);
+    // } else {
+    //   this.codeBot.setVisible(false);
+    // }
   }
 
   fetchSelectedStarter(): void {
