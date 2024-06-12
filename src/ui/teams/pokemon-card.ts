@@ -6,7 +6,7 @@ import i18next from "i18next";
 import {languageSettings} from "#app/ui/starter-select-ui-handler";
 import PokemonIconAnimHandler from "#app/ui/pokemon-icon-anim-handler";
 import * as Utils from "#app/utils";
-import {Abilities} from "#app/data/enums/abilities";
+import {Ability} from "#app/data/ability";
 
 export default class PokemonCard extends Phaser.GameObjects.Container {
   public scene: BattleScene;
@@ -86,7 +86,9 @@ export default class PokemonCard extends Phaser.GameObjects.Container {
     }
     this.pokemonNumberText.setText(Utils.padInt(this.pokemon.species.speciesId, 4));
     this.pokemonNameText.setText(this.pokemon.name);
-    this.pokemonAbilityText.setText(Abilities[this.pokemon.abilityIndex].name);
+    const ability = new Ability(this.pokemon.abilityIndex, 3); // 0 - mean ability1
+    ability.localize();
+    this.pokemonAbilityText.setText(ability.name);
 
   }
 
