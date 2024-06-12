@@ -202,6 +202,7 @@ declare module "i18next" {
       growth: SimpleTranslationEntries;
       menu: SimpleTranslationEntries;
       menuUiHandler: SimpleTranslationEntries;
+      starterSelectMenuUiHandler: SimpleTranslationEntries;
       modifierType: ModifierTypeTranslationEntries;
       move: MoveTranslationEntries;
       nature: SimpleTranslationEntries;

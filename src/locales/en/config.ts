@@ -39,6 +39,7 @@ import { tutorial } from "./tutorial";
 import { voucher } from "./voucher";
 import { weather } from "./weather";
 import { partyUiHandler } from "./party-ui-handler";
+import { starterSelectMenuUiHandler } from "./starter-select-menu-ui-handler";
 
 export const enConfig = {
   ability: ability,
@@ -66,6 +67,7 @@ export const enConfig = {
   growth: growth,
   menu: menu,
   menuUiHandler: menuUiHandler,
+  starterSelectMenuUiHandler: starterSelectMenuUiHandler,
   modifierType: modifierType,
   move: move,
   nature: nature,

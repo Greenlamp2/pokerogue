@@ -166,7 +166,7 @@ export class UiInputs {
       this.scene.ui.setOverlayMode(Mode.MENU);
       break;
     case Mode.STARTER_SELECT:
-      this.buttonTouch();
+      this.scene.ui.setOverlayMode(Mode.STARTER_SELECT_MENU);
       break;
     case Mode.MENU:
       this.scene.ui.revertMode();

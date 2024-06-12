@@ -17,7 +17,7 @@ import SettingsGamepadUiHandler from "./settings/settings-gamepad-ui-handler";
 import GameChallengesUiHandler from "./challenges-select-ui-handler";
 import { TextStyle, addTextObject } from "./text";
 import AchvBar from "./achv-bar";
-import MenuUiHandler from "./menu-ui-handler";
+import MenuUiHandler from "./menus/menu-ui-handler";
 import AchvsUiHandler from "./achvs-ui-handler";
 import OptionSelectUiHandler from "./settings/option-select-ui-handler";
 import EggHatchSceneHandler from "./egg-hatch-scene-handler";
@@ -45,6 +45,7 @@ import SettingsKeyboardUiHandler from "#app/ui/settings/settings-keyboard-ui-han
 import KeyboardBindingUiHandler from "#app/ui/settings/keyboard-binding-ui-handler";
 import SettingsDisplayUiHandler from "./settings/settings-display-ui-handler";
 import SettingsAudioUiHandler from "./settings/settings-audio-ui-handler";
+import StarterSelectMenuUiHandler from "./menus/starter-select-menu-ui-handler";
 
 export enum Mode {
   MESSAGE,
@@ -63,6 +64,7 @@ export enum Mode {
   CONFIRM,
   OPTION_SELECT,
   MENU,
+  STARTER_SELECT_MENU,
   MENU_OPTION_SELECT,
   SETTINGS,
   SETTINGS_DISPLAY,
@@ -82,7 +84,9 @@ export enum Mode {
   SESSION_RELOAD,
   UNAVAILABLE,
   OUTDATED,
-  CHALLENGE_SELECT
+  CHALLENGE_SELECT,
+  EXPORT_TEAM,
+  IMPORT_TEAM,
 }
 
 const transitionModes = [
@@ -102,6 +106,7 @@ const noTransitionModes = [
   Mode.CONFIRM,
   Mode.OPTION_SELECT,
   Mode.MENU,
+  Mode.STARTER_SELECT_MENU,
   Mode.MENU_OPTION_SELECT,
   Mode.GAMEPAD_BINDING,
   Mode.KEYBOARD_BINDING,
@@ -158,6 +163,7 @@ export default class UI extends Phaser.GameObjects.Container {
       new ConfirmUiHandler(scene),
       new OptionSelectUiHandler(scene),
       new MenuUiHandler(scene),
+      new StarterSelectMenuUiHandler(scene),
       new OptionSelectUiHandler(scene, Mode.MENU_OPTION_SELECT),
       new SettingsUiHandler(scene),
       new SettingsDisplayUiHandler(scene),

@@ -1,15 +1,15 @@
-import BattleScene, { bypassLogin } from "../battle-scene";
-import { TextStyle, addTextObject } from "./text";
-import { Mode } from "./ui";
-import * as Utils from "../utils";
-import { addWindow } from "./ui-theme";
-import MessageUiHandler from "./message-ui-handler";
+import BattleScene, { bypassLogin } from "../../battle-scene";
+import { TextStyle, addTextObject } from "../text";
+import { Mode } from "../ui";
+import * as Utils from "../../utils";
+import { addWindow } from "../ui-theme";
+import MessageUiHandler from "../message-ui-handler";
 import { GameDataType } from "#app/data/enums/game-data-type";
-import { OptionSelectConfig, OptionSelectItem } from "./abstact-option-select-ui-handler";
-import { Tutorial, handleTutorial } from "../tutorial";
-import { updateUserInfo } from "../account";
-import i18next from "../plugins/i18n";
-import {Button} from "../enums/buttons";
+import { OptionSelectConfig, OptionSelectItem } from "../abstact-option-select-ui-handler";
+import { Tutorial, handleTutorial } from "../../tutorial";
+import { updateUserInfo } from "../../account";
+import i18next from "../../plugins/i18n";
+import {Button} from "../../enums/buttons";
 
 export enum MenuOptions {
   GAME_SETTINGS,
