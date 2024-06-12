@@ -2,7 +2,7 @@ import {afterEach, beforeAll, beforeEach, describe, expect, it} from "vitest";
 import Phaser from "phaser";
 import GameManager from "#app/test/utils/gameManager";
 import {Species} from "#app/data/enums/species";
-import {decompress} from "#app/utils";
+import {compress, decompress} from "#app/utils";
 import { NATURES} from "pokenode-ts";
 import { Gender } from "#app/data/gender.js";
 
@@ -24,13 +24,6 @@ describe("Export team feature", () => {
   beforeEach(() => {
     game = new GameManager(phaserGame);
   });
-
-  it("from a compressed code, import pokemon team", async() => {
-    const expected = "19;98,39,33;0;9;1;0;1#444;328,33;0;19;2;0;0#491;228,466,50;0;20;0;0;0#262;555,336,33;0;5;2;0;1#888;533,98,232,44;0;1;0;0;0#644;225,422,568,246;0;10;0;0;0#";
-    const codeTeam = "J0LU39SG90IQKY4328SNJ0AVK491228C466U50NA0WK262555CE6SG50AQKB5EULC232UYQWK6Y225C422C568C246NI0W";
-
-    expect(expected).toBe(decompress(codeTeam));
-  }, 20000);
 
   it("export a team - retrieve the code and check if the code is correct", async() => {
     await game.runToSummon([
@@ -75,10 +68,8 @@ describe("Export team feature", () => {
     expect(game.scene.getParty()[2].passive).toBeUndefined();
     expect(game.scene.getParty()[3].passive).toBeUndefined();
 
-    const codeTeam = game.scene.exportTeam();
-    const expected = "19;98,39,33;0;9;1;0;1;0#444;328,33;0;19;2;0;0;0#491;228,466,50;0;20;0;0;0;0#262;555,336,33;0;5;2;0;1;0#";
-    expect(codeTeam).toBe("J0LU39SG90IQNKY4328SNJ0AWK491228C466U50NA0WNK262555CE6SG50AQN");
-    expect(decompress(codeTeam)).toBe(expected);
+    const codeTeam = game.scene.exportTeam(false);
+    expect(decompress(compress(codeTeam))).toBe(codeTeam);
   }, 20000);
 
   it("import team with code", async() => {

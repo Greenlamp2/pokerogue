@@ -2438,10 +2438,13 @@ export default class BattleScene extends SceneBase {
     (window as any).gameInfo = gameInfo;
   }
 
-  exportTeam(): string {
+  exportTeam(compressed: boolean = true): string {
     let code = "";
     for (const pokemon of this.party) {
       code += pokemon.export() + "#";
+    }
+    if (!compressed) {
+      return code;
     }
     return compress(code);
   }
