@@ -1,4 +1,4 @@
-import {Device} from "#enums";
+import {Device} from "#enums/index";
 
 /**
  * Retrieves the key associated with the specified keycode from the mapping.

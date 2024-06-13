@@ -2,7 +2,7 @@ import { PokemonHealPhase, StatChangePhase } from "../phases";
 import { getPokemonMessage } from "../messages";
 import Pokemon, { HitResult } from "../field/pokemon";
 import { BattleStat } from "./battle-stat";
-import { BattlerTagType, BerryType } from "#enums";
+import { BattlerTagType, BerryType } from "#enums/index";
 import { getStatusEffectHealText } from "./status-effect";
 import * as Utils from "../utils";
 import { DoubleBerryEffectAbAttr, ReduceBerryUseThresholdAbAttr, applyAbAttrs } from "./ability";

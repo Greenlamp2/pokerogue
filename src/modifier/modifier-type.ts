@@ -1,6 +1,6 @@
 import * as Modifiers from "./modifier";
 import { AttackMove, allMoves } from "../data/move";
-import { Abilities, BattlerTagType, BerryType, Moves } from "#enums";
+import { Abilities, BattlerTagType, BerryType, Moves } from "#enums/index";
 import { PokeballType, getPokeballCatchMultiplier, getPokeballName } from "../data/pokeball";
 import Pokemon, { EnemyPokemon, PlayerPokemon, PokemonMove } from "../field/pokemon";
 import { EvolutionItem, pokemonEvolutions } from "../data/pokemon-evolutions";

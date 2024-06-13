@@ -4,7 +4,7 @@ import {Mode} from "../ui";
 import {InterfaceConfig} from "../../inputs-controller";
 import {addWindow} from "../ui-theme";
 import {addTextObject, TextStyle} from "../text";
-import {Button, Device} from "#enums";
+import {Button, Device} from "#enums/index";
 import {getIconWithSettingName} from "#app/configs/inputs/configHandler";
 import NavigationMenu, {NavigationManager} from "#app/ui/settings/navigationMenu";
 

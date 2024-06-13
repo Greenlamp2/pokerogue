@@ -1,5 +1,5 @@
 import { GachaType } from "./data/egg";
-import { Biome, TrainerType } from "#enums";
+import { Biome, TrainerType } from "#enums/index";
 import { trainerConfigs } from "./data/trainer-config";
 import { getBiomeHasProps } from "./field/arena";
 import CacheBustedLoaderPlugin from "./plugins/cache-busted-loader-plugin";

@@ -1,4 +1,4 @@
-import {Button} from "#enums";
+import {Button} from "#enums/index";
 import EventEmitter = Phaser.Events.EventEmitter;
 import BattleScene from "./battle-scene";
 

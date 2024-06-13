@@ -4,7 +4,7 @@ import { Command } from "./ui/command-ui-handler";
 import * as Utils from "./utils";
 import Trainer, { TrainerVariant } from "./field/trainer";
 import { GameMode } from "./game-mode";
-import { BattleSpec, Moves, PlayerGender, Species, TrainerType } from "#enums";
+import { BattleSpec, Moves, PlayerGender, Species, TrainerType } from "#enums/index";
 import { MoneyMultiplierModifier, PokemonHeldItemModifier } from "./modifier/modifier";
 import { PokeballType } from "./data/pokeball";
 import {trainerConfigs} from "#app/data/trainer-config";

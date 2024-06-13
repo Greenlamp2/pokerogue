@@ -1,4 +1,4 @@
-import { Species, Abilities, Biome, Moves, BerryType, TimeOfDay } from "#enums";
+import { Species, Abilities, Biome, Moves, BerryType, TimeOfDay } from "#enums/index";
 import { WeatherType } from "./data/weather";
 import { Variant } from "./data/variant";
 import { TempBattleStat } from "./data/temp-battle-stat";

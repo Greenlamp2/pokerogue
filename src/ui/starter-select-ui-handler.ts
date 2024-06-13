@@ -28,7 +28,7 @@ import { TextStyle, addBBCodeTextObject, addTextObject } from "./text";
 import { Mode } from "./ui";
 import { addWindow } from "./ui-theme";
 import {SettingKeyboard} from "#app/system/settings/settings-keyboard";
-import {Device, Moves, Species, Button, Passive as PassiveAttr} from "#enums";
+import {Device, Moves, Species, Button, Passive as PassiveAttr} from "#enums/index";
 import * as Challenge from "../data/challenge";
 import MoveInfoOverlay from "./move-info-overlay";
 import { getEggTierForSpecies } from "#app/data/egg.js";

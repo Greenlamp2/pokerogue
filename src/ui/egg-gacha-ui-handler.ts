@@ -8,7 +8,7 @@ import { VoucherType, getVoucherTypeIcon } from "../system/voucher";
 import { getPokemonSpecies } from "../data/pokemon-species";
 import { addWindow } from "./ui-theme";
 import { Tutorial, handleTutorial } from "../tutorial";
-import {Button, EggTier} from "#enums";
+import {Button, EggTier} from "#enums/index";
 import i18next from "../plugins/i18n";
 
 export default class EggGachaUiHandler extends MessageUiHandler {

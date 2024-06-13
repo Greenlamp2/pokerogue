@@ -2,7 +2,7 @@ import BattleScene from "../battle-scene";
 import AbstractOptionSelectUiHandler, { OptionSelectConfig } from "./abstact-option-select-ui-handler";
 import { Mode } from "./ui";
 import i18next from "i18next";
-import {Button} from "#enums";
+import {Button} from "#enums/index";
 
 export default class ConfirmUiHandler extends AbstractOptionSelectUiHandler {
 

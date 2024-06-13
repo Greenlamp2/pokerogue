@@ -1,5 +1,5 @@
 import { ArenaTagSide } from "#app/data/arena-tag.js";
-import { ArenaTagType } from "#enums";
+import { ArenaTagType } from "#enums/index";
 import { TerrainType } from "#app/data/terrain.js";
 import { WeatherType } from "#app/data/weather.js";
 

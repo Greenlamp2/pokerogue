@@ -1,7 +1,7 @@
 import BBCodeText from "phaser3-rex-plugins/plugins/gameobjects/tagtext/bbcodetext/BBCodeText";
 import InputText from "phaser3-rex-plugins/plugins/inputtext";
 import BattleScene from "../battle-scene";
-import { EggTier, UiTheme } from "#enums";
+import { EggTier, UiTheme } from "#enums/index";
 import { ModifierTier } from "../modifier/modifier-tier";
 import Phaser from "phaser";
 

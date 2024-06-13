@@ -1,6 +1,6 @@
 import { BattleType } from "../battle";
 import BattleScene from "../battle-scene";
-import { Biome, Species, Moves } from "#enums";
+import { Biome, Species, Moves } from "#enums/index";
 import { Gender } from "../data/gender";
 import { Nature } from "../data/nature";
 import { PokeballType } from "../data/pokeball";

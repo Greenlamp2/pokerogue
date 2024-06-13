@@ -15,7 +15,7 @@ import { pokemonEvolutions } from "../data/pokemon-evolutions";
 import { addWindow } from "./ui-theme";
 import { SpeciesFormChangeItemTrigger } from "../data/pokemon-forms";
 import { getVariantTint } from "#app/data/variant";
-import {Button, Moves} from "#enums";
+import {Button, Moves} from "#enums/index";
 import { applyChallenges, ChallengeType } from "#app/data/challenge.js";
 import MoveInfoOverlay from "./move-info-overlay";
 import i18next from "i18next";

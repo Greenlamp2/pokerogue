@@ -1,17 +1,24 @@
 {
 	"compilerOptions": {
-		"target": "ES2020",
-		"module": "ES2020",
-		"moduleResolution": "bundler",
-		"resolveJsonModule": true,
+		// want to enable later
+		"verbatimModuleSyntax": false,
+		"strict": false,
+		"isolatedModules": true,
+		
+		// base configuration
 		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"target": "ES2020",
+		"resolveJsonModule": true,
+		"noUncheckedIndexedAccess": true,
+		"moduleDetection": "force",
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
 		"strictNullChecks": false,
 		"sourceMap": false,
-		"strict": false,
 		"rootDir": "./src",
 		"baseUrl": "./src",
 		"paths": {
-			"#enums": ["./enums/index.ts"],
 			"#enums/*": ["./enums/*"],
 			"#app/*": ["*.ts"],
 			"#app": ["."],

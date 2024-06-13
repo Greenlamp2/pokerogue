@@ -2,7 +2,7 @@ import {afterEach, beforeAll, beforeEach, describe, expect, it, vi} from "vitest
 import Phaser from "phaser";
 import GameManager from "#app/test/utils/gameManager";
 import * as overrides from "#app/overrides";
-import {Abilities, Species, Moves} from "#enums";
+import {Abilities, Species, Moves} from "#enums/index";
 import {
   CommandPhase, DamagePhase, EncounterPhase,
   EnemyCommandPhase, SelectStarterPhase,

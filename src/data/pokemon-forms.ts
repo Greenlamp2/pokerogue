@@ -3,7 +3,7 @@ import Pokemon from "../field/pokemon";
 import { SpeciesFormKey } from "./pokemon-species";
 import { StatusEffect } from "./status-effect";
 import { MoveCategory, allMoves } from "./move";
-import { Abilities, Moves, Species, TimeOfDay } from "#enums";
+import { Abilities, Moves, Species, TimeOfDay } from "#enums/index";
 
 export enum FormChangeItem {
   NONE,

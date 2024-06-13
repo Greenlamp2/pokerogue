@@ -1,6 +1,6 @@
 import BattleScene from "../battle-scene";
 import { BiomePoolTier, PokemonPools, BiomeTierTrainerPools, biomePokemonPools, biomeTrainerPools } from "../data/biomes";
-import { ArenaTagType, Biome, Moves, Species, TimeOfDay, TrainerType } from "#enums";
+import { ArenaTagType, Biome, Moves, Species, TimeOfDay, TrainerType } from "#enums/index";
 import * as Utils from "../utils";
 import PokemonSpecies, { getPokemonSpecies } from "../data/pokemon-species";
 import { Weather, WeatherType, getTerrainClearMessage, getTerrainStartMessage, getWeatherClearMessage, getWeatherStartMessage } from "../data/weather";

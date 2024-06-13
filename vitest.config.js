@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import path from 'path';
+import { fileURLToPath, URL } from "url";
 // import fs from 'vite-plugin-fs';
 
 export default defineConfig(({ mode }) => {
@@ -34,6 +34,11 @@ export default defineConfig(({ mode }) => {
 		build: {
 			minify: 'esbuild',
 			sourcemap: true
+		},
+		resolve: {
+			alias: [
+				{ find: '#enums', replacement: fileURLToPath(new URL('./src/enums', import.meta.url)) },
+			]
 		},
 		esbuild: {
 			pure: mode === 'production' ? [ 'console.log' ] : [],

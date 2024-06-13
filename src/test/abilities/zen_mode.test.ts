@@ -16,7 +16,7 @@ import {
 } from "#app/phases";
 import { Mode } from "#app/ui/ui";
 import { Stat } from "#app/data/pokemon-stat";
-import { Abilities, Moves, Species } from "#enums";
+import { Abilities, Moves, Species } from "#enums/index";
 import { getMovePosition } from "#app/test/utils/gameManagerUtils";
 import { Command } from "#app/ui/command-ui-handler";
 import { QuietFormChangePhase } from "#app/form-change-phase";

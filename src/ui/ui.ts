@@ -37,7 +37,7 @@ import SavingIconHandler from "./saving-icon-handler";
 import UnavailableModalUiHandler from "./unavailable-modal-ui-handler";
 import OutdatedModalUiHandler from "./outdated-modal-ui-handler";
 import SessionReloadModalUiHandler from "./session-reload-modal-ui-handler";
-import {Button, PlayerGender} from "#enums";
+import {Button, PlayerGender} from "#enums/index";
 import i18next, {ParseKeys} from "i18next";
 import GamepadBindingUiHandler from "./settings/gamepad-binding-ui-handler";
 import SettingsKeyboardUiHandler from "#app/ui/settings/settings-keyboard-ui-handler";

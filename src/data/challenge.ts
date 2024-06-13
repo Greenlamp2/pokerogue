@@ -1,5 +1,5 @@
 import * as Utils from "../utils";
-import { Challenges, TrainerType, Species } from "#enums";
+import { Challenges, TrainerType, Species } from "#enums/index";
 import i18next from "#app/plugins/i18n.js";
 import { GameData } from "#app/system/game-data.js";
 import PokemonSpecies, { getPokemonSpecies, speciesStarters } from "./pokemon-species";

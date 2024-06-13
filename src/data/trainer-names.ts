@@ -1,4 +1,4 @@
-import { TrainerType } from "#enums";
+import { TrainerType } from "#enums/index";
 import * as Utils from "../utils";
 
 class TrainerNameConfig {

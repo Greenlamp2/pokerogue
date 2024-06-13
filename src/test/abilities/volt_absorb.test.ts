@@ -6,7 +6,7 @@ import {
   TurnEndPhase,
 } from "#app/phases";
 import {getMovePosition} from "#app/test/utils/gameManagerUtils";
-import { Abilities, BattlerTagType, Moves, Species } from "#enums";
+import { Abilities, BattlerTagType, Moves, Species } from "#enums/index";
 import { BattleStat } from "#app/data/battle-stat.js";
 
 // See also: TypeImmunityAbAttr

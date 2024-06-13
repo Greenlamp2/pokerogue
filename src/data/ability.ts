@@ -6,7 +6,7 @@ import { MovePhase, PokemonHealPhase, ShowAbilityPhase, StatChangePhase } from "
 import { getPokemonMessage, getPokemonNameWithAffix } from "../messages";
 import { Weather, WeatherType } from "./weather";
 import { BattlerTag } from "./battler-tags";
-import { ArenaTagType, Abilities, BattlerTagType, Moves, Species } from "#enums";
+import { ArenaTagType, Abilities, BattlerTagType, Moves, Species } from "#enums/index";
 import { StatusEffect, getNonVolatileStatusEffects, getStatusEffectDescriptor, getStatusEffectHealText } from "./status-effect";
 import { Gender } from "./gender";
 import Move, { AttackMove, MoveCategory, MoveFlags, MoveTarget, FlinchAttr, OneHitKOAttr, HitHealAttr, allMoves, StatusMove, SelfStatusMove, VariablePowerAttr, applyMoveAttrs, IncrementMovePriorityAttr, VariableMoveTypeAttr, RandomMovesetMoveAttr, RandomMoveAttr, NaturePowerAttr, CopyMoveAttr  } from "./move";
