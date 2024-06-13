@@ -11,5 +11,6 @@ export function getSession() {
   if (!sessionStr) {
     return null;
   }
+
   return JSON.parse(atob(sessionStr));
 }
