@@ -9,11 +9,6 @@ export default defineConfig(({ mode }) => {
 		build: {
 			minify: 'esbuild',
 			sourcemap: false,
-			rollupOptions: {
-				external: [
-					/^\#enums/,
-				]
-			}
 		},
 		rollupOptions: {
 			onwarn(warning, warn) {
