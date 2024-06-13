@@ -15,7 +15,7 @@
 		"module": "ESNext",
 		"moduleResolution": "Bundler",
 		"strictNullChecks": false,
-		"sourceMap": false,
+		"sourceMap": true,
 		"rootDir": "./src",
 		"baseUrl": "./src",
 		"paths": {
