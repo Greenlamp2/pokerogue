@@ -1,5 +1,5 @@
 import {SettingGamepad} from "#app/system/settings/settings-gamepad.js";
-import {Button} from "#enums/index";
+import {Button} from "#enums";
 
 /**
  * Nintendo Pro Controller mapping

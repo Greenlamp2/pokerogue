@@ -22,7 +22,7 @@ import {EnemyPokemon, PlayerPokemon} from "#app/field/pokemon";
 import {MockClock} from "#app/test/utils/mocks/mockClock";
 import {Command} from "#app/ui/command-ui-handler";
 import ModifierSelectUiHandler from "#app/ui/modifier-select-ui-handler";
-import {Button, ExpNotification, GameDataType, PlayerGender, Species} from "#enums/index";
+import {Button, ExpNotification, GameDataType, PlayerGender, Species} from "#enums";
 import PartyUiHandler, {PartyUiMode} from "#app/ui/party-ui-handler";
 import Trainer from "#app/field/trainer";
 

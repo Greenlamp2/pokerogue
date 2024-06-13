@@ -8,7 +8,7 @@ import { OptionSelectConfig, OptionSelectItem } from "./abstact-option-select-ui
 import { Tutorial, handleTutorial } from "../tutorial";
 import { updateUserInfo } from "../account";
 import i18next from "../plugins/i18n";
-import {Button, GameDataType} from "#enums/index";
+import {Button, GameDataType} from "#enums";
 
 export enum MenuOptions {
   GAME_SETTINGS,

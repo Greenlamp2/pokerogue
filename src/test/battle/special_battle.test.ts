@@ -1,6 +1,6 @@
 import {afterEach, beforeAll, beforeEach, describe, expect, it, vi} from "vitest";
 import {Mode} from "#app/ui/ui";
-import {Species, Moves, Abilities} from "#enums/index";
+import {Species, Moves, Abilities} from "#enums";
 import * as overrides from "../../overrides";
 import {
   CommandPhase,

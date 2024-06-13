@@ -15,7 +15,7 @@ import {OptionSelectItem} from "#app/ui/abstact-option-select-ui-handler";
 import {Gender} from "#app/data/gender";
 import {allSpecies} from "#app/data/pokemon-species";
 import {Nature} from "#app/data/nature";
-import {Abilities, Button, Species} from "#enums/index";
+import {Abilities, Button, Species} from "#enums";
 
 
 describe("UI - Starter select", () => {

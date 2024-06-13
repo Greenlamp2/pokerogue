@@ -9,7 +9,7 @@ import { PlayerPokemon } from "./field/pokemon";
 import { getPokemonSpecies, speciesStarters } from "./data/pokemon-species";
 import { achvs } from "./system/achv";
 import { pokemonPrevolutions } from "./data/pokemon-evolutions";
-import { EggTier, Species } from "#enums/index";
+import { EggTier, Species } from "#enums";
 import PokemonInfoContainer from "./ui/pokemon-info-container";
 import EggCounterContainer from "./ui/egg-counter-container";
 import { EggCountChangedEvent } from "./events/egg";

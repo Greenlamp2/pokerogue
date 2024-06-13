@@ -9,7 +9,7 @@ import {
 import {Mode} from "#app/ui/ui";
 import {getMovePosition} from "#app/test/utils/gameManagerUtils";
 import {Command} from "#app/ui/command-ui-handler";
-import { Abilities, BattlerTagType, Moves, Species } from "#enums/index";
+import { Abilities, BattlerTagType, Moves, Species } from "#enums";
 import { BattleStat } from "#app/data/battle-stat.js";
 import { TerrainType } from "#app/data/terrain.js";
 

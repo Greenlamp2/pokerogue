@@ -6,7 +6,7 @@ import PokemonSpecies, { PokemonForm, SpeciesFormKey, allSpecies } from "./pokem
 import { GrowthRate } from "./exp";
 import { Type } from "./type";
 import { allAbilities } from "./ability";
-import { Abilities, Moves, Species } from "#enums/index";
+import { Abilities, Moves, Species } from "#enums";
 import { pokemonFormLevelMoves } from "./pokemon-level-moves";
 import { tmSpecies } from "./tms";
 

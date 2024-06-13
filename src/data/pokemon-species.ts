@@ -1,4 +1,4 @@
-import { Abilities, PartyMemberStrength, Species } from "#enums/index";
+import { Abilities, PartyMemberStrength, Species } from "#enums";
 import BattleScene, { AnySound } from "../battle-scene";
 import { Variant, variantColorCache } from "./variant";
 import { variantData } from "./variant";

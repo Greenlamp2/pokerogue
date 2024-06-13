@@ -1,5 +1,5 @@
 import { ModifierTier } from "../modifier/modifier-tier";
-import { Moves, Species } from "#enums/index";
+import { Moves, Species } from "#enums";
 
 interface TmSpecies {
     [key: integer]: Array<Species | Array<Species | string>>

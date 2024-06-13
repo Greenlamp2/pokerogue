@@ -8,7 +8,7 @@ import * as Utils from "../utils";
 import { ChargeAttr, MoveFlags, allMoves } from "./move";
 import { Type } from "./type";
 import { BlockNonDirectDamageAbAttr, FlinchEffectAbAttr, ReverseDrainAbAttr, applyAbAttrs } from "./ability";
-import { Abilities, BattlerTagType, Moves, Species } from "#enums/index";
+import { Abilities, BattlerTagType, Moves, Species } from "#enums";
 import { TerrainType } from "./terrain";
 import { WeatherType } from "./weather";
 import { BattleStat } from "./battle-stat";

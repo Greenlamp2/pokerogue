@@ -3,7 +3,7 @@ import i18next from "i18next";
 import BattleScene from "../../battle-scene";
 import { hasTouchscreen } from "../../touch-controls";
 import { updateWindowType } from "../../ui/ui-theme";
-import { PlayerGender, MoneyFormat, EaseType } from "#enums/index";
+import { PlayerGender, MoneyFormat, EaseType } from "#enums";
 import { CandyUpgradeNotificationChangedEvent } from "../../events/battle-scene";
 import SettingsUiHandler from "#app/ui/settings/settings-ui-handler";
 

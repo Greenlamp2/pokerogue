@@ -6,7 +6,7 @@ import { Type } from "./type";
 import * as Utils from "../utils";
 import { SpeciesFormKey } from "./pokemon-species";
 import { WeatherType } from "./weather";
-import { Biome, Moves, Species, TimeOfDay } from "#enums/index";
+import { Biome, Moves, Species, TimeOfDay } from "#enums";
 import { Nature } from "./nature";
 
 export enum SpeciesWildEvolutionDelay {

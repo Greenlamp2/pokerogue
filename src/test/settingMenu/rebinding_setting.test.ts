@@ -1,5 +1,5 @@
 import {beforeEach, describe, expect, it} from "vitest";
-import {Button, Device} from "#enums/index";
+import {Button, Device} from "#enums";
 import {deepCopy} from "#app/utils";
 import {
   getKeyWithKeycode,

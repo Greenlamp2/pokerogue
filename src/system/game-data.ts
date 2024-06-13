@@ -2,7 +2,7 @@ import BattleScene, { PokeballCounts, bypassLogin } from "../battle-scene";
 import Pokemon, { EnemyPokemon, PlayerPokemon } from "../field/pokemon";
 import { pokemonEvolutions, pokemonPrevolutions } from "../data/pokemon-evolutions";
 import PokemonSpecies, { allSpecies, getPokemonSpecies, noStarterFormKeys, speciesStarters } from "../data/pokemon-species";
-import { Species, defaultStarterSpecies, Moves, Device, PlayerGender, GameDataType } from "#enums/index";
+import { Species, defaultStarterSpecies, Moves, Device, PlayerGender, GameDataType } from "#enums";
 import * as Utils from "../utils";
 import * as Overrides from "../overrides";
 import PokemonData from "./pokemon-data";

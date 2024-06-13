@@ -1,4 +1,4 @@
-import { Moves, Species } from "#enums/index";
+import { Moves, Species } from "#enums";
 
 export type LevelMoves = ([integer, Moves])[];
 

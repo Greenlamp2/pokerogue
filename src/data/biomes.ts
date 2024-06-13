@@ -1,7 +1,7 @@
 import { Type } from "./type";
 import * as Utils from "../utils";
 import beautify from "json-beautify";
-import { Biome, Species, TimeOfDay, TrainerType } from "#enums/index";
+import { Biome, Species, TimeOfDay, TrainerType } from "#enums";
 import {pokemonEvolutions, SpeciesFormEvolution} from "./pokemon-evolutions";
 import i18next from "i18next";
 
