@@ -25,11 +25,6 @@ export default defineConfig(({ mode }) => {
 				warn(warning);
 			},
 		},
-		resolve: {
-			alias: {
-				"#enums": resolve('./src/enums/index.ts')
-			}
-		},
 		esbuild: {
 			pure: mode === 'production' ? [ 'console.log' ] : [],
 			keepNames: true,

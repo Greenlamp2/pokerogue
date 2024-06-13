@@ -53,8 +53,8 @@
 		"node": ">=20.0.0"
 	},
 	"imports": {
-		"#enums": "./enums/index.ts",
-		"#enums/*": "./enums/*",
+		"#enums": "./src/enums/index.ts",
+		"#enums/*": "./src/enums/*",
 		"#app": "./src/main.js",
 		"#app/*": "./src/*",
 		"#test/*": "./src/test/*"

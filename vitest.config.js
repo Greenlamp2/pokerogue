@@ -35,11 +35,6 @@ export default defineConfig(({ mode }) => {
 			minify: 'esbuild',
 			sourcemap: true
 		},
-		resolve: {
-			alias: {
-				"#enums": path.resolve('./src/enums/index.ts')
-			}
-		},
 		esbuild: {
 			pure: mode === 'production' ? [ 'console.log' ] : [],
 			keepNames: true,
