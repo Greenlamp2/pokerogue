@@ -37,7 +37,7 @@ export default defineConfig(({ mode }) => {
 		},
 		resolve: {
 			alias: {
-				"#enums": path.resolve('./src/enums')
+				"#enums": path.resolve('./src/enums/index.ts')
 			}
 		},
 		esbuild: {

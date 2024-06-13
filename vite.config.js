@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
 		},
 		resolve: {
 			alias: {
-				"#enums": resolve('./src/enums')
+				"#enums": resolve('./src/enums/index.ts')
 			}
 		},
 		esbuild: {
