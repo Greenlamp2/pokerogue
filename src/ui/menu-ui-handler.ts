@@ -7,8 +7,9 @@ import MessageUiHandler from "./message-ui-handler";
 import { OptionSelectConfig, OptionSelectItem } from "./abstact-option-select-ui-handler";
 import { Tutorial, handleTutorial } from "../tutorial";
 import { updateUserInfo } from "../account";
-import i18next from "../plugins/i18n";
-import {Button, GameDataType} from "#enums";
+import i18next from "i18next";
+import {Button} from "#enums/buttons";
+import { GameDataType } from "#enums/game-data-type";
 
 export enum MenuOptions {
   GAME_SETTINGS,
@@ -23,9 +24,10 @@ export enum MenuOptions {
   LOG_OUT
 }
 
-const wikiUrl = "https://wiki.pokerogue.net";
+let wikiUrl = "https://wiki.pokerogue.net/start";
 const discordUrl = "https://discord.gg/uWpTfdKG49";
 const githubUrl = "https://github.com/pagefaultgames/pokerogue";
+const redditUrl = "https://www.reddit.com/r/pokerogue";
 
 export default class MenuUiHandler extends MessageUiHandler {
   private menuContainer: Phaser.GameObjects.Container;
@@ -53,6 +55,11 @@ export default class MenuUiHandler extends MessageUiHandler {
 
   setup() {
     const ui = this.getUi();
+    // wiki url directs based on languges available on wiki
+    const lang = i18next.resolvedLanguage.substring(0,2);
+    if (["de", "fr", "ko", "zh"].includes(lang)) {
+      wikiUrl = `https://wiki.pokerogue.net/${lang}:start`;
+    }
 
     this.menuContainer = this.scene.add.container(1, -(this.scene.game.canvas.height / 6) + 1);
 
@@ -120,14 +127,16 @@ export default class MenuUiHandler extends MessageUiHandler {
       });
     };
 
-    manageDataOptions.push({
-      label: i18next.t("menuUiHandler:importSession"),
-      handler: () => {
-        confirmSlot(i18next.t("menuUiHandler:importSlotSelect"), () => true, slotId => this.scene.gameData.importData(GameDataType.SESSION, slotId));
-        return true;
-      },
-      keepOpen: true
-    });
+    if (Utils.isLocal) {
+      manageDataOptions.push({
+        label: i18next.t("menuUiHandler:importSession"),
+        handler: () => {
+          confirmSlot(i18next.t("menuUiHandler:importSlotSelect"), () => true, slotId => this.scene.gameData.importData(GameDataType.SESSION, slotId));
+          return true;
+        },
+        keepOpen: true
+      });
+    }
     manageDataOptions.push({
       label: i18next.t("menuUiHandler:exportSession"),
       handler: () => {
@@ -149,14 +158,17 @@ export default class MenuUiHandler extends MessageUiHandler {
       },
       keepOpen: true
     });
-    manageDataOptions.push({
-      label: i18next.t("menuUiHandler:importData"),
-      handler: () => {
-        this.scene.gameData.importData(GameDataType.SYSTEM);
-        return true;
-      },
-      keepOpen: true
-    });
+    if (Utils.isLocal) {
+      manageDataOptions.push({
+        label: i18next.t("menuUiHandler:importData"),
+        handler: () => {
+          ui.revertMode();
+          this.scene.gameData.importData(GameDataType.SYSTEM);
+          return true;
+        },
+        keepOpen: true
+      });
+    }
     manageDataOptions.push(
       {
         label: i18next.t("menuUiHandler:exportData"),
@@ -201,6 +213,14 @@ export default class MenuUiHandler extends MessageUiHandler {
         label: "GitHub",
         handler: () => {
           window.open(githubUrl, "_blank").focus();
+          return true;
+        },
+        keepOpen: true
+      },
+      {
+        label: "Reddit",
+        handler: () => {
+          window.open(redditUrl, "_blank").focus();
           return true;
         },
         keepOpen: true

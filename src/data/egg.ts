@@ -1,7 +1,8 @@
 import BattleScene from "../battle-scene";
 import PokemonSpecies, { getPokemonSpecies, speciesStarters } from "./pokemon-species";
-import { EggTier, Species } from "#enums";
-import i18next from "../plugins/i18n";
+import i18next from "i18next";
+import { EggTier } from "#enums/egg-type";
+import { Species } from "#enums/species";
 
 export const EGG_SEED = 1073741824;
 
@@ -27,7 +28,7 @@ export class Egg {
   }
 
   isManaphyEgg(): boolean {
-    return this.tier === EggTier.COMMON && !(this.id % 255);
+    return this.tier === EggTier.COMMON && !(this.id % 204);
   }
 
   getKey(): string {

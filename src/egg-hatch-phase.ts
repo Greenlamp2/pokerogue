@@ -9,10 +9,11 @@ import { PlayerPokemon } from "./field/pokemon";
 import { getPokemonSpecies, speciesStarters } from "./data/pokemon-species";
 import { achvs } from "./system/achv";
 import { pokemonPrevolutions } from "./data/pokemon-evolutions";
-import { EggTier, Species } from "#enums";
 import PokemonInfoContainer from "./ui/pokemon-info-container";
 import EggCounterContainer from "./ui/egg-counter-container";
 import { EggCountChangedEvent } from "./events/egg";
+import { EggTier } from "#enums/egg-type";
+import { Species } from "#enums/species";
 
 /**
  * Class that represents egg hatching
@@ -259,6 +260,9 @@ export class EggHatchPhase extends Phase {
    */
   trySkip(): boolean {
     if (!this.canSkip || this.skipped) {
+      return false;
+    }
+    if (this.eggCounterContainer.eggCountText?.data === undefined) {
       return false;
     }
     this.skipped = true;
