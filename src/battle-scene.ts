@@ -178,11 +178,11 @@ export default class BattleScene extends SceneBase {
 
   public phaseQueue: Phase[];
   public conditionalQueue: Array<[() => boolean, Phase]>;
-  private phaseQueuePrepend: Phase[];
-  private phaseQueuePrependSpliceIndex: integer;
-  private nextCommandPhaseQueue: Phase[];
-  private currentPhase: Phase;
-  private standbyPhase: Phase;
+  protected phaseQueuePrepend: Phase[];
+  protected phaseQueuePrependSpliceIndex: integer;
+  protected nextCommandPhaseQueue: Phase[];
+  protected currentPhase: Phase;
+  protected standbyPhase: Phase;
   public field: Phaser.GameObjects.Container;
   public fieldUI: Phaser.GameObjects.Container;
   public charSprite: CharSprite;
@@ -207,20 +207,20 @@ export default class BattleScene extends SceneBase {
   public pokeballCounts: PokeballCounts;
   public money: integer;
   public pokemonInfoContainer: PokemonInfoContainer;
-  private party: PlayerPokemon[];
+  protected party: PlayerPokemon[];
   /** Combined Biome and Wave count text */
-  private biomeWaveText: Phaser.GameObjects.Text;
-  private moneyText: Phaser.GameObjects.Text;
-  private scoreText: Phaser.GameObjects.Text;
-  private luckLabelText: Phaser.GameObjects.Text;
-  private luckText: Phaser.GameObjects.Text;
-  private modifierBar: ModifierBar;
-  private enemyModifierBar: ModifierBar;
+  protected biomeWaveText: Phaser.GameObjects.Text;
+  protected moneyText: Phaser.GameObjects.Text;
+  protected scoreText: Phaser.GameObjects.Text;
+  protected luckLabelText: Phaser.GameObjects.Text;
+  protected luckText: Phaser.GameObjects.Text;
+  protected modifierBar: ModifierBar;
+  protected enemyModifierBar: ModifierBar;
   public arenaFlyout: ArenaFlyout;
 
-  private fieldOverlay: Phaser.GameObjects.Rectangle;
+  protected fieldOverlay: Phaser.GameObjects.Rectangle;
   public modifiers: PersistentModifier[];
-  private enemyModifiers: PersistentModifier[];
+  protected enemyModifiers: PersistentModifier[];
   public uiContainer: Phaser.GameObjects.Container;
   public ui: UI;
 
@@ -230,22 +230,22 @@ export default class BattleScene extends SceneBase {
   public offsetGym: boolean;
 
   public damageNumberHandler: DamageNumberHandler;
-  private spriteSparkleHandler: PokemonSpriteSparkleHandler;
+  protected spriteSparkleHandler: PokemonSpriteSparkleHandler;
 
   public fieldSpritePipeline: FieldSpritePipeline;
   public spritePipeline: SpritePipeline;
 
-  private bgm: AnySound;
-  private bgmResumeTimer: Phaser.Time.TimerEvent;
-  private bgmCache: Set<string> = new Set();
-  private playTimeTimer: Phaser.Time.TimerEvent;
+  protected bgm: AnySound;
+  protected bgmResumeTimer: Phaser.Time.TimerEvent;
+  protected bgmCache: Set<string> = new Set();
+  protected playTimeTimer: Phaser.Time.TimerEvent;
 
   public rngCounter: integer = 0;
   public rngSeedOverride: string = "";
   public rngOffset: integer = 0;
 
   public inputMethod: string;
-  private infoToggles: InfoToggle[] = [];
+  protected infoToggles: InfoToggle[] = [];
 
   public eventManager: TimedEventManager;
 
@@ -260,8 +260,8 @@ export default class BattleScene extends SceneBase {
    */
   public readonly eventTarget: EventTarget = new EventTarget();
 
-  constructor() {
-    super("battle");
+  constructor(sceneName?: string) {
+    super(sceneName || "battle");
     this.phaseQueue = [];
     this.phaseQueuePrepend = [];
     this.conditionalQueue = [];
@@ -1243,7 +1243,7 @@ export default class BattleScene extends SceneBase {
     return this.arena.getSpeciesFormIndex(species);
   }
 
-  private getGeneratedOffsetGym(): boolean {
+  protected getGeneratedOffsetGym(): boolean {
     let ret = false;
     this.executeWithSeedOffset(() => {
       ret = !Utils.randSeedInt(2);
@@ -1251,7 +1251,7 @@ export default class BattleScene extends SceneBase {
     return ret;
   }
 
-  private getGeneratedWaveCycleOffset(): integer {
+  protected getGeneratedWaveCycleOffset(): integer {
     let ret = 0;
     this.executeWithSeedOffset(() => {
       ret = Utils.randSeedInt(8) * 5;

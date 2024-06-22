@@ -7,7 +7,10 @@ import BBCodeTextPlugin from "phaser3-rex-plugins/plugins/bbcodetext-plugin";
 import InputTextPlugin from "phaser3-rex-plugins/plugins/inputtext-plugin.js";
 import TransitionImagePackPlugin from "phaser3-rex-plugins/templates/transitionimagepack/transitionimagepack-plugin.js";
 import { LoadingScene } from "./loading-scene";
+import {DesignLoaderScene} from "#app/designer/design-loader-scene";
+import {DesignerScene} from "#app/designer/designer-scene";
 
+const designerMode = import.meta.env.VITE_DESIGNER_MODE === "1";
 
 // Catch global errors and display them in an alert so users can report the issue.
 window.onerror = function (message, source, lineno, colno, error) {
@@ -24,6 +27,8 @@ window.addEventListener("unhandledrejection", (event) => {
   console.error(event.reason);
   //alert(errorString);
 });
+
+const scenes = designerMode ? [DesignLoaderScene, DesignerScene] : [ LoadingScene, BattleScene ];
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
@@ -67,7 +72,7 @@ const config: Phaser.Types.Core.GameConfig = {
   },
   pixelArt: true,
   pipeline: [ InvertPostFX ] as unknown as Phaser.Types.Core.PipelineConfig,
-  scene: [ LoadingScene, BattleScene ],
+  scene: scenes,
   version: version
 };
 
