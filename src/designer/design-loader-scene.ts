@@ -2,25 +2,27 @@ import {SceneBase} from "#app/scene-base";
 import CacheBustedLoaderPlugin from "#app/plugins/cache-busted-loader-plugin";
 import {initI18n} from "#app/plugins/i18n";
 import {initVouchers} from "#app/system/voucher";
-import {initAchievements} from "#app/system/achv";
-import {initStatsKeys} from "#app/ui/game-stats-ui-handler";
 import {initPokemonPrevolutions} from "#app/data/pokemon-evolutions";
 import {initBiomes} from "#app/data/biomes";
 import {initEggMoves} from "#app/data/egg-moves";
 import {initPokemonForms} from "#app/data/pokemon-forms";
-import {initTrainerTypeDialogue} from "#app/data/dialogue";
 import {initSpecies} from "#app/data/pokemon-species";
 import {initMoves} from "#app/data/move";
 import {initAbilities} from "#app/data/ability";
-import {initChallenges} from "#app/data/challenge";
 import * as Utils from "#app/utils";
 import {getWindowVariantSuffix, WindowVariant} from "#app/ui/ui-theme";
+/* eslint-disable */
+import {initAchievements} from "#app/system/achv";
+import {initStatsKeys} from "#app/ui/game-stats-ui-handler";
+import {initTrainerTypeDialogue} from "#app/data/dialogue";
+import {initChallenges} from "#app/data/challenge";
 import i18next from "i18next";
 import {Biome} from "#enums/biome";
 import {getBiomeHasProps} from "#app/field/arena";
 import {TrainerType} from "#enums/trainer-type";
 import {trainerConfigs} from "#app/data/trainer-config";
 import {GachaType} from "#app/data/egg";
+/* eslint-enable */
 
 
 export class DesignLoaderScene extends SceneBase {
@@ -32,11 +34,6 @@ export class DesignLoaderScene extends SceneBase {
   }
 
   preload(): void {
-
-    this.loadImage("loading_bg", "arenas");
-    this.loadImage("logo", "");
-    this.loadImage("pride-update", "events");
-
     // Load menu images
     this.loadAtlas("bg", "ui");
     this.loadImage("command_fight_labels", "ui");
@@ -94,51 +91,51 @@ export class DesignLoaderScene extends SceneBase {
     this.loadImage("type_tera", "ui");
     this.loadAtlas("type_bgs", "ui");
 
-    this.loadImage("dawn_icon_fg", "ui");
-    this.loadImage("dawn_icon_mg", "ui");
-    this.loadImage("dawn_icon_bg", "ui");
-    this.loadImage("day_icon_fg", "ui");
-    this.loadImage("day_icon_mg", "ui");
-    this.loadImage("day_icon_bg", "ui");
-    this.loadImage("dusk_icon_fg", "ui");
-    this.loadImage("dusk_icon_mg", "ui");
-    this.loadImage("dusk_icon_bg", "ui");
-    this.loadImage("night_icon_fg", "ui");
-    this.loadImage("night_icon_mg", "ui");
-    this.loadImage("night_icon_bg", "ui");
+    // this.loadImage("dawn_icon_fg", "ui");
+    // this.loadImage("dawn_icon_mg", "ui");
+    // this.loadImage("dawn_icon_bg", "ui");
+    // this.loadImage("day_icon_fg", "ui");
+    // this.loadImage("day_icon_mg", "ui");
+    // this.loadImage("day_icon_bg", "ui");
+    // this.loadImage("dusk_icon_fg", "ui");
+    // this.loadImage("dusk_icon_mg", "ui");
+    // this.loadImage("dusk_icon_bg", "ui");
+    // this.loadImage("night_icon_fg", "ui");
+    // this.loadImage("night_icon_mg", "ui");
+    // this.loadImage("night_icon_bg", "ui");
 
-    this.loadImage("pb_tray_overlay_player", "ui");
-    this.loadImage("pb_tray_overlay_enemy", "ui");
-    this.loadAtlas("pb_tray_ball", "ui");
+    // this.loadImage("pb_tray_overlay_player", "ui");
+    // this.loadImage("pb_tray_overlay_enemy", "ui");
+    // this.loadAtlas("pb_tray_ball", "ui");
 
-    this.loadImage("party_bg", "ui");
-    this.loadImage("party_bg_double", "ui");
-    this.loadAtlas("party_slot_main", "ui");
-    this.loadAtlas("party_slot", "ui");
-    this.loadImage("party_slot_overlay_lv", "ui");
-    this.loadImage("party_slot_hp_bar", "ui");
-    this.loadAtlas("party_slot_hp_overlay", "ui");
-    this.loadAtlas("party_pb", "ui");
-    this.loadAtlas("party_cancel", "ui");
+    // this.loadImage("party_bg", "ui");
+    // this.loadImage("party_bg_double", "ui");
+    // this.loadAtlas("party_slot_main", "ui");
+    // this.loadAtlas("party_slot", "ui");
+    // this.loadImage("party_slot_overlay_lv", "ui");
+    // this.loadImage("party_slot_hp_bar", "ui");
+    // this.loadAtlas("party_slot_hp_overlay", "ui");
+    // this.loadAtlas("party_pb", "ui");
+    // this.loadAtlas("party_cancel", "ui");
 
-    this.loadImage("summary_bg", "ui");
-    this.loadImage("summary_overlay_shiny", "ui");
-    this.loadImage("summary_profile", "ui");
-    this.loadImage("summary_profile_prompt_z", "ui");      // The pixel Z button prompt
-    this.loadImage("summary_profile_prompt_a", "ui");     // The pixel A button prompt
-    this.loadImage("summary_profile_ability", "ui");      // Pixel text 'ABILITY'
-    this.loadImage("summary_profile_passive", "ui");      // Pixel text 'PASSIVE'
-    this.loadImage("summary_status", "ui");
-    this.loadImage("summary_stats", "ui");
-    this.loadImage("summary_stats_overlay_exp", "ui");
-    this.loadImage("summary_moves", "ui");
-    this.loadImage("summary_moves_effect", "ui");
-    this.loadImage("summary_moves_overlay_row", "ui");
-    this.loadImage("summary_moves_overlay_pp", "ui");
+    // this.loadImage("summary_bg", "ui");
+    // this.loadImage("summary_overlay_shiny", "ui");
+    // this.loadImage("summary_profile", "ui");
+    // this.loadImage("summary_profile_prompt_z", "ui");      // The pixel Z button prompt
+    // this.loadImage("summary_profile_prompt_a", "ui");     // The pixel A button prompt
+    // this.loadImage("summary_profile_ability", "ui");      // Pixel text 'ABILITY'
+    // this.loadImage("summary_profile_passive", "ui");      // Pixel text 'PASSIVE'
+    // this.loadImage("summary_status", "ui");
+    // this.loadImage("summary_stats", "ui");
+    // this.loadImage("summary_stats_overlay_exp", "ui");
+    // this.loadImage("summary_moves", "ui");
+    // this.loadImage("summary_moves_effect", "ui");
+    // this.loadImage("summary_moves_overlay_row", "ui");
+    // this.loadImage("summary_moves_overlay_pp", "ui");
     this.loadAtlas("summary_moves_cursor", "ui");
-    for (let t = 1; t <= 3; t++) {
-      this.loadImage(`summary_tabs_${t}`, "ui");
-    }
+    // for (let t = 1; t <= 3; t++) {
+    //   this.loadImage(`summary_tabs_${t}`, "ui");
+    // }
 
     this.loadImage("starter_select_bg", "ui");
     this.loadImage("select_cursor", "ui");
@@ -152,109 +149,109 @@ export class DesignLoaderScene extends SceneBase {
 
     this.loadImage("default_bg", "arenas");
     // Load arena images
-    Utils.getEnumValues(Biome).map(bt => {
-      const btKey = Biome[bt].toLowerCase();
-      const isBaseAnimated = btKey === "end";
-      const baseAKey = `${btKey}_a`;
-      const baseBKey = `${btKey}_b`;
-      this.loadImage(`${btKey}_bg`, "arenas");
-      if (!isBaseAnimated) {
-        this.loadImage(baseAKey, "arenas");
-      } else {
-        this.loadAtlas(baseAKey, "arenas");
-      }
-      if (!isBaseAnimated) {
-        this.loadImage(baseBKey, "arenas");
-      } else {
-        this.loadAtlas(baseBKey, "arenas");
-      }
-      if (getBiomeHasProps(bt)) {
-        for (let p = 1; p <= 3; p++) {
-          const isPropAnimated = p === 3 && [ "power_plant", "end" ].find(b => b === btKey);
-          const propKey = `${btKey}_b_${p}`;
-          if (!isPropAnimated) {
-            this.loadImage(propKey, "arenas");
-          } else {
-            this.loadAtlas(propKey, "arenas");
-          }
-        }
-      }
-    });
+    // Utils.getEnumValues(Biome).map(bt => {
+    //   const btKey = Biome[bt].toLowerCase();
+    //   const isBaseAnimated = btKey === "end";
+    //   const baseAKey = `${btKey}_a`;
+    //   const baseBKey = `${btKey}_b`;
+    //   this.loadImage(`${btKey}_bg`, "arenas");
+    //   if (!isBaseAnimated) {
+    //     this.loadImage(baseAKey, "arenas");
+    //   } else {
+    //     this.loadAtlas(baseAKey, "arenas");
+    //   }
+    //   if (!isBaseAnimated) {
+    //     this.loadImage(baseBKey, "arenas");
+    //   } else {
+    //     this.loadAtlas(baseBKey, "arenas");
+    //   }
+    //   if (getBiomeHasProps(bt)) {
+    //     for (let p = 1; p <= 3; p++) {
+    //       const isPropAnimated = p === 3 && [ "power_plant", "end" ].find(b => b === btKey);
+    //       const propKey = `${btKey}_b_${p}`;
+    //       if (!isPropAnimated) {
+    //         this.loadImage(propKey, "arenas");
+    //       } else {
+    //         this.loadAtlas(propKey, "arenas");
+    //       }
+    //     }
+    //   }
+    // });
 
-    // Load bitmap fonts
-    this.load.bitmapFont("item-count", "fonts/item-count.png", "fonts/item-count.xml");
-
-    // Load trainer images
-    this.loadAtlas("trainer_m_back", "trainer");
-    this.loadAtlas("trainer_m_back_pb", "trainer");
-    this.loadAtlas("trainer_f_back", "trainer");
-    this.loadAtlas("trainer_f_back_pb", "trainer");
-
-    Utils.getEnumValues(TrainerType).map(tt => {
-      const config = trainerConfigs[tt];
-      this.loadAtlas(config.getSpriteKey(), "trainer");
-      if (config.doubleOnly || config.hasDouble) {
-        this.loadAtlas(config.getSpriteKey(true), "trainer");
-      }
-    });
-
-    // Load character sprites
-    this.loadAtlas("c_rival_m", "character", "rival_m");
-    this.loadAtlas("c_rival_f", "character", "rival_f");
-
-    // Load pokemon-related images
-    this.loadImage("pkmn__back__sub", "pokemon/back", "sub.png");
-    this.loadImage("pkmn__sub", "pokemon", "sub.png");
-    this.loadAtlas("battle_stats", "effects");
-    this.loadAtlas("shiny", "effects");
-    this.loadAtlas("shiny_2", "effects");
-    this.loadAtlas("shiny_3", "effects");
-    this.loadImage("tera", "effects");
-    this.loadAtlas("pb_particles", "effects");
-    this.loadImage("evo_sparkle", "effects");
-    this.loadAtlas("tera_sparkle", "effects");
-    this.load.video("evo_bg", "images/effects/evo_bg.mp4", true);
-
-    this.loadAtlas("pb", "");
-    this.loadAtlas("items", "");
-    this.loadAtlas("types", "");
-
-    // Get current lang and load the types atlas for it. English will only load types while all other languages will load types and types_<lang>
-    const lang = i18next.resolvedLanguage;
-    if (lang !== "en") {
-      if (Utils.verifyLang(lang)) {
-        this.loadAtlas(`types_${lang}`, "");
-      } else {
-        // Fallback to English
-        this.loadAtlas("types", "");
-      }
-    } else {
-      this.loadAtlas("types", "");
-    }
-
-
-    this.loadAtlas("statuses", "");
-    this.loadAtlas("categories", "");
-
-    this.loadAtlas("egg", "egg");
-    this.loadAtlas("egg_crack", "egg");
-    this.loadAtlas("egg_icons", "egg");
-    this.loadAtlas("egg_shard", "egg");
-    this.loadAtlas("egg_lightrays", "egg");
-    Utils.getEnumKeys(GachaType).forEach(gt => {
-      const key = gt.toLowerCase();
-      this.loadImage(`gacha_${key}`, "egg");
-      this.loadAtlas(`gacha_underlay_${key}`, "egg");
-    });
-    this.loadImage("gacha_glass", "egg");
-    this.loadImage("gacha_eggs", "egg");
-    this.loadAtlas("gacha_hatch", "egg");
-    this.loadImage("gacha_knob", "egg");
-
-    this.loadImage("egg_list_bg", "ui");
-
-    this.loadImage("end_m", "cg");
-    this.loadImage("end_f", "cg");
+    // // Load bitmap fonts
+    // this.load.bitmapFont("item-count", "fonts/item-count.png", "fonts/item-count.xml");
+    //
+    // // Load trainer images
+    // this.loadAtlas("trainer_m_back", "trainer");
+    // this.loadAtlas("trainer_m_back_pb", "trainer");
+    // this.loadAtlas("trainer_f_back", "trainer");
+    // this.loadAtlas("trainer_f_back_pb", "trainer");
+    //
+    // Utils.getEnumValues(TrainerType).map(tt => {
+    //   const config = trainerConfigs[tt];
+    //   this.loadAtlas(config.getSpriteKey(), "trainer");
+    //   if (config.doubleOnly || config.hasDouble) {
+    //     this.loadAtlas(config.getSpriteKey(true), "trainer");
+    //   }
+    // });
+    //
+    // // Load character sprites
+    // this.loadAtlas("c_rival_m", "character", "rival_m");
+    // this.loadAtlas("c_rival_f", "character", "rival_f");
+    //
+    // // Load pokemon-related images
+    // this.loadImage("pkmn__back__sub", "pokemon/back", "sub.png");
+    // this.loadImage("pkmn__sub", "pokemon", "sub.png");
+    // this.loadAtlas("battle_stats", "effects");
+    // this.loadAtlas("shiny", "effects");
+    // this.loadAtlas("shiny_2", "effects");
+    // this.loadAtlas("shiny_3", "effects");
+    // this.loadImage("tera", "effects");
+    // this.loadAtlas("pb_particles", "effects");
+    // this.loadImage("evo_sparkle", "effects");
+    // this.loadAtlas("tera_sparkle", "effects");
+    // this.load.video("evo_bg", "images/effects/evo_bg.mp4", true);
+    //
+    // this.loadAtlas("pb", "");
+    // this.loadAtlas("items", "");
+    // this.loadAtlas("types", "");
+    //
+    // // Get current lang and load the types atlas for it. English will only load types while all other languages will load types and types_<lang>
+    // const lang = i18next.resolvedLanguage;
+    // if (lang !== "en") {
+    //   if (Utils.verifyLang(lang)) {
+    //     this.loadAtlas(`types_${lang}`, "");
+    //   } else {
+    //     // Fallback to English
+    //     this.loadAtlas("types", "");
+    //   }
+    // } else {
+    //   this.loadAtlas("types", "");
+    // }
+    //
+    //
+    // this.loadAtlas("statuses", "");
+    // this.loadAtlas("categories", "");
+    //
+    // this.loadAtlas("egg", "egg");
+    // this.loadAtlas("egg_crack", "egg");
+    // this.loadAtlas("egg_icons", "egg");
+    // this.loadAtlas("egg_shard", "egg");
+    // this.loadAtlas("egg_lightrays", "egg");
+    // Utils.getEnumKeys(GachaType).forEach(gt => {
+    //   const key = gt.toLowerCase();
+    //   this.loadImage(`gacha_${key}`, "egg");
+    //   this.loadAtlas(`gacha_underlay_${key}`, "egg");
+    // });
+    // this.loadImage("gacha_glass", "egg");
+    // this.loadImage("gacha_eggs", "egg");
+    // this.loadAtlas("gacha_hatch", "egg");
+    // this.loadImage("gacha_knob", "egg");
+    //
+    // this.loadImage("egg_list_bg", "ui");
+    //
+    // this.loadImage("end_m", "cg");
+    // this.loadImage("end_f", "cg");
 
     for (let i = 0; i < 10; i++) {
       this.loadAtlas(`pokemon_icons_${i}`, "");
@@ -263,8 +260,8 @@ export class DesignLoaderScene extends SceneBase {
       }
     }
 
-    this.loadAtlas("dualshock", "inputs");
-    this.loadAtlas("xbox", "inputs");
+    // this.loadAtlas("dualshock", "inputs");
+    // this.loadAtlas("xbox", "inputs");
     this.loadAtlas("keyboard", "inputs");
 
     // this.loadSe("select");
@@ -312,17 +309,17 @@ export class DesignLoaderScene extends SceneBase {
 
     this.load.plugin("rextexteditplugin", "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rextexteditplugin.min.js", true);
     initVouchers();
-    initAchievements();
-    initStatsKeys();
+    // initAchievements();
+    // initStatsKeys();
     initPokemonPrevolutions();
     initBiomes();
     initEggMoves();
     initPokemonForms();
-    initTrainerTypeDialogue();
+    // initTrainerTypeDialogue();
     initSpecies();
     initMoves();
     initAbilities();
-    initChallenges();
+    // initChallenges();
   }
 
   async create() {
