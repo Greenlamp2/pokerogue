@@ -17,7 +17,9 @@
 			"#test/*": ["./test/*.ts"]
 		},
 		"outDir": "./build",
-		"noEmit": true
+		"noEmit": true,
+		"jsx": "react-jsx",
+		"lib": ["dom", "dom.iterable", "esnext"]
 	},
 	"typedocOptions": {
 		"entryPoints": ["./src"],

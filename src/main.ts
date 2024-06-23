@@ -151,7 +151,7 @@ Phaser.GameObjects.Rectangle.prototype.setPositionRelative = setPositionRelative
 
 document.fonts.load("16px emerald").then(() => document.fonts.load("10px pkmnems"));
 
-let game;
+export let game;
 
 const startGame = () => {
   game = new Phaser.Game(config);

@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import react from '@vitejs/plugin-react';
 
 export const defaultConfig = {
-	plugins: [tsconfigPaths() as any],
+	plugins: [tsconfigPaths() as any, react()],
 	server: { host: '0.0.0.0', port: 8000 },
 	clearScreen: false,
 	build: {
