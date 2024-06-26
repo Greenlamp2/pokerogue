@@ -6,12 +6,12 @@ import {
   CommandPhase,
   EnemyCommandPhase, TurnEndPhase,
 } from "#app/phases";
-import {Mode} from "#app/ui/ui";
 import {getMovePosition} from "#app/test/utils/gameManagerUtils";
 import {Command} from "#app/ui/command-ui-handler";
 import {Stat} from "#app/data/pokemon-stat";
 import { Moves } from "#enums/moves";
 import { Species } from "#enums/species";
+import {Mode} from "#enums/mode";
 
 
 describe("Moves - Tackle", () => {

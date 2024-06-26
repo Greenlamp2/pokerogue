@@ -1,9 +1,9 @@
 import BattleScene from "../battle-scene";
 import { ModalConfig, ModalUiHandler } from "./modal-ui-handler";
 import { addTextObject, TextStyle } from "./text";
-import { Mode } from "./ui";
 import { updateUserInfo } from "#app/account";
 import * as Utils from "#app/utils";
+import {Mode} from "#enums/mode";
 
 export default class UnavailableModalUiHandler extends ModalUiHandler {
   private reconnectTimer: NodeJS.Timeout;

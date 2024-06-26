@@ -18,7 +18,6 @@ import EggData from "./egg-data";
 import { Egg } from "../data/egg";
 import { VoucherType, vouchers } from "./voucher";
 import { AES, enc } from "crypto-js";
-import { Mode } from "../ui/ui";
 import { clientSessionId, loggedInUser, updateUserInfo } from "../account";
 import { Nature } from "../data/nature";
 import { GameStats } from "./game-stats";
@@ -39,6 +38,7 @@ import { GameDataType } from "#enums/game-data-type";
 import { Moves } from "#enums/moves";
 import { PlayerGender } from "#enums/player-gender";
 import { Species } from "#enums/species";
+import {Mode} from "#enums/mode";
 
 export const defaultStarterSpecies: Species[] = [
   Species.BULBASAUR, Species.CHARMANDER, Species.SQUIRTLE,

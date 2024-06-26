@@ -1,11 +1,11 @@
 import BattleScene from "../battle-scene";
 import OptionSelectUiHandler from "./settings/option-select-ui-handler";
-import { Mode } from "./ui";
 import * as Utils from "../utils";
 import { TextStyle, addTextObject } from "./text";
 import { getBattleCountSplashMessage, getSplashMessages } from "../data/splash-messages";
 import i18next from "i18next";
 import { TimedEventDisplay } from "#app/timed-event-manager.js";
+import {Mode} from "#enums/mode";
 
 export default class TitleUiHandler extends OptionSelectUiHandler {
   private titleContainer: Phaser.GameObjects.Container;

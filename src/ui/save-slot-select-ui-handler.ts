@@ -8,8 +8,8 @@ import PokemonData from "../system/pokemon-data";
 import * as Utils from "../utils";
 import MessageUiHandler from "./message-ui-handler";
 import { TextStyle, addTextObject } from "./text";
-import { Mode } from "./ui";
 import { addWindow } from "./ui-theme";
+import {Mode} from "#enums/mode";
 
 const sessionSlotCount = 5;
 

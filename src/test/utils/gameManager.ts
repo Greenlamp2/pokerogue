@@ -1,5 +1,4 @@
 import GameWrapper from "#app/test/utils/gameWrapper";
-import {Mode} from "#app/ui/ui";
 import {generateStarter, waitUntil} from "#app/test/utils/gameManagerUtils";
 import {
   CommandPhase,
@@ -33,6 +32,7 @@ import { Species } from "#enums/species";
 import { Button } from "#enums/buttons";
 import { BattlerIndex } from "#app/battle.js";
 import TargetSelectUiHandler from "#app/ui/target-select-ui-handler.js";
+import {Mode} from "#enums/mode";
 
 /**
  * Class to manage the game state and transitions between phases.

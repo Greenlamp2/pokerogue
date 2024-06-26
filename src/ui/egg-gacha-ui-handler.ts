@@ -1,5 +1,4 @@
 import BattleScene from "../battle-scene";
-import { Mode } from "./ui";
 import { TextStyle, addTextObject, getEggTierTextTint } from "./text";
 import MessageUiHandler from "./message-ui-handler";
 import * as Utils from "../utils";
@@ -13,6 +12,7 @@ import * as Overrides from "../overrides";
 import { GachaType } from "#app/enums/gacha-types";
 import i18next from "i18next";
 import { EggTier } from "#enums/egg-type";
+import {Mode} from "#enums/mode";
 
 export default class EggGachaUiHandler extends MessageUiHandler {
   private eggGachaContainer: Phaser.GameObjects.Container;

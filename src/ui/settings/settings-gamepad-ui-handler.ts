@@ -1,6 +1,5 @@
 import BattleScene from "../../battle-scene";
 import {addTextObject, TextStyle} from "../text";
-import {Mode} from "../ui";
 import {
   setSettingGamepad,
   SettingGamepad,
@@ -16,6 +15,7 @@ import AbstractControlSettingsUiHandler from "#app/ui/settings/abstract-control-
 import {Device} from "#enums/devices";
 import {truncateString} from "#app/utils";
 import i18next from "i18next";
+import {Mode} from "#enums/mode";
 
 /**
  * Class representing the settings UI handler for gamepads.

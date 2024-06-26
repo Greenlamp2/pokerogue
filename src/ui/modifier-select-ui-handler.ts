@@ -3,13 +3,13 @@ import { getPlayerShopModifierTypeOptionsForWave, ModifierTypeOption, TmModifier
 import { getPokeballAtlasKey, PokeballType } from "../data/pokeball";
 import { addTextObject, getModifierTierTextTint, getTextColor, TextStyle } from "./text";
 import AwaitableUiHandler from "./awaitable-ui-handler";
-import { Mode } from "./ui";
 import { LockModifierTiersModifier, PokemonHeldItemModifier } from "../modifier/modifier";
 import { handleTutorial, Tutorial } from "../tutorial";
 import {Button} from "#enums/buttons";
 import MoveInfoOverlay from "./move-info-overlay";
 import { allMoves } from "../data/move";
 import * as Utils from "./../utils";
+import {Mode} from "#enums/mode";
 
 export const SHOP_OPTIONS_ROW_LIMIT = 6;
 

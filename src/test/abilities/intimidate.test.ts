@@ -7,7 +7,6 @@ import {
   EnemyCommandPhase, SelectStarterPhase,
   TurnInitPhase,
 } from "#app/phases";
-import {Mode} from "#app/ui/ui";
 import {BattleStat} from "#app/data/battle-stat";
 import {generateStarter, getMovePosition} from "#app/test/utils/gameManagerUtils";
 import {Command} from "#app/ui/command-ui-handler";
@@ -16,6 +15,7 @@ import {GameModes, getGameMode} from "#app/game-mode";
 import { Abilities } from "#enums/abilities";
 import { Moves } from "#enums/moves";
 import { Species } from "#enums/species";
+import {Mode} from "#enums/mode";
 
 
 describe("Abilities - Intimidate", () => {

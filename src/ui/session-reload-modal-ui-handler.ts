@@ -1,7 +1,8 @@
 import BattleScene from "../battle-scene";
 import { ModalConfig, ModalUiHandler } from "./modal-ui-handler";
 import { addTextObject, TextStyle } from "./text";
-import { Mode } from "./ui";
+
+import {Mode} from "#enums/mode";
 
 export default class SessionReloadModalUiHandler extends ModalUiHandler {
   constructor(scene: BattleScene, mode?: Mode) {

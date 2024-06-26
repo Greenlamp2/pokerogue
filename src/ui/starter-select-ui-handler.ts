@@ -25,7 +25,6 @@ import MessageUiHandler from "./message-ui-handler";
 import PokemonIconAnimHandler, { PokemonIconAnimMode } from "./pokemon-icon-anim-handler";
 import { StatsContainer } from "./stats-container";
 import { TextStyle, addBBCodeTextObject, addTextObject } from "./text";
-import { Mode } from "./ui";
 import { addWindow } from "./ui-theme";
 import { Egg } from "#app/data/egg";
 import * as Overrides from "../overrides";
@@ -39,6 +38,7 @@ import { Moves } from "#enums/moves";
 import { Species } from "#enums/species";
 import {Button} from "#enums/buttons";
 import { EggSourceType } from "#app/enums/egg-source-types.js";
+import {Mode} from "#enums/mode";
 
 export type StarterSelectCallback = (starters: Starter[]) => void;
 

@@ -4,8 +4,8 @@ import i18next from "i18next";
 import { Voucher, getVoucherTypeIcon, getVoucherTypeName, vouchers } from "../system/voucher";
 import MessageUiHandler from "./message-ui-handler";
 import { TextStyle, addTextObject } from "./text";
-import { Mode } from "./ui";
 import { addWindow } from "./ui-theme";
+import {Mode} from "#enums/mode";
 
 const itemRows = 4;
 const itemCols = 17;

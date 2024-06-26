@@ -115,18 +115,12 @@
 	</div>
     <script type="module">
         if (window.location.href.includes('designer')) {
-			import('./src/main.ts').then(module => {
-                // You can call any initialization method from the module here if needed
-                console.log('Designer module loaded');
-				import('./src/designer/index.tsx').then(module => {
-					// You can call any initialization method from the module here if needed
-					console.log('Main module loaded');
-				}).catch(err => {
-					console.error('Error loading the designer module:', err);
-				});
-            }).catch(err => {
-                console.error('Error loading the designer module:', err);
-            });
+			import('./src/designer/index.tsx').then(module => {
+				// You can call any initialization method from the module here if needed
+				console.log('Designer module loaded');
+			}).catch(err => {
+				console.error('Error loading the designer module:', err);
+			});
         } else {
             import('./src/main.ts').then(module => {
                 // You can call any initialization method from the module here if needed

@@ -1,8 +1,8 @@
 import BattleScene from "../../battle-scene";
-import { Mode } from "../ui";
 "#app/inputs-controller.js";
 import AbstractSettingsUiHandler from "./abstract-settings-ui-handler";
 import { Setting, SettingKeys, SettingType } from "#app/system/settings/settings";
+import {Mode} from "#enums/mode";
 
 export default class SettingsDisplayUiHandler extends AbstractSettingsUiHandler {
   /**

@@ -2,7 +2,8 @@ import i18next from "i18next";
 import BattleScene from "../battle-scene";
 import { ModalUiHandler } from "./modal-ui-handler";
 import { addTextObject, TextStyle } from "./text";
-import { Mode } from "./ui";
+
+import {Mode} from "#enums/mode";
 
 export default class LoadingModalUiHandler extends ModalUiHandler {
   constructor(scene: BattleScene, mode?: Mode) {

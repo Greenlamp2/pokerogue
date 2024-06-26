@@ -2,7 +2,6 @@ import SoundFade from "phaser3-rex-plugins/plugins/soundfade";
 import { Phase } from "./phase";
 import BattleScene, { AnySound } from "./battle-scene";
 import * as Utils from "./utils";
-import { Mode } from "./ui/ui";
 import { EGG_SEED, Egg } from "./data/egg";
 import EggHatchSceneHandler from "./ui/egg-hatch-scene-handler";
 import { PlayerPokemon } from "./field/pokemon";
@@ -10,6 +9,7 @@ import { achvs } from "./system/achv";
 import PokemonInfoContainer from "./ui/pokemon-info-container";
 import EggCounterContainer from "./ui/egg-counter-container";
 import { EggCountChangedEvent } from "./events/egg";
+import {Mode} from "#enums/mode";
 
 /**
  * Class that represents egg hatching

@@ -1,6 +1,5 @@
 import {afterEach, beforeAll, beforeEach, describe, expect, it, vi} from "vitest";
 import {generateStarter, getMovePosition,} from "#app/test/utils/gameManagerUtils";
-import {Mode} from "#app/ui/ui";
 import {GameModes} from "#app/game-mode";
 import * as overrides from "../../overrides";
 import {Command} from "#app/ui/command-ui-handler";
@@ -24,6 +23,7 @@ import { Abilities } from "#enums/abilities";
 import { Moves } from "#enums/moves";
 import { PlayerGender } from "#enums/player-gender";
 import { Species } from "#enums/species";
+import {Mode} from "#enums/mode";
 
 describe("Test Battle Phase", () => {
   let phaserGame: Phaser.Game;

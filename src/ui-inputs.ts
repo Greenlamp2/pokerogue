@@ -1,5 +1,4 @@
 import Phaser from "phaser";
-import {Mode} from "./ui/ui";
 import {InputsController} from "./inputs-controller";
 import MessageUiHandler from "./ui/message-ui-handler";
 import StarterSelectUiHandler from "./ui/starter-select-ui-handler";
@@ -11,6 +10,7 @@ import SettingsKeyboardUiHandler from "#app/ui/settings/settings-keyboard-ui-han
 import BattleScene from "./battle-scene";
 import SettingsDisplayUiHandler from "./ui/settings/settings-display-ui-handler";
 import SettingsAudioUiHandler from "./ui/settings/settings-audio-ui-handler";
+import {Mode} from "#enums/mode";
 
 type ActionKeys = Record<Button, () => void>;
 

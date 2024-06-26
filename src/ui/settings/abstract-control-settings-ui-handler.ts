@@ -1,6 +1,5 @@
 import UiHandler from "../ui-handler";
 import BattleScene from "../../battle-scene";
-import {Mode} from "../ui";
 import {InterfaceConfig} from "../../inputs-controller";
 import {addWindow} from "../ui-theme";
 import {addTextObject, TextStyle} from "../text";
@@ -9,6 +8,7 @@ import NavigationMenu, {NavigationManager} from "#app/ui/settings/navigationMenu
 import { Device } from "#enums/devices";
 import { Button } from "#enums/buttons";
 import i18next from "i18next";
+import {Mode} from "#enums/mode";
 
 export interface InputsIcons {
     [key: string]: Phaser.GameObjects.Sprite;

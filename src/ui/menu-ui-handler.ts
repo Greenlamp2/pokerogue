@@ -1,6 +1,5 @@
 import BattleScene, { bypassLogin } from "../battle-scene";
 import { TextStyle, addTextObject } from "./text";
-import { Mode } from "./ui";
 import * as Utils from "../utils";
 import { addWindow } from "./ui-theme";
 import MessageUiHandler from "./message-ui-handler";
@@ -10,6 +9,7 @@ import { updateUserInfo } from "../account";
 import i18next from "i18next";
 import {Button} from "#enums/buttons";
 import { GameDataType } from "#enums/game-data-type";
+import {Mode} from "#enums/mode";
 
 enum MenuOptions {
   GAME_SETTINGS,

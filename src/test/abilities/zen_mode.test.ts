@@ -14,7 +14,6 @@ import {
   TurnInitPhase,
   TurnStartPhase,
 } from "#app/phases";
-import { Mode } from "#app/ui/ui";
 import { Stat } from "#app/data/pokemon-stat";
 import { getMovePosition } from "#app/test/utils/gameManagerUtils";
 import { Command } from "#app/ui/command-ui-handler";
@@ -23,6 +22,7 @@ import { Status, StatusEffect } from "#app/data/status-effect.js";
 import { Abilities } from "#enums/abilities";
 import { Moves } from "#enums/moves";
 import { Species } from "#enums/species";
+import {Mode} from "#enums/mode";
 
 const TIMEOUT = 20 * 1000;
 

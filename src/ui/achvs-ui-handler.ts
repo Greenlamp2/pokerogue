@@ -4,10 +4,10 @@ import i18next from "i18next";
 import { Achv, achvs, getAchievementDescription } from "../system/achv";
 import MessageUiHandler from "./message-ui-handler";
 import { addTextObject, TextStyle } from "./text";
-import { Mode } from "./ui";
 import { addWindow } from "./ui-theme";
 import { ParseKeys } from "i18next";
 import { PlayerGender } from "#enums/player-gender";
+import {Mode} from "#enums/mode";
 
 export default class AchvsUiHandler extends MessageUiHandler {
   private achvsContainer: Phaser.GameObjects.Container;

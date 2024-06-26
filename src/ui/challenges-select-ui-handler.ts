@@ -1,6 +1,5 @@
 import BattleScene from "../battle-scene";
 import { TextStyle, addTextObject } from "./text";
-import { Mode } from "./ui";
 import UiHandler from "./ui-handler";
 import { addWindow } from "./ui-theme";
 import {Button} from "#enums/buttons";
@@ -11,6 +10,7 @@ import * as Utils from "../utils";
 import { Challenges } from "#app/enums/challenges.js";
 import BBCodeText from "phaser3-rex-plugins/plugins/bbcodetext";
 import { Color, ShadowColor } from "#app/enums/color.js";
+import {Mode} from "#enums/mode";
 
 /**
  * Handles all the UI for choosing optional challenges.

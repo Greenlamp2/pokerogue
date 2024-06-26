@@ -7,13 +7,13 @@ import {
   EnemyCommandPhase,
   TurnInitPhase,
 } from "#app/phases";
-import {Mode} from "#app/ui/ui";
 import {getMovePosition} from "#app/test/utils/gameManagerUtils";
 import {Command} from "#app/ui/command-ui-handler";
 import {BattleStat} from "#app/data/battle-stat";
 import { Abilities } from "#enums/abilities";
 import { Moves } from "#enums/moves";
 import { Species } from "#enums/species";
+import {Mode} from "#enums/mode";
 
 
 describe("Moves - Tail whip", () => {

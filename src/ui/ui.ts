@@ -15,7 +15,7 @@ import TargetSelectUiHandler from "./target-select-ui-handler";
 import SettingsUiHandler from "./settings/settings-ui-handler";
 import SettingsGamepadUiHandler from "./settings/settings-gamepad-ui-handler";
 import GameChallengesUiHandler from "./challenges-select-ui-handler";
-import { TextStyle, addTextObject } from "./text";
+import {addTextObject, TextStyle} from "./text";
 import AchvBar from "./achv-bar";
 import MenuUiHandler from "./menu-ui-handler";
 import AchvsUiHandler from "./achvs-ui-handler";
@@ -44,46 +44,8 @@ import SettingsKeyboardUiHandler from "#app/ui/settings/settings-keyboard-ui-han
 import KeyboardBindingUiHandler from "#app/ui/settings/keyboard-binding-ui-handler";
 import SettingsDisplayUiHandler from "./settings/settings-display-ui-handler";
 import SettingsAudioUiHandler from "./settings/settings-audio-ui-handler";
-import { PlayerGender } from "#enums/player-gender";
-
-export enum Mode {
-  MESSAGE,
-  TITLE,
-  COMMAND,
-  FIGHT,
-  BALL,
-  TARGET_SELECT,
-  MODIFIER_SELECT,
-  SAVE_SLOT,
-  PARTY,
-  SUMMARY,
-  STARTER_SELECT,
-  EVOLUTION_SCENE,
-  EGG_HATCH_SCENE,
-  CONFIRM,
-  OPTION_SELECT,
-  MENU,
-  MENU_OPTION_SELECT,
-  SETTINGS,
-  SETTINGS_DISPLAY,
-  SETTINGS_AUDIO,
-  SETTINGS_GAMEPAD,
-  GAMEPAD_BINDING,
-  SETTINGS_KEYBOARD,
-  KEYBOARD_BINDING,
-  ACHIEVEMENTS,
-  GAME_STATS,
-  VOUCHERS,
-  EGG_LIST,
-  EGG_GACHA,
-  LOGIN_FORM,
-  REGISTRATION_FORM,
-  LOADING,
-  SESSION_RELOAD,
-  UNAVAILABLE,
-  OUTDATED,
-  CHALLENGE_SELECT
-}
+import {PlayerGender} from "#enums/player-gender";
+import {Mode} from "#enums/mode";
 
 const transitionModes = [
   Mode.SAVE_SLOT,

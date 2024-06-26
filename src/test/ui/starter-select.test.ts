@@ -6,7 +6,6 @@ import {
   SelectStarterPhase,
   TitlePhase,
 } from "#app/phases";
-import {Mode} from "#app/ui/ui";
 import {GameModes} from "#app/game-mode";
 import StarterSelectUiHandler from "#app/ui/starter-select-ui-handler";
 import OptionSelectUiHandler from "#app/ui/settings/option-select-ui-handler";
@@ -18,6 +17,7 @@ import {Nature} from "#app/data/nature";
 import { Button } from "#enums/buttons";
 import { Abilities } from "#enums/abilities";
 import { Species } from "#enums/species";
+import {Mode} from "#enums/mode";
 
 
 describe("UI - Starter select", () => {

@@ -3,10 +3,10 @@ import BattleScene from "../battle-scene";
 import { getPokeballName } from "../data/pokeball";
 import { addTextObject, TextStyle } from "./text";
 import { Command } from "./command-ui-handler";
-import { Mode } from "./ui";
 import UiHandler from "./ui-handler";
 import { addWindow } from "./ui-theme";
 import {Button} from "#enums/buttons";
+import {Mode} from "#enums/mode";
 
 export default class BallUiHandler extends UiHandler {
   private pokeballSelectContainer: Phaser.GameObjects.Container;

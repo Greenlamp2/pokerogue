@@ -34,10 +34,11 @@ import {
   UnavailablePhase,
   VictoryPhase
 } from "#app/phases";
-import UI, {Mode} from "#app/ui/ui";
+import UI from "#app/ui/ui";
 import {Phase} from "#app/phase";
 import ErrorInterceptor from "#app/test/utils/errorInterceptor";
 import {QuietFormChangePhase} from "#app/form-change-phase";
+import {Mode} from "#enums/mode";
 
 export default class PhaseInterceptor {
   public scene;

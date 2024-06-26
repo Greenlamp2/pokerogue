@@ -9,12 +9,12 @@ import {
   CommandPhase,
   MoveEffectPhase,
 } from "#app/phases";
-import {Mode} from "#app/ui/ui";
 import {Stat} from "#app/data/pokemon-stat";
 import {Moves} from "#enums/moves";
 import {getMovePosition} from "#app/test/utils/gameManagerUtils";
 import {Command} from "#app/ui/command-ui-handler";
 import * as Utils from "#app/utils";
+import {Mode} from "#enums/mode";
 
 
 describe("Abilities - Sheer Force", () => {

@@ -1,5 +1,4 @@
 import {afterEach, beforeAll, beforeEach, describe, expect, it, vi} from "vitest";
-import {Mode} from "#app/ui/ui";
 import * as overrides from "../../overrides";
 import {
   CommandPhase,
@@ -9,6 +8,7 @@ import Phaser from "phaser";
 import { Abilities } from "#enums/abilities";
 import { Moves } from "#enums/moves";
 import { Species } from "#enums/species";
+import {Mode} from "#enums/mode";
 
 describe("Test Battle Phase", () => {
   let phaserGame: Phaser.Game;

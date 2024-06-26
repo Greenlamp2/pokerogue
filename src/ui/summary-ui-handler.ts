@@ -1,5 +1,4 @@
 import BattleScene, { starterColors } from "../battle-scene";
-import { Mode } from "./ui";
 import UiHandler from "./ui-handler";
 import * as Utils from "../utils";
 import { PlayerPokemon } from "../field/pokemon";
@@ -23,6 +22,7 @@ import { Ability } from "../data/ability.js";
 import i18next from "i18next";
 import {modifierSortFunc} from "../modifier/modifier";
 import { PlayerGender } from "#enums/player-gender";
+import {Mode} from "#enums/mode";
 
 
 enum Page {

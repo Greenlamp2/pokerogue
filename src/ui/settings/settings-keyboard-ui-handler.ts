@@ -1,5 +1,4 @@
 import BattleScene from "../../battle-scene";
-import {Mode} from "../ui";
 import cfg_keyboard_qwerty from "#app/configs/inputs/cfg_keyboard_qwerty";
 import {
   setSettingKeyboard,
@@ -16,6 +15,7 @@ import {deleteBind} from "#app/configs/inputs/configHandler";
 import {Device} from "#enums/devices";
 import {NavigationManager} from "#app/ui/settings/navigationMenu";
 import i18next from "i18next";
+import {Mode} from "#enums/mode";
 
 /**
  * Class representing the settings UI handler for keyboards.
