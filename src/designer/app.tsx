@@ -1,34 +1,28 @@
 import React, {useEffect} from "react";
 import useDesigner from "#app/designer/hooks/useDesigner";
 import {Mode} from "#app/ui/ui";
-import useWebify from "#app/designer/hooks/useWebify";
+import Webifier from "#app/designer/webifiers/webifier";
 
 const App = () => {
-  const { ready, setMode, mode, handler, render } = useDesigner();
+  const { ready, setMode, handler, mode } = useDesigner();
   useEffect(() => {
     if (ready) {
       setMode(Mode.SETTINGS);
     }
   }, [ready]);
 
-  useEffect(() => {
-    if (mode) {
-      // console.log("current mode:", mode);
-    }
-  }, [mode]);
-
-  useEffect(() => {
-    if (handler) {
-      // console.log("current handler :", handler);
-    }
-  }, [handler]);
   if (!ready) {
     return null;
   }
 
   return (
     <div>
-      { render() }
+      coucou
+      <Webifier
+        handler={handler}
+        mode={mode}
+        target={Mode.SETTINGS}
+      />
     </div>
   );
 };

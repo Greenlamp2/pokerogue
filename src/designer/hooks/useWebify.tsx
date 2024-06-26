@@ -10,9 +10,6 @@ const useWebify = (handler: UiHandler) => {
   const [_webified, setWebified] = useState([]);
 
   useEffect(() => {
-    if (!handler) {
-      return;
-    }
     setElements(handler.getUi().list.reverse());
   }, [handler]);
 
@@ -30,11 +27,6 @@ const useWebify = (handler: UiHandler) => {
       }
     }
     setList(temp);
-    // const x = element.x;
-    // const y = element.y;
-    // const width = element.width;
-    // const height = element.height;
-    // const name = element.name;
   }, [_elements]);
 
   useEffect(() => {
