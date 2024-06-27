@@ -5,6 +5,7 @@ import MockNineslice from "#app/test/utils/mocks/mocksContainer/mockNineslice";
 import MockImage from "#app/test/utils/mocks/mocksContainer/mockImage";
 import MockText from "#app/test/utils/mocks/mocksContainer/mockText";
 import MockPolygon from "#app/test/utils/mocks/mocksContainer/mockPolygon";
+import MockDisplayList from "#test/utils/mocks/mocksContainer/mockDisplayList";
 
 
 export default class MockTextureManager {
@@ -52,6 +53,12 @@ export default class MockTextureManager {
     //   this.containers.push(obj);
     // }
   }
+
+  // displayList() {
+  //   const _displayList = new MockDisplayList(this);
+  //   this.list.push(_displayList);
+  //   return _displayList;
+  // }
 
   rectangle(x, y, width, height, fillColor) {
     const rectangle = new MockRectangle(this, x, y, width, height, fillColor);
