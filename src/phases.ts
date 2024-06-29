@@ -304,7 +304,11 @@ export class TitlePhase extends Phase {
       noCancel: true,
       yOffset: 47
     };
-    this.scene.ui.setMode(Mode.TITLE, config);
+    if (import.meta.env.VITE_MODE_OVERRIDE) {
+      this.scene.ui.setMode(import.meta.env.VITE_MODE_OVERRIDE, config);
+    } else {
+      this.scene.ui.setMode(Mode.TITLE, config);
+    }
   }
 
   loadSaveSlot(slotId: integer): void {

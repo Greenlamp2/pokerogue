@@ -23,6 +23,8 @@ import { initVouchers } from "./system/voucher";
 import { Biome } from "#enums/biome";
 import { TrainerType } from "#enums/trainer-type";
 
+const loading_sequence_skip = import.meta.env.VITE_LOADING_SEQUENCE_SKIP;
+
 export class LoadingScene extends SceneBase {
   readonly LOAD_EVENTS = Phaser.Loader.Events;
 
@@ -34,305 +36,383 @@ export class LoadingScene extends SceneBase {
   }
 
   preload() {
+    const loadSequence = {
+      manifest: true,
+      loading: true,
+      events: true,
+      ui: true,
+      battle: true,
+      achievement: true,
+      starter: true,
+      party: true,
+      summary: true,
+      arena: true,
+      font: true,
+      trainer: true,
+      effects: true,
+      items: true,
+      placeholder: true,
+      types: true,
+      egg: true,
+      illustration: true,
+      pokemon_icons: true,
+      inputs: true,
+      sounds: true,
+      musics: true,
+    };
+
+    if (loading_sequence_skip) {
+      for (const key of loading_sequence_skip.split(",")) {
+        loadSequence[key] = false;
+      }
+    }
+
     Utils.localPing();
-    this.load["manifest"] = this.game["manifest"];
 
-    this.loadImage("loading_bg", "arenas");
-    this.loadImage("logo", "");
-    this.loadImage("pride-update", "events");
-
-    // Load menu images
-    this.loadAtlas("bg", "ui");
-    this.loadAtlas("prompt", "ui");
-    this.loadImage("candy", "ui");
-    this.loadImage("candy_overlay", "ui");
-    this.loadImage("cursor", "ui");
-    this.loadImage("cursor_reverse", "ui");
-    for (const wv of Utils.getEnumValues(WindowVariant)) {
-      for (let w = 1; w <= 5; w++) {
-        this.loadImage(`window_${w}${getWindowVariantSuffix(wv)}`, "ui/windows");
-      }
-    }
-    this.loadAtlas("namebox", "ui");
-    this.loadImage("pbinfo_player", "ui");
-    this.loadImage("pbinfo_player_stats", "ui");
-    this.loadImage("pbinfo_player_mini", "ui");
-    this.loadImage("pbinfo_player_mini_stats", "ui");
-    this.loadAtlas("pbinfo_player_type", "ui");
-    this.loadAtlas("pbinfo_player_type1", "ui");
-    this.loadAtlas("pbinfo_player_type2", "ui");
-    this.loadImage("pbinfo_enemy_mini", "ui");
-    this.loadImage("pbinfo_enemy_mini_stats", "ui");
-    this.loadImage("pbinfo_enemy_boss", "ui");
-    this.loadImage("pbinfo_enemy_boss_stats", "ui");
-    this.loadAtlas("pbinfo_enemy_type", "ui");
-    this.loadAtlas("pbinfo_enemy_type1", "ui");
-    this.loadAtlas("pbinfo_enemy_type2", "ui");
-    this.loadAtlas("pbinfo_stat", "ui");
-    this.loadAtlas("pbinfo_stat_numbers", "ui");
-    this.loadImage("overlay_lv", "ui");
-    this.loadAtlas("numbers", "ui");
-    this.loadAtlas("numbers_red", "ui");
-    this.loadAtlas("overlay_hp", "ui");
-    this.loadAtlas("overlay_hp_boss", "ui");
-    this.loadImage("overlay_exp", "ui");
-    this.loadImage("icon_owned", "ui");
-    this.loadImage("ability_bar_left", "ui");
-    this.loadImage("party_exp_bar", "ui");
-    this.loadImage("achv_bar", "ui");
-    this.loadImage("achv_bar_2", "ui");
-    this.loadImage("achv_bar_3", "ui");
-    this.loadImage("achv_bar_4", "ui");
-    this.loadImage("achv_bar_5", "ui");
-    this.loadImage("shiny_star", "ui", "shiny.png");
-    this.loadImage("shiny_star_1", "ui", "shiny_1.png");
-    this.loadImage("shiny_star_2", "ui", "shiny_2.png");
-    this.loadImage("shiny_star_small", "ui", "shiny_small.png");
-    this.loadImage("shiny_star_small_1", "ui", "shiny_small_1.png");
-    this.loadImage("shiny_star_small_2", "ui", "shiny_small_2.png");
-    this.loadAtlas("shiny_icons", "ui");
-    this.loadImage("ha_capsule", "ui", "ha_capsule.png");
-    this.loadImage("champion_ribbon", "ui", "champion_ribbon.png");
-    this.loadImage("icon_spliced", "ui");
-    this.loadImage("icon_tera", "ui");
-    this.loadImage("type_tera", "ui");
-    this.loadAtlas("type_bgs", "ui");
-
-    this.loadImage("dawn_icon_fg", "ui");
-    this.loadImage("dawn_icon_mg", "ui");
-    this.loadImage("dawn_icon_bg", "ui");
-    this.loadImage("day_icon_fg", "ui");
-    this.loadImage("day_icon_mg", "ui");
-    this.loadImage("day_icon_bg", "ui");
-    this.loadImage("dusk_icon_fg", "ui");
-    this.loadImage("dusk_icon_mg", "ui");
-    this.loadImage("dusk_icon_bg", "ui");
-    this.loadImage("night_icon_fg", "ui");
-    this.loadImage("night_icon_mg", "ui");
-    this.loadImage("night_icon_bg", "ui");
-
-    this.loadImage("pb_tray_overlay_player", "ui");
-    this.loadImage("pb_tray_overlay_enemy", "ui");
-    this.loadAtlas("pb_tray_ball", "ui");
-
-    this.loadImage("party_bg", "ui");
-    this.loadImage("party_bg_double", "ui");
-    this.loadAtlas("party_slot_main", "ui");
-    this.loadAtlas("party_slot", "ui");
-    this.loadImage("party_slot_overlay_lv", "ui");
-    this.loadImage("party_slot_hp_bar", "ui");
-    this.loadAtlas("party_slot_hp_overlay", "ui");
-    this.loadAtlas("party_pb", "ui");
-    this.loadAtlas("party_cancel", "ui");
-
-    this.loadImage("summary_bg", "ui");
-    this.loadImage("summary_overlay_shiny", "ui");
-    this.loadImage("summary_profile", "ui");
-    this.loadImage("summary_profile_prompt_z", "ui");      // The pixel Z button prompt
-    this.loadImage("summary_profile_prompt_a", "ui");     // The pixel A button prompt
-    this.loadImage("summary_profile_ability", "ui");      // Pixel text 'ABILITY'
-    this.loadImage("summary_profile_passive", "ui");      // Pixel text 'PASSIVE'
-    this.loadImage("summary_status", "ui");
-    this.loadImage("summary_stats", "ui");
-    this.loadImage("summary_stats_overlay_exp", "ui");
-    this.loadImage("summary_moves", "ui");
-    this.loadImage("summary_moves_effect", "ui");
-    this.loadImage("summary_moves_overlay_row", "ui");
-    this.loadImage("summary_moves_overlay_pp", "ui");
-    this.loadAtlas("summary_moves_cursor", "ui");
-    for (let t = 1; t <= 3; t++) {
-      this.loadImage(`summary_tabs_${t}`, "ui");
+    if (loadSequence.manifest) {
+      this.load["manifest"] = this.game["manifest"];
     }
 
-    this.loadImage("starter_select_bg", "ui");
-    this.loadImage("select_cursor", "ui");
-    this.loadImage("select_cursor_highlight", "ui");
-    this.loadImage("select_cursor_highlight_thick", "ui");
-    this.loadImage("select_cursor_pokerus", "ui");
-    this.loadImage("select_gen_cursor", "ui");
-    this.loadImage("select_gen_cursor_highlight", "ui");
+    if (loadSequence.loading) {
+      this.loadImage("loading_bg", "arenas");
+      this.loadImage("logo", "");
+    }
 
-    this.loadImage("saving_icon", "ui");
+    if (loadSequence.events) {
+      this.loadImage("pride-update", "events");
+    }
 
-    this.loadImage("default_bg", "arenas");
-    // Load arena images
-    Utils.getEnumValues(Biome).map(bt => {
-      const btKey = Biome[bt].toLowerCase();
-      const isBaseAnimated = btKey === "end";
-      const baseAKey = `${btKey}_a`;
-      const baseBKey = `${btKey}_b`;
-      this.loadImage(`${btKey}_bg`, "arenas");
-      if (!isBaseAnimated) {
-        this.loadImage(baseAKey, "arenas");
-      } else {
-        this.loadAtlas(baseAKey, "arenas");
-      }
-      if (!isBaseAnimated) {
-        this.loadImage(baseBKey, "arenas");
-      } else {
-        this.loadAtlas(baseBKey, "arenas");
-      }
-      if (getBiomeHasProps(bt)) {
-        for (let p = 1; p <= 3; p++) {
-          const isPropAnimated = p === 3 && [ "power_plant", "end" ].find(b => b === btKey);
-          const propKey = `${btKey}_b_${p}`;
-          if (!isPropAnimated) {
-            this.loadImage(propKey, "arenas");
-          } else {
-            this.loadAtlas(propKey, "arenas");
-          }
+    if (loadSequence.ui) {
+      this.loadAtlas("bg", "ui");
+      this.loadAtlas("prompt", "ui");
+      this.loadImage("cursor", "ui");
+      this.loadImage("cursor_reverse", "ui");
+      for (const wv of Utils.getEnumValues(WindowVariant)) {
+        for (let w = 1; w <= 5; w++) {
+          this.loadImage(`window_${w}${getWindowVariantSuffix(wv)}`, "ui/windows");
         }
       }
-    });
+      this.loadImage("saving_icon", "ui");
+      this.loadImage("default_bg", "arenas");
+    }
 
-    // Load bitmap fonts
-    this.load.bitmapFont("item-count", "fonts/item-count.png", "fonts/item-count.xml");
+    if (loadSequence.battle) {
+      this.loadImage("candy", "ui");
+      this.loadImage("candy_overlay", "ui");
+      this.loadAtlas("namebox", "ui");
+      this.loadImage("pbinfo_player", "ui");
+      this.loadImage("pbinfo_player_stats", "ui");
+      this.loadImage("pbinfo_player_mini", "ui");
+      this.loadImage("pbinfo_player_mini_stats", "ui");
+      this.loadAtlas("pbinfo_player_type", "ui");
+      this.loadAtlas("pbinfo_player_type1", "ui");
+      this.loadAtlas("pbinfo_player_type2", "ui");
+      this.loadImage("pbinfo_enemy_mini", "ui");
+      this.loadImage("pbinfo_enemy_mini_stats", "ui");
+      this.loadImage("pbinfo_enemy_boss", "ui");
+      this.loadImage("pbinfo_enemy_boss_stats", "ui");
+      this.loadAtlas("pbinfo_enemy_type", "ui");
+      this.loadAtlas("pbinfo_enemy_type1", "ui");
+      this.loadAtlas("pbinfo_enemy_type2", "ui");
+      this.loadAtlas("pbinfo_stat", "ui");
+      this.loadAtlas("pbinfo_stat_numbers", "ui");
+      this.loadImage("overlay_lv", "ui");
+      this.loadAtlas("numbers", "ui");
+      this.loadAtlas("numbers_red", "ui");
+      this.loadAtlas("overlay_hp", "ui");
+      this.loadAtlas("overlay_hp_boss", "ui");
+      this.loadImage("overlay_exp", "ui");
+      this.loadImage("icon_owned", "ui");
+      this.loadImage("ability_bar_left", "ui");
+      this.loadImage("party_exp_bar", "ui");
+      this.loadImage("shiny_star", "ui", "shiny.png");
+      this.loadImage("shiny_star_1", "ui", "shiny_1.png");
+      this.loadImage("shiny_star_2", "ui", "shiny_2.png");
+      this.loadImage("shiny_star_small", "ui", "shiny_small.png");
+      this.loadImage("shiny_star_small_1", "ui", "shiny_small_1.png");
+      this.loadImage("shiny_star_small_2", "ui", "shiny_small_2.png");
+      this.loadAtlas("shiny_icons", "ui");
+      this.loadImage("icon_spliced", "ui");
+      this.loadImage("icon_tera", "ui");
+      this.loadImage("type_tera", "ui");
+      this.loadAtlas("type_bgs", "ui");
 
-    // Load trainer images
-    this.loadAtlas("trainer_m_back", "trainer");
-    this.loadAtlas("trainer_m_back_pb", "trainer");
-    this.loadAtlas("trainer_f_back", "trainer");
-    this.loadAtlas("trainer_f_back_pb", "trainer");
+      this.loadImage("dawn_icon_fg", "ui");
+      this.loadImage("dawn_icon_mg", "ui");
+      this.loadImage("dawn_icon_bg", "ui");
+      this.loadImage("day_icon_fg", "ui");
+      this.loadImage("day_icon_mg", "ui");
+      this.loadImage("day_icon_bg", "ui");
+      this.loadImage("dusk_icon_fg", "ui");
+      this.loadImage("dusk_icon_mg", "ui");
+      this.loadImage("dusk_icon_bg", "ui");
+      this.loadImage("night_icon_fg", "ui");
+      this.loadImage("night_icon_mg", "ui");
+      this.loadImage("night_icon_bg", "ui");
 
-    Utils.getEnumValues(TrainerType).map(tt => {
-      const config = trainerConfigs[tt];
-      this.loadAtlas(config.getSpriteKey(), "trainer");
-      if (config.doubleOnly || config.hasDouble) {
-        this.loadAtlas(config.getSpriteKey(true), "trainer");
+      this.loadImage("pb_tray_overlay_player", "ui");
+      this.loadImage("pb_tray_overlay_enemy", "ui");
+      this.loadAtlas("pb_tray_ball", "ui");
+    }
+
+    if (loadSequence.achievement) {
+      this.loadImage("achv_bar", "ui");
+      this.loadImage("achv_bar_2", "ui");
+      this.loadImage("achv_bar_3", "ui");
+      this.loadImage("achv_bar_4", "ui");
+      this.loadImage("achv_bar_5", "ui");
+    }
+
+    if (loadSequence.starter) {
+      this.loadImage("ha_capsule", "ui", "ha_capsule.png");
+      this.loadImage("champion_ribbon", "ui", "champion_ribbon.png");
+      this.loadImage("starter_select_bg", "ui");
+      this.loadImage("select_cursor", "ui");
+      this.loadImage("select_cursor_highlight", "ui");
+      this.loadImage("select_cursor_highlight_thick", "ui");
+      this.loadImage("select_cursor_pokerus", "ui");
+      this.loadImage("select_gen_cursor", "ui");
+      this.loadImage("select_gen_cursor_highlight", "ui");
+    }
+
+    if (loadSequence.party) {
+      this.loadImage("party_bg", "ui");
+      this.loadImage("party_bg_double", "ui");
+      this.loadAtlas("party_slot_main", "ui");
+      this.loadAtlas("party_slot", "ui");
+      this.loadImage("party_slot_overlay_lv", "ui");
+      this.loadImage("party_slot_hp_bar", "ui");
+      this.loadAtlas("party_slot_hp_overlay", "ui");
+      this.loadAtlas("party_pb", "ui");
+      this.loadAtlas("party_cancel", "ui");
+    }
+
+    if (loadSequence.summary) {
+      this.loadImage("summary_bg", "ui");
+      this.loadImage("summary_overlay_shiny", "ui");
+      this.loadImage("summary_profile", "ui");
+      this.loadImage("summary_profile_prompt_z", "ui");      // The pixel Z button prompt
+      this.loadImage("summary_profile_prompt_a", "ui");     // The pixel A button prompt
+      this.loadImage("summary_profile_ability", "ui");      // Pixel text 'ABILITY'
+      this.loadImage("summary_profile_passive", "ui");      // Pixel text 'PASSIVE'
+      this.loadImage("summary_status", "ui");
+      this.loadImage("summary_stats", "ui");
+      this.loadImage("summary_stats_overlay_exp", "ui");
+      this.loadImage("summary_moves", "ui");
+      this.loadImage("summary_moves_effect", "ui");
+      this.loadImage("summary_moves_overlay_row", "ui");
+      this.loadImage("summary_moves_overlay_pp", "ui");
+      this.loadAtlas("summary_moves_cursor", "ui");
+      for (let t = 1; t <= 3; t++) {
+        this.loadImage(`summary_tabs_${t}`, "ui");
       }
-    });
+    }
 
-    // Load character sprites
-    this.loadAtlas("c_rival_m", "character", "rival_m");
-    this.loadAtlas("c_rival_f", "character", "rival_f");
+    if (loadSequence.arena) {
+      // Load arena images
+      Utils.getEnumValues(Biome).map(bt => {
+        const btKey = Biome[bt].toLowerCase();
+        const isBaseAnimated = btKey === "end";
+        const baseAKey = `${btKey}_a`;
+        const baseBKey = `${btKey}_b`;
+        this.loadImage(`${btKey}_bg`, "arenas");
+        if (!isBaseAnimated) {
+          this.loadImage(baseAKey, "arenas");
+        } else {
+          this.loadAtlas(baseAKey, "arenas");
+        }
+        if (!isBaseAnimated) {
+          this.loadImage(baseBKey, "arenas");
+        } else {
+          this.loadAtlas(baseBKey, "arenas");
+        }
+        if (getBiomeHasProps(bt)) {
+          for (let p = 1; p <= 3; p++) {
+            const isPropAnimated = p === 3 && [ "power_plant", "end" ].find(b => b === btKey);
+            const propKey = `${btKey}_b_${p}`;
+            if (!isPropAnimated) {
+              this.loadImage(propKey, "arenas");
+            } else {
+              this.loadAtlas(propKey, "arenas");
+            }
+          }
+        }
+      });
+    }
 
-    // Load pokemon-related images
-    this.loadImage("pkmn__back__sub", "pokemon/back", "sub.png");
-    this.loadImage("pkmn__sub", "pokemon", "sub.png");
-    this.loadAtlas("battle_stats", "effects");
-    this.loadAtlas("shiny", "effects");
-    this.loadAtlas("shiny_2", "effects");
-    this.loadAtlas("shiny_3", "effects");
-    this.loadImage("tera", "effects");
-    this.loadAtlas("pb_particles", "effects");
-    this.loadImage("evo_sparkle", "effects");
-    this.loadAtlas("tera_sparkle", "effects");
-    this.load.video("evo_bg", "images/effects/evo_bg.mp4", true);
+    if (loadSequence.font) {
+      // Load bitmap fonts
+      this.load.bitmapFont("item-count", "fonts/item-count.png", "fonts/item-count.xml");
+    }
 
-    this.loadAtlas("pb", "");
-    this.loadAtlas("items", "");
-    this.loadAtlas("types", "");
+    if (loadSequence.trainer) {
+      // Load trainer images
+      this.loadAtlas("trainer_m_back", "trainer");
+      this.loadAtlas("trainer_m_back_pb", "trainer");
+      this.loadAtlas("trainer_f_back", "trainer");
+      this.loadAtlas("trainer_f_back_pb", "trainer");
 
-    // Get current lang and load the types atlas for it. English will only load types while all other languages will load types and types_<lang>
-    const lang = i18next.resolvedLanguage;
-    if (lang !== "en") {
-      if (Utils.verifyLang(lang)) {
-        this.loadAtlas(`types_${lang}`, "");
+      Utils.getEnumValues(TrainerType).map(tt => {
+        const config = trainerConfigs[tt];
+        this.loadAtlas(config.getSpriteKey(), "trainer");
+        if (config.doubleOnly || config.hasDouble) {
+          this.loadAtlas(config.getSpriteKey(true), "trainer");
+        }
+      });
+
+      // Load character sprites
+      this.loadAtlas("c_rival_m", "character", "rival_m");
+      this.loadAtlas("c_rival_f", "character", "rival_f");
+    }
+
+    if (loadSequence.effects) {
+      this.loadAtlas("battle_stats", "effects");
+      this.loadAtlas("shiny", "effects");
+      this.loadAtlas("shiny_2", "effects");
+      this.loadAtlas("shiny_3", "effects");
+      this.loadImage("tera", "effects");
+      this.loadAtlas("pb_particles", "effects");
+      this.loadImage("evo_sparkle", "effects");
+      this.loadAtlas("tera_sparkle", "effects");
+      this.load.video("evo_bg", "images/effects/evo_bg.mp4", true);
+    }
+
+    if (loadSequence.placeholder) {
+      this.loadImage("pkmn__back__sub", "pokemon/back", "sub.png");
+      this.loadImage("pkmn__sub", "pokemon", "sub.png");
+    }
+
+    if (loadSequence.items) {
+      this.loadAtlas("pb", "");
+      this.loadAtlas("items", "");
+    }
+
+    if (loadSequence.types) {
+      this.loadAtlas("types", "");
+      // Get current lang and load the types atlas for it. English will only load types while all other languages will load types and types_<lang>
+      const lang = i18next.resolvedLanguage;
+      if (lang !== "en") {
+        if (Utils.verifyLang(lang)) {
+          this.loadAtlas(`types_${lang}`, "");
+        } else {
+          // Fallback to English
+          this.loadAtlas("types", "");
+        }
       } else {
-        // Fallback to English
         this.loadAtlas("types", "");
       }
-    } else {
-      this.loadAtlas("types", "");
+      this.loadAtlas("statuses", "");
+      this.loadAtlas("categories", "");
     }
 
+    if (loadSequence.egg) {
+      this.loadAtlas("egg", "egg");
+      this.loadAtlas("egg_crack", "egg");
+      this.loadAtlas("egg_icons", "egg");
+      this.loadAtlas("egg_shard", "egg");
+      this.loadAtlas("egg_lightrays", "egg");
+      Utils.getEnumKeys(GachaType).forEach(gt => {
+        const key = gt.toLowerCase();
+        this.loadImage(`gacha_${key}`, "egg");
+        this.loadAtlas(`gacha_underlay_${key}`, "egg");
+      });
+      this.loadImage("gacha_glass", "egg");
+      this.loadImage("gacha_eggs", "egg");
+      this.loadAtlas("gacha_hatch", "egg");
+      this.loadImage("gacha_knob", "egg");
+      this.loadImage("egg_list_bg", "ui");
+    }
 
-    this.loadAtlas("statuses", "");
-    this.loadAtlas("categories", "");
+    if (loadSequence.illustration) {
+      this.loadImage("end_m", "cg");
+      this.loadImage("end_f", "cg");
+    }
 
-    this.loadAtlas("egg", "egg");
-    this.loadAtlas("egg_crack", "egg");
-    this.loadAtlas("egg_icons", "egg");
-    this.loadAtlas("egg_shard", "egg");
-    this.loadAtlas("egg_lightrays", "egg");
-    Utils.getEnumKeys(GachaType).forEach(gt => {
-      const key = gt.toLowerCase();
-      this.loadImage(`gacha_${key}`, "egg");
-      this.loadAtlas(`gacha_underlay_${key}`, "egg");
-    });
-    this.loadImage("gacha_glass", "egg");
-    this.loadImage("gacha_eggs", "egg");
-    this.loadAtlas("gacha_hatch", "egg");
-    this.loadImage("gacha_knob", "egg");
-
-    this.loadImage("egg_list_bg", "ui");
-
-    this.loadImage("end_m", "cg");
-    this.loadImage("end_f", "cg");
-
-    for (let i = 0; i < 10; i++) {
-      this.loadAtlas(`pokemon_icons_${i}`, "");
-      if (i) {
-        this.loadAtlas(`pokemon_icons_${i}v`, "");
+    if (loadSequence.pokemon_icons) {
+      for (let i = 0; i < 10; i++) {
+        this.loadAtlas(`pokemon_icons_${i}`, "");
+        if (i) {
+          this.loadAtlas(`pokemon_icons_${i}v`, "");
+        }
       }
     }
 
-    this.loadAtlas("dualshock", "inputs");
-    this.loadAtlas("xbox", "inputs");
-    this.loadAtlas("keyboard", "inputs");
+    if (loadSequence.inputs) {
+      this.loadAtlas("dualshock", "inputs");
+      this.loadAtlas("xbox", "inputs");
+      this.loadAtlas("keyboard", "inputs");
+    }
 
-    this.loadSe("select");
-    this.loadSe("menu_open");
-    this.loadSe("hit");
-    this.loadSe("hit_strong");
-    this.loadSe("hit_weak");
-    this.loadSe("stat_up");
-    this.loadSe("stat_down");
-    this.loadSe("faint");
-    this.loadSe("flee");
-    this.loadSe("low_hp");
-    this.loadSe("exp");
-    this.loadSe("level_up");
-    this.loadSe("sparkle");
-    this.loadSe("restore");
-    this.loadSe("shine");
-    this.loadSe("shing");
-    this.loadSe("charge");
-    this.loadSe("beam");
-    this.loadSe("upgrade");
-    this.loadSe("buy");
-    this.loadSe("achv");
-    this.loadSe("error");
+    if (loadSequence.sounds) {
+      this.loadSe("select");
+      this.loadSe("menu_open");
+      this.loadSe("hit");
+      this.loadSe("hit_strong");
+      this.loadSe("hit_weak");
+      this.loadSe("stat_up");
+      this.loadSe("stat_down");
+      this.loadSe("faint");
+      this.loadSe("flee");
+      this.loadSe("low_hp");
+      this.loadSe("exp");
+      this.loadSe("level_up");
+      this.loadSe("sparkle");
+      this.loadSe("restore");
+      this.loadSe("shine");
+      this.loadSe("shing");
+      this.loadSe("charge");
+      this.loadSe("beam");
+      this.loadSe("upgrade");
+      this.loadSe("buy");
+      this.loadSe("achv");
+      this.loadSe("error");
 
-    this.loadSe("pb_rel");
-    this.loadSe("pb_throw");
-    this.loadSe("pb_bounce_1");
-    this.loadSe("pb_bounce_2");
-    this.loadSe("pb_move");
-    this.loadSe("pb_catch");
-    this.loadSe("pb_lock");
+      this.loadSe("pb_rel");
+      this.loadSe("pb_throw");
+      this.loadSe("pb_bounce_1");
+      this.loadSe("pb_bounce_2");
+      this.loadSe("pb_move");
+      this.loadSe("pb_catch");
+      this.loadSe("pb_lock");
 
-    this.loadSe("pb_tray_enter");
-    this.loadSe("pb_tray_ball");
-    this.loadSe("pb_tray_empty");
+      this.loadSe("pb_tray_enter");
+      this.loadSe("pb_tray_ball");
+      this.loadSe("pb_tray_empty");
 
-    this.loadSe("egg_crack");
-    this.loadSe("egg_hatch");
-    this.loadSe("gacha_dial");
-    this.loadSe("gacha_running");
-    this.loadSe("gacha_dispense");
+      this.loadSe("egg_crack");
+      this.loadSe("egg_hatch");
+      this.loadSe("gacha_dial");
+      this.loadSe("gacha_running");
+      this.loadSe("gacha_dispense");
 
-    this.loadSe("PRSFX- Transform", "battle_anims");
+      this.loadSe("PRSFX- Transform", "battle_anims");
+    }
 
-    this.loadBgm("menu");
+    if (loadSequence.musics) {
+      this.loadBgm("menu");
 
-    this.loadBgm("level_up_fanfare", "bw/level_up_fanfare.mp3");
-    this.loadBgm("item_fanfare", "bw/item_fanfare.mp3");
-    this.loadBgm("minor_fanfare", "bw/minor_fanfare.mp3");
-    this.loadBgm("heal", "bw/heal.mp3");
-    this.loadBgm("victory_trainer", "bw/victory_trainer.mp3");
-    this.loadBgm("victory_team_plasma", "bw/victory_team_plasma.mp3");
-    this.loadBgm("victory_gym", "bw/victory_gym.mp3");
-    this.loadBgm("victory_champion", "bw/victory_champion.mp3");
-    this.loadBgm("evolution", "bw/evolution.mp3");
-    this.loadBgm("evolution_fanfare", "bw/evolution_fanfare.mp3");
+      this.loadBgm("level_up_fanfare", "bw/level_up_fanfare.mp3");
+      this.loadBgm("item_fanfare", "bw/item_fanfare.mp3");
+      this.loadBgm("minor_fanfare", "bw/minor_fanfare.mp3");
+      this.loadBgm("heal", "bw/heal.mp3");
+      this.loadBgm("victory_trainer", "bw/victory_trainer.mp3");
+      this.loadBgm("victory_team_plasma", "bw/victory_team_plasma.mp3");
+      this.loadBgm("victory_gym", "bw/victory_gym.mp3");
+      this.loadBgm("victory_champion", "bw/victory_champion.mp3");
+      this.loadBgm("evolution", "bw/evolution.mp3");
+      this.loadBgm("evolution_fanfare", "bw/evolution_fanfare.mp3");
+    }
 
     this.load.plugin("rextexteditplugin", "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rextexteditplugin.min.js", true);
 
-    this.loadLoadingScreen();
+    if (loadSequence.loading) {
+      this.loadLoadingScreen();
+    }
 
     initVouchers();
-    initAchievements();
+    if (loadSequence.achievement) {
+      initAchievements();
+    }
     initStatsKeys();
     initPokemonPrevolutions();
     initBiomes();
